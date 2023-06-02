@@ -1,10 +1,14 @@
-# P1 - Angular / Java (TBD) Full Stack Application
+# Yield - A P&L generator for your trades
 
 ## Introduction
 
-This is an web application that will allow a user to upload a .csv file of their trade history and generate profit and loss report. In addition to generating
-the report, the user can view the results within the user interface of a web-browser like Chrome. The application will also integrate the coinmarketcap or
-similar API in order to extract past and current cryptocurrency prices and the coinbase API for accepting crypto payment / donations.
+Yield is an web application that allows a user to upload a .csv file of their trades and generate a profit and loss .csv report.In addition to generating a .csv
+report, the user can view the generated results within a web-browser like Chrome.
+
+As part of the integration, yield will utilize the Coinmarketcap or similar API to extract past and current price data of crypto assets for calculating figures.
+
+While the app is free to use, yield may also integrate the Coinbase API for accepting crypto payment / donations for those feeling the need to donate some of
+those Gainz!
 
 ## User Stories
 
@@ -31,13 +35,13 @@ similar API in order to extract past and current cryptocurrency prices and the c
 
 ## Tech Stacks
 
-### Front-end tech stack
+### **Front-end tech stack**
 
 - **Angular**: A javascript framework for creating the UI
 - **Tailwind CSS** CSS library for styling the UI
-- **Npm**: Package manager used for managing dependencies
+- **Npm**: for managing dependencies
 
-### Back-end tech stack
+### **Back-end tech stack**
 
 - **Java**: The main programming language used for building the application.
 - **PostgreSQL**: Used as the database to store user reports and cryptocurrency related data.
