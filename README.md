@@ -1,8 +1,8 @@
-# P0 - Pair Programming eCommerce Project
+# P1 - Angular / Java (TBD) Full Stack Application
 
 ## Introduction
 
-This is a Java-based command-line interface (CLI) eCommerce application. The application will be primarily built using Java and will utilize a PostgreSQL database to store product and user information.
+TBD
 
 ## User Stories
 
