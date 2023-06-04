@@ -24,24 +24,24 @@ those Gainz!
 
 - User can register for an account
 - User can securely login and authenticate with a jwt-token
-- User can parsing a .csv file of trade history
+- User can parse a .csv file of trade history
 - User can send the .csv file contents to an api endpoint
 - User can select or add header columns so that each column can be identified, (i.e. buy date, sell date, buy qty, sell qty, buy value, sell value, buy fee,
   sell) fee
 - User can update their profile
-- User can view their trading data and history
-- User can modify their trade data and history
-- User can retrieve and view their trade data from an api endpoint
-- User can retrieve and view crypto asset data from an api enpoint
-- User can retrieve crypto price data from an api endpoint
+- User can fetch and view their trading data and history from an api endpoint
+- User can fetch and modify their trade data and history from an api endpoint
+- User can retrieve and view their trade data receievd from an api endpoint
+- User can retrieve and view crypto asset data receievd from an api enpoint
+- User can retrieve crypto price data receievd from an api endpoint
 - User can view a profit & loss report
 - User can generate a P&L report in .csv format
 
 ## Stretch Goals
 
-- Implementing the Coinbase API for accepting / making payment by crypto
-- Add portfolio manager and enhance the UI with charts, graphs and analytic data
-- Implementing trading view Api for showing charts of supported assets
+- Implementing the Coinbase API for accepting / making donations / payment by crypto
+- Add portfolio manager and enhance the UI with charts, graphs and analytical data of an asset
+- Implementing trading view api for showing charts of supported assets
 - Add 3rd party signup options, e.g. Google
 
 ## Tech Stack
