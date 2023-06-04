@@ -12,7 +12,8 @@ those Gainz!
 
 ## FE User Stories
 
-- **As a user**, I do not want to register for an account in order to generate a report. (spam-protection?)
+- **As a user**, I do not want to register for an account in order to generate a report. (Initial uploads are processed locally / within FE, so will spam
+  uploads matter?)
 - **As a user**, I may want to donate for this service after seeing my gains, so I want to be able to send and / or donate using cryptocurrency.
 - **As a user**, I want to be able to register and login, so I can save my report and retrieve those reports at a later time.
 - **As a user**, I want to be able to upload a .csv of my trades and view a p&l report.
@@ -21,16 +22,26 @@ those Gainz!
 
 ## MVP (Minimum Viable Product)
 
-- User registration and login via jwt authentication
-- Parsing .csv file of trade history
-- Sending .csv file content to backend
-- Viewing and modifying trade history
-- Displaying cryptocurrency prices from coinmarket and / or backend server
+- User can register for an account
+- User can securely login and authenticate with a jwt-token
+- User can parsing a .csv file of trade history
+- User can send the .csv file contents to an api endpoint
+- User can select or add header columns so that each column can be identified, (i.e. buy date, sell date, buy qty, sell qty, buy value, sell value, buy fee,
+  sell) fee
+- User can update their profile
+- User can view their trading data and history
+- User can modify their trade data and history
+- User can retrieve and view their trade data from an api endpoint
+- User can retrieve and view crypto asset data from an api enpoint
+- User can retrieve crypto price data from an api endpoint
+- User can view a profit & loss report
+- User can generate a P&L report in .csv format
 
 ## Stretch Goals
 
 - Implementing the Coinbase API for accepting / making payment by crypto
-- Enhancing the UI with charts, graphs, etc.
+- Add portfolio manager and enhance the UI with charts, graphs and analytic data
+- Implementing trading view Api for showing charts of supported assets
 - Add 3rd party signup options, e.g. Google
 
 ## Tech Stack
@@ -38,7 +49,8 @@ those Gainz!
 ### **Front-end tech stack**
 
 - **Angular**: A javascript framework for creating the UI
-- **Tailwind CSS** CSS library for styling the UI
+- **Tailwind CSS**: CSS library for styling the UI
+- **PapaParse**: A .csv parser
 - **Npm**: A package manager for managing dependencies
 - **Jasmine, Karma**: Testing libraries
 
