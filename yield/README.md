@@ -71,7 +71,8 @@ As a future feature, the app will integrate the Coinbase API for accepting crypt
 
 - **Angular**: A javascript framework for creating the UI
 - **Tailwind CSS**: CSS library for styling the UI
-- **PapaParse**: A .csv parser
+- **ng2-charts**: A library for charts
+- **ngx-papaparse**: A .csv creator and parser
 - **Npm**: A package manager for managing dependencies
 - **Jasmine, Karma**: Testing libraries
 
