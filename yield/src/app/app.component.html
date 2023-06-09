@@ -1,3 +1,66 @@
-<h1 class="text-3xl font-bold underline">
-  Hello world! Who?
-</h1>
+<div class="flex flex-col h-screen bg-slate-100 items-center ">
+
+  <!-- Nav / Top Bar -->
+  <nav class="bg-slate-300 w-screen">
+    <h1 class="text-3xl font-bold underline">
+      This is the logo space
+    </h1>
+    <ul>
+      <li>Login</li>
+      <li>Signup</li>
+    </ul>
+  </nav>
+
+  <!-- Section for uploading  -->
+  <section class="bg-slate-500 w-screen">
+    <label>
+      the upload input box
+    </label>
+    <div>
+      <input type="file" value="Drop .csv file here ..." />
+      <input type="button" value="Upload" />
+    </div>
+    <input type="file" />
+  </section>
+
+  <!-- Section for charts -->
+  <section class="bg-slate-700 w-screen">
+    <article>
+      <label>This is for the left info or chart</label>
+    </article>
+    <article>
+      <label>This is for the right info or chart</label>
+    </article>
+  </section>
+
+  <!-- Section for table displaying trades -->
+  <section class="bg-slate-900 w-screen justify-center items-center">
+    <table>
+      <caption>for the trade history table</caption>
+      <thead>
+        <tr>
+          <th>header col 1</th>
+          <th>header col 2</th>
+          <th>header col 3</th>
+          <th>header col 4</th>
+          <th>header col 5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Row 1</td>
+          <td>Row 2</td>
+          <td>Row 3</td>
+          <td>Row 4</td>
+          <td>Row 5</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>This is the footer row</td>
+        </tr>
+      </tfoot>
+    </table>
+  </section>
+
+</div>

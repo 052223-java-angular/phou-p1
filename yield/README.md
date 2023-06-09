@@ -108,7 +108,7 @@ As a future feature, the app will integrate the Coinbase API for accepting crypt
 
 - **Scalable**: The design of the application should be scalable, allowing for easy addition of new features or modifications in the future.
 
-# Yield
+## Running and building the angular app
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.9.
 
