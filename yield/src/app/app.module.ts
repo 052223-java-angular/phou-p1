@@ -5,9 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgChartsModule } from 'ng2-charts';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { AnalyticComponent } from './analytic/analytic.component';
+import { PanelLeftComponent } from './analytic/panel-left/panel-left.component';
+import { PanelRightComponent } from './analytic/panel-right/panel-right.component';
 
 @NgModule({
-  declarations: [AppComponent, TopBarComponent],
+  declarations: [AppComponent, TopBarComponent, AnalyticComponent, PanelLeftComponent, PanelRightComponent],
   imports: [BrowserModule, AppRoutingModule, NgChartsModule],
   providers: [],
   bootstrap: [AppComponent],
