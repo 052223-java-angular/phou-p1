@@ -1,0 +1,99 @@
+<nav class="inline-flex items-center justify-between px-8 py-4 bg-white w-screen outline shadow-sm">
+  <div class="inline-flex items-center gap-4">
+    <img class=" rounded size"
+         width="80"
+         alt="Angular Logo"
+         src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" />
+    <h3 class="text-[#4B4664] uppercase font-extrabold italic text-4xl font-serif">{{ title }}</h3>
+  </div>
+  <ul class="inline-flex items-center gap-x-10">
+    <li class="py-2 px-8 text-white my-4 bg-[#9DACC6] uppercase rounded shadow-md" (click)="toggleLogin()">Login</li>
+    <li class="py-2 px-8 text-white my-4 bg-[#DEB465] uppercase rounded shadow-md" (click)="toggleSignup()">Signup</li>
+  </ul>
+</nav>
+
+<div *ngIf="showLogin"
+     class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+  <div class="relative w-auto my-6 mx-auto max-w-3xl">
+    <!--content-->
+    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+      <!--header-->
+      <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+        <h3 class="text-3xl font-semibold">
+          Modal Title
+        </h3>
+        <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                (click)="toggleLogin()">
+          <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+            ×
+          </span>
+        </button>
+      </div>
+      <!--body-->
+      <div class="relative p-6 flex-auto">
+        <p class="my-4 text-slate-500 text-lg leading-relaxed">
+          I always felt like I could do anything. That’s the main
+          thing people are controlled by! Thoughts- their perception
+          of themselves! They're slowed down by their perception of
+          themselves. If you're taught you can’t do anything, you
+          won’t do anything. I was taught I could do everything.
+        </p>
+      </div>
+      <!--footer-->
+      <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+        <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button" (click)="toggleLogin()">
+          Close
+        </button>
+        <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button" (click)="toggleLogin()">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showLogin" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+
+<div *ngIf="showSignup"
+     class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+  <div class="relative w-auto my-6 mx-auto max-w-3xl">
+    <!--content-->
+    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+      <!--header-->
+      <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+        <h3 class="text-3xl font-semibold">
+          Modal Title
+        </h3>
+        <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                (click)="toggleSignup()">
+          <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+            ×
+          </span>
+        </button>
+      </div>
+      <!--body-->
+      <div class="relative p-6 flex-auto">
+        <p class="my-4 text-slate-500 text-lg leading-relaxed">
+          I always felt like I could do anything. That’s the main
+          thing people are controlled by! Thoughts- their perception
+          of themselves! They're slowed down by their perception of
+          themselves. If you're taught you can’t do anything, you
+          won’t do anything. I was taught I could do everything.
+        </p>
+      </div>
+      <!--footer-->
+      <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+        <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button" (click)="toggleSignup()">
+          Close
+        </button>
+        <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button" (click)="toggleSignup()">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showSignup" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
