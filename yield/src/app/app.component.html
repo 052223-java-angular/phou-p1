@@ -1,0 +1,60 @@
+<!-- COlOR PALLETE : FBF9F9, DEB465, 9DACC6, A87260 , 4B4664  -->
+<div class="relative flex-col h-screen bg-slate-100 items-center ">
+
+  <!-- Nav / Top Bar -->
+  <app-top-bar></app-top-bar>
+
+  <!-- Section for charts -->
+  <section class="bg-slate-700 w-screen">
+    <article>
+      <label>This is for the left info or chart</label>
+    </article>
+    <article>
+      <label>This is for the right info or chart</label>
+    </article>
+  </section>
+
+
+  <!-- Section for uploading  -->
+  <section class="w-screen">
+    <label>
+      the upload input box
+    </label>
+    <div class="flex justify-center gap-1 items-center">
+      <input class="bg-[#FBF9F9] w-2/6 p-2" type="file" placeholder="Drop .csv file here ..." />
+      <input class="bg-[#DEB465] text-white uppercase py-2 px-8" type="button" value="Upload" />
+    </div>
+  </section>
+
+
+  <!-- Section for table displaying trades -->
+  <section class="bg-slate-900 w-screen justify-center items-center">
+    <table>
+      <caption>for the trade history table</caption>
+      <thead>
+        <tr>
+          <th>h-col 1</th>
+          <th>h-col 2</th>
+          <th>h-col 3</th>
+          <th>h-col 4</th>
+          <th>h-col 5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>col 1</td>
+          <td>col 2</td>
+          <td>col 3</td>
+          <td>col 4</td>
+          <td>col 5</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>This is the footer row</td>
+        </tr>
+      </tfoot>
+    </table>
+  </section>
+
+</div>
