@@ -100,7 +100,7 @@
           $ 30.32
         </td>
         <td class="px-6 py-1">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+          <a href="#" type="button" (click)="toggleModal()" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
         </td>
       </tr>
       <tr class="bg-[#F9FBFB] border-b-2 hover:bg-[#DEB465]">
@@ -145,7 +145,7 @@
           $ 30.32
         </td>
         <td class="px-6 py-1">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+          <a href="#" type="button" (click)="toggleModal()" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
         </td>
       </tr>
       <tr class="bg-[#F9FBFB] border-b-2 hover:bg-[#DEB465]">
@@ -190,7 +190,7 @@
           $ 30.32
         </td>
         <td class="px-6 py-1">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+          <a href="#" type="button" (click)="toggleModal()" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
         </td>
       </tr>
       <tr class="bg-[#F9FBFB] border-b-2 hover:bg-[#DEB465]">
@@ -235,7 +235,7 @@
           $ 30.32
         </td>
         <td class="px-6 py-1">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+          <a href="#" type="button" (click)="toggleModal()" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
         </td>
       </tr>
       <tr class="bg-[#F9FBFB] border-b-2 hover:bg-[#DEB465]">
@@ -280,7 +280,52 @@
           $ 30.32
         </td>
         <td class="px-6 py-1">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+          <a href="#" type="button" (click)="toggleModal()" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+        </td>
+      </tr>
+      <tr class="bg-[#F9FBFB] border-b-2 hover:bg-[#DEB465]">
+        <td class="w-4 p-4">
+          <div class="flex items-center">
+            <input id="checkbox-table-search-1" type="checkbox"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+          </div>
+        </td>
+        <th scope="row" class="px-6 py-1 font-semibold whitespace-nowrap">
+          ADA / USD
+        </th>
+        <td class="px-6 py-1">
+          $ 1.00
+        </td>
+        <td class="px-6 py-1">
+          05-30-2022
+        </td>
+        <td class="px-6 py-1">
+          $ 832
+        </td>
+        <td class="px-6 py-1">
+          $ 832.0832
+        </td>
+        <td class="px-6 py-1">
+          $ 0.0832
+        </td>
+        <td class="px-6 py-1">
+          05-31-2022
+        </td>
+        <td class="px-6 py-1">
+          $ 832
+        </td>
+        <td class="px-6 py-1">
+          $ 862.32
+        </td>
+        <td class="px-6 py-1">
+          $ 0.0832
+        </td>
+        <td class="px-6 py-1">
+          $ 30.32
+        </td>
+        <td class="px-6 py-1">
+          <a href="#" type="button" (click)="toggleModal()" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
         </td>
       </tr>
     </tbody>
@@ -337,3 +382,49 @@
     </ul>
   </nav>
 </section>
+
+<div *ngIf="showModal"
+class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+<div class="relative w-auto my-6 mx-auto max-w-3xl">
+<!--content-->
+<div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+  <!--header-->
+  <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+    <h3 class="text-3xl font-semibold">
+      Modal Title
+    </h3>
+    <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+            (click)="toggleModal()">
+      <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+        ×
+      </span>
+    </button>
+  </div>
+  <!--body-->
+  <div class="relative p-6 flex-auto">
+    <p class="my-4 text-slate-500 text-lg leading-relaxed">
+      I always felt like I could do anything. That’s the main
+      thing people are controlled by! Thoughts- their perception
+      of themselves! They're slowed down by their perception of
+      themselves. If you're taught you can’t do anything, you
+      won’t do anything. I was taught I could do everything.
+    </p>
+  </div>
+  <!--footer-->
+  <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+    <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button" (click)="toggleModal()">
+      Close
+    </button>
+    <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button" (click)="toggleModal()">
+      Save Changes
+    </button>
+  </div>
+</div>
+</div>
+</div>
+<div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+
+
+<!-- Edit modal -->

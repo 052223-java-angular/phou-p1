@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./top-bar.component.css'],
 })
 export class TopBarComponent implements OnInit {
-  title: string = 'Angular App';
+  title: string = 'Yield';
   showLogin: boolean = false;
   showSignup: boolean = false;
 
