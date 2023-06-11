@@ -1,10 +1,13 @@
-<!-- <section class="w-screen"> -->
-  <div class="flex justify-center gap-1 items-center">
-    <input class="bg-[#FBF9F9] w-2/6 p-2" type="file" placeholder="Drop .csv file here ..." />
-    <input class="bg-[#DEB465] text-white uppercase py-2 px-8" type="button" value="Upload" />
-  </div>
-<!-- </section> -->
 
+
+<!-- Action bar for performing actions, e.g. upload file, submit trades i.e save, clearing table, fetching historical -->
+<div class="flex-col items-center justify-self-center w-full">
+
+  <label class="block mb-2 text-sm font-medium text-gray-900 " for="file_input">Upload file</label>
+  <input class="w-3/5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-[#9DACC6]" aria-describedby="file_input_help" id="file_input" type="file">  
+  <p class="mt-1 text-sm text-gray-500" id="file_input_help">.CSV</p>
+  
+</div> 
 
 <!-- Section for table displaying trades -->
 

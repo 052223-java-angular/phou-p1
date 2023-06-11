@@ -9,9 +9,18 @@ import { AnalyticComponent } from './analytic/analytic.component';
 import { PanelLeftComponent } from './analytic/panel-left/panel-left.component';
 import { PanelRightComponent } from './analytic/panel-right/panel-right.component';
 import { DataTableComponent } from './data-table/data-table.component';
+import { MarketResultComponent } from './market-result/market-result.component';
 
 @NgModule({
-  declarations: [AppComponent, TopBarComponent, AnalyticComponent, PanelLeftComponent, PanelRightComponent, DataTableComponent],
+  declarations: [
+    AppComponent,
+    TopBarComponent,
+    AnalyticComponent,
+    PanelLeftComponent,
+    PanelRightComponent,
+    DataTableComponent,
+    MarketResultComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, NgChartsModule],
   providers: [],
   bootstrap: [AppComponent],
