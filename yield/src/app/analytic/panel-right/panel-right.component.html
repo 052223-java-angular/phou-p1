@@ -1,4 +1,3 @@
-<!-- <div class="flex-1"> -->
 <canvas baseChart class="chart"
         [data]="pieChartData"
         [type]="pieChartType"
@@ -6,14 +5,12 @@
         [plugins]="pieChartPlugins">
 </canvas>
 
-<!-- <mat-divider style="margin: 1em 0;"></mat-divider> -->
 
-<div class="button-row">
-  <button mat-button mat-raised-button color="primary" (click)="toggleLegend()">Toggle Legend</button>
-  <button mat-button mat-raised-button color="primary" (click)="changeLabels()">Change Labels</button>
-  <button mat-button mat-raised-button color="primary" (click)="addSlice()">Add Slice</button>
-  <button mat-button mat-raised-button color="primary" (click)="removeSlice()">Remove Slice</button>
-  <button mat-button mat-raised-button color="primary" (click)="changeLegendPosition()">Change Legend
+<div class="inline-flex rounded-md shadow-sm justify-start w-full  mt-4" role="group">
+  <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white" (click)="toggleLegend()">Toggle Legend</button>
+  <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white"(click)="changeLabels()">Change Labels</button>
+  <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white" (click)="addSlice()">Add Slice</button>
+  <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white" (click)="removeSlice()">Remove Slice</button>
+  <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white" (click)="changeLegendPosition()">Change Legend
     Position</button>
 </div>
-<!-- </div> -->

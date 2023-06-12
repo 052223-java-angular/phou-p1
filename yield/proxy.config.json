@@ -1,0 +1,7 @@
+{
+  "/auth": {
+    "target": "http://localhost:9001/v1/api",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
