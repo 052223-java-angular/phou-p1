@@ -1,0 +1,19 @@
+.action-container {
+  @apply flex items-center w-full py-2;
+}
+
+.action-btn {
+  @apply px-4 py-2 mx-2 bg-slate-400 text-white rounded-sm shadow-sm uppercase w-36 hover:bg-slate-300 duration-150;
+}
+
+.action-input-group { 
+  @apply flex flex-1 justify-start px-4 ;
+}
+
+.action-input {
+  @apply w-4/6 text-sm text-gray-900 border border-gray-300 bg-white file:py-2 file:bg-slate-400 file:outline-none file:border-none file:text-white file:uppercase file:min-w-fit file:text-xs;
+}
+
+.action-btn-group {
+  @apply flex flex-1 justify-end px-6;
+}

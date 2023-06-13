@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IUser } from './models/IUser';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,24 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular app';
+  @Input() user!: IUser;
+
+  constructor(
+    private authService : AuthService
+  ) {}
+
+  toggleLineChart() : void {
+
+  }
+
+  toggleBarChart() : void {
+
+  }
+
+  toggleMarketCard() : void {
+
+  }
+
+
+
 }

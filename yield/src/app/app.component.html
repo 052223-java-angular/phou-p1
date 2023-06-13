@@ -4,14 +4,33 @@
   <!-- Nav / Top Bar -->
   <app-top-bar class="z-50"></app-top-bar>
 
+  <!-- Action bar for performing actions, e.g. upload file, submit trades i.e save, clearing table, fetching historical -->
+  <div class="action-container">
+    <form class="action-input-group">
+      <input class="action-input " aria-describedby="file_input_help" type="file">
+      <label class="px-4 py-2 text-sm font-medium text-gray-900 " for="file_input">Upload file (.csv) </label>
+    </form>
+
+    <!-- HIDE BUTTON GROUP; ONLY SHOW AFTER FILE HAS BEEN UPLOADED -->
+    <div class="action-btn-group">
+      <button class="action-btn">line chart</button>
+      <button class="action-btn">bar chart</button>
+      <button class="action-btn">market</button>
+      <button class="action-btn">profit & loss</button>
+      <button class="action-btn">frequency</button>
+      <button class="action-btn">trade</button>
+      <button class="action-btn">save</button>
+    </div>
+  </div>
+
   <!-- Section for info / summary data -->
-  <app-market-result class=""></app-market-result>
+  <!-- <app-market-result class=""></app-market-result> -->
 
   <!-- Section for charts -->
-  <app-analytic class=""></app-analytic>
+  <!-- <app-analytic class=""></app-analytic> -->
 
   <!-- Section for uploading  -->
-  <app-data-table class=""></app-data-table>
+  <!-- <app-data-table class=""></app-data-table> -->
 
   <footer>
     @Copyright 2023
