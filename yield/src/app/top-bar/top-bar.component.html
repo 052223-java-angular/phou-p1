@@ -12,45 +12,57 @@
   </ul>
 </nav>
 
+<div *ngIf="showSignup" class="fixed inset-0 z-50 justify-center items-center flex">
+  <div class="relative w-2/4 min-h-3/6 bg-[#F9FBFB] mx-auto max-w-3xl">
+
+    <form [formGroup]="signupForm" (ngSubmit)="signup()" class="uppercase border-0 rounded-lg py-2 px-4 mx-4 flex flex-col w-full h-full gap-4 bg-[#FBF9F9]">
+
+      <p class="flex justify-between items-center text-[#DEB465] text-5xl font-bold py-4">
+        SIGNUP
+        <button class="mr-4 mb-4 bg-transparent border-0 text-[#9DACC6] outline-none focus:outline-none" (click)="closeModal()">
+          x
+        </button>
+      </p>
+
+      <ng-container *ngIf="errorMessage.length > 0" >
+        <p class="text-red-600">{{errorMessage}}</p>
+      </ng-container>
+
+      <app-input type="text" [control]="username" placeholder="USER@EXAMPLE.COM" label="username" ></app-input>
+      <app-input type="password" [control]="password" placeholder="PASSWORD" label="password"></app-input>
+      <app-input type="password" [control]="confirmPassword" placeholder="CONFIRM PASSWORD" label="confirm password"></app-input>
+      <button [ngClass]="signupForm.invalid ? 'btn' : 'btn-effect'" [disabled]="signupForm.invalid">Submit </button>
+
+    </form>
+  </div>
+</div>
+<div *ngIf="showSignup" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+
+
 <div *ngIf="showLogin" class="fixed inset-0 z-50 justify-center items-center flex">
   <div class="relative w-2/4 min-h-3/6 bg-[#F9FBFB] mx-auto max-w-3xl">
-    <!--content-->
+
     <form [formGroup]="loginForm" (ngSubmit)="login()"
           class="uppercase border-0 rounded-lg py-2 px-4 mx-4 flex flex-col w-full h-full gap-4 bg-[#FBF9F9]">
-      <p class="text-[#DEB465] text-5xl font-bold py-4">LOGIN</p>
-      <label for="username">username</label>
-      <input class="bg-transparent border-b-2 outline-none focus:outline-none text-2xl" formControlName="username" type="text"
-              name="username">
-      <label for="password">password</label>
-      <input class="bg-transparent border-b-2 outline-none focus:outline-none text-2xl" formControlName="password"
-              type="password" name="password">
-      <button class="py-4 my-4 text-white text-2xl uppercase bg-[#DEB465] hover:bg-[#9DACC6] hover:duration-150"
-              type="submit">Submit</button>
+
+      <p class="flex justify-between items-center text-[#DEB465] text-5xl font-bold py-4">
+        LOGIN
+        <button class="mr-4 mb-4 bg-transparent border-0 text-[#9DACC6] outline-none focus:outline-none" (click)="closeModal()">
+         x
+        </button>
+      </p>
+
+      <ng-container *ngIf="errorMessage.length > 0" >
+        <p class="text-red-600">{{errorMessage}}</p>
+      </ng-container>
+
+      <app-input type="text" [control]="loginUsername" placeholder="USER@EXAMPLE.COM" label="username" ></app-input>
+      <app-input type="password" [control]="loginPassword" placeholder="PASSWORD" label="password"></app-input>
+      <button [ngClass]="loginForm.invalid ? 'btn' : 'btn-effect'" [disabled]="loginForm.invalid">Submit </button>
+
     </form>
   </div>
 </div>
   
 <div *ngIf="showLogin" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
   
-
-<div *ngIf="showSignup" class="fixed inset-0 z-50 justify-center items-center flex">
-  <div class="relative w-2/4 min-h-3/6 bg-[#F9FBFB] mx-auto max-w-3xl">
-    <!--content-->
-    <form [formGroup]="signupForm" (ngSubmit)="signup()"
-          class="uppercase border-0 rounded-lg py-2 px-4 mx-4 flex flex-col w-full h-full gap-4 bg-[#FBF9F9]">
-      <p class="text-[#DEB465] text-5xl font-bold py-4">{{ modalTitle | uppercase }}</p>
-      <label for="username">username</label>
-      <input class="bg-transparent border-b-2 outline-none focus:outline-none text-2xl" formControlName="username" type="text"
-             name="username">
-      <label for="password">password</label>
-      <input class="bg-transparent border-b-2 outline-none focus:outline-none text-2xl" formControlName="password"
-             type="password" name="password">
-      <label for="confirmPassword">confirm password</label>
-      <input class="bg-transparent border-b-2 outline-none focus:outline-none text-2xl" formControlName="confirmPassword"
-             type="password" name="confirmPassword">
-      <button class="py-4 my-4 text-white text-2xl uppercase bg-[#DEB465] hover:bg-[#9DACC6] hover:duration-150"
-              type="submit">Submit</button>
-    </form>
-  </div>
-</div>
-<div *ngIf="showSignup" class="opacity-25 fixed inset-0 z-40 bg-black"></div>

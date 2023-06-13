@@ -132,15 +132,15 @@ export class PanelLeftComponent {
     console.log(event, active);
   }
 
-  public chartHovered({
-    event,
-    active,
-  }: {
-    event?: ChartEvent;
-    active?: {}[];
-  }): void {
-    console.log(event, active);
-  }
+  // public chartHovered({
+  //   event,
+  //   active,
+  // }: {
+  //   event?: ChartEvent;
+  //   active?: {}[];
+  // }): void {
+  //   console.log(event, active);
+  // }
 
   public hideOne(): void {
     const isHidden = this.chart?.isDatasetHidden(1);

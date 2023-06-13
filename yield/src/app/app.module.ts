@@ -13,6 +13,7 @@ import { PanelLeftComponent } from './analytic/panel-left/panel-left.component';
 import { PanelRightComponent } from './analytic/panel-right/panel-right.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { MarketResultComponent } from './market-result/market-result.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MarketResultComponent } from './market-result/market-result.component';
     AppRoutingModule, 
     NgChartsModule, 
     HttpClientModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent],

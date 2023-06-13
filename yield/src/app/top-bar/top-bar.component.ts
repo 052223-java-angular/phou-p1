@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { UserFormService } from '../services/user-form.service';
-import { Observable, of } from 'rxjs';
-import { IUser } from '../models/IUser';
+import { IRegisterUser } from '../models/iRegisterUser';
+import { ILoginUser } from '../models/ILoginUser';
+
 
 @Component({
   selector: 'app-top-bar',
@@ -12,57 +12,103 @@ import { IUser } from '../models/IUser';
 })
 export class TopBarComponent implements OnInit {
   title: string = 'Yield';
-  modalTitle: string = "";
+  errorMessage: string = "";
   showLogin: boolean = false;
   showSignup: boolean = false;
+
   loginForm!: FormGroup;
   signupForm!: FormGroup;
 
+  username!: FormControl;
+  password!: FormControl;
+  confirmPassword!: FormControl;
+
+  loginUsername!: FormControl;
+  loginPassword!: FormControl;
+
   constructor(
     private authService: AuthService,
-    private userFormService: UserFormService
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.signupForm = this.userFormService.getSignupForm();
-    this.loginForm = this.userFormService.getLoginForm();
+    this.username = new FormControl('', [
+      Validators.required,
+      Validators.email,
+      Validators.minLength(2),
+    ])
+    this.password = new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%?&])[A-Za-z\d$@$!%?&]{8,}$/gm)
+    ])
+    this.confirmPassword = new FormControl('', [
+      Validators.required,
+    ])
+
+    this.loginUsername = new FormControl('', [
+      Validators.required,
+    ])
+    this.loginPassword = new FormControl('', [
+      Validators.required,
+    ])
+
+    this.signupForm = this.formBuilder.group<IRegisterUser>({
+      username: this.username,
+      password: this.password,
+      confirmPassword: this.confirmPassword
+    })
+    this.loginForm = this.formBuilder.group<ILoginUser>({
+      loginUsername: this.loginUsername,
+      loginPassword: this.loginPassword
+    })
+  }
+
+  showThenResetHttpErrorMessage(data: string) {
+    this.errorMessage = data;
+    setTimeout(() => {
+      this.errorMessage = "";
+    }, 3000);
   }
 
   login(): void {
     this.authService.login(this.loginForm).subscribe({
       next: (v) => {
         console.info(v);
-        this.loginForm.reset();
         this.showLogin = !this.showLogin;
       }, 
-      error: (err) => console.log(err),
+      error: (err) => {
+        this.showThenResetHttpErrorMessage(err.error.message);
+      },
       complete: () => {
         console.info('complete');
       }
     });
+    this.loginForm.reset();
   }
 
   signup(): void {
     this.authService.register(this.signupForm).subscribe({
       next: (v) => {
-        this.signupForm.reset();
         this.toggleLogin();
+        this.signupForm.reset();
       }, 
-      error: (err) => console.log(err),
+      error: (err) => this.showThenResetHttpErrorMessage(err.error.message),
       complete: () => console.info('complete')
     });
   }
 
+  closeModal() {
+    this.showLogin = false;
+    this.showSignup = false;
+  }
 
   toggleLogin() {
     this.showLogin = !this.showLogin;
     this.showSignup = false;
-    this.modalTitle = "login"
   }
 
   toggleSignup() {
     this.showSignup = !this.showSignup;
     this.showLogin = false;
-    this.modalTitle = "signup"
   }
 }

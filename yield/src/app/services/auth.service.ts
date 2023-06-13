@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IUser } from '../models/IUser';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  BASE_URI: string = "http://localhost:9001/v1/api"
   User: IUser | undefined;
 
   constructor(
@@ -15,12 +16,12 @@ export class AuthService {
   ) { }
 
   register(formData: FormGroup) : Observable<any> {
-    return this.httpClient.post<Observable<any>>(`auth/register`, formData.value);
+    return this.httpClient.post<Observable<any>>(`${this.BASE_URI}/auth/register`, formData.value);
   }
 
-  login(formData: FormGroup) : Observable<any> {
+  login(formData: FormGroup) : Observable<IUser> {
     console.info(formData.value)
-    return this.httpClient.post<Observable<any>>(`auth/login`, formData.value);
+    return this.httpClient.post<IUser>(`${this.BASE_URI}/auth/login`, formData.value);
   }
 
 }

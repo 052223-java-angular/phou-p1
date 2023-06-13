@@ -1,0 +1,7 @@
+.btn {
+  @apply py-4 my-4 text-white text-2xl uppercase bg-[#DEB465] opacity-20;
+}
+
+.btn-effect {
+  @apply py-4 my-4 text-white text-2xl uppercase cursor-pointer outline-1 outline-white shadow-orange-50 shadow-sm bg-[#DEB465];
+}

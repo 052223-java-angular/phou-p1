@@ -2,7 +2,6 @@
         [data]="lineChartData"
         [options]="lineChartOptions"
         [type]="lineChartType"
-        (chartHover)="chartHovered($event)"
         (chartClick)="chartClicked($event)"></canvas>
 <table class="w-full text-sm text-left text-gray-500 overflow-hidden">
   <tr>
@@ -19,3 +18,5 @@
   <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white" (click)="hideOne()">Toggle Series B</button>
   <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white" (click)="changeLabel()">Change Label</button>
 </div>
+
+<!-- (chartHover)="chartHovered($event)" -->
