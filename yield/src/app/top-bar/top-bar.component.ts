@@ -15,6 +15,7 @@ export class TopBarComponent implements OnInit {
   errorMessage: string = "";
   showLogin: boolean = false;
   showSignup: boolean = false;
+  isLoggedIn: boolean = false;
 
   loginForm!: FormGroup;
   signupForm!: FormGroup;
@@ -58,9 +59,10 @@ export class TopBarComponent implements OnInit {
       confirmPassword: this.confirmPassword
     })
     this.loginForm = this.formBuilder.group<ILoginUser>({
-      loginUsername: this.loginUsername,
-      loginPassword: this.loginPassword
+      username: this.loginUsername,
+      password: this.loginPassword
     })
+
   }
 
   showThenResetHttpErrorMessage(data: string) {
@@ -75,6 +77,9 @@ export class TopBarComponent implements OnInit {
       next: (v) => {
         console.info(v);
         this.showLogin = !this.showLogin;
+        sessionStorage.setItem("user", JSON.stringify(v));
+        this.loginUsername.setValue(v.username);
+        this.isLoggedIn = !this.isLoggedIn;
       }, 
       error: (err) => {
         this.showThenResetHttpErrorMessage(err.error.message);
@@ -100,6 +105,8 @@ export class TopBarComponent implements OnInit {
   closeModal() {
     this.showLogin = false;
     this.showSignup = false;
+    this.signupForm.reset();
+    this.loginForm.reset();
   }
 
   toggleLogin() {
