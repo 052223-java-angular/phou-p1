@@ -1,60 +1,58 @@
-<!-- COlOR PALLETE : FBF9F9, DEB465, 9DACC6, A87260 , 4B4664  -->
-<div class="relative flex-col h-screen bg-slate-100 items-center ">
+<!-- COlOR PALLETE : FBF9F9, DEB465, 9DACC6, A87260 , 4B4664, F9FBFB -->
+<section class="app-wrapper">
 
   <!-- Nav / Top Bar -->
-  <app-top-bar></app-top-bar>
+  <app-top-bar class="z-50"></app-top-bar>
+
+  <!-- Action bar for performing actions, e.g. upload file, submit trades i.e save, clearing table, fetching historical -->
+  <caption class="block text-2xl pt-8">Upload a trade file in .csv format to view report options</caption>
+  <div class="action-container">
+    <form class="action-input-group-center">
+      <input class="action-input" type="file">
+      <button class="action-input-btn">Upload</button>
+    </form>
+
+    <!-- HIDE BUTTON GROUP; ONLY SHOW AFTER FILE HAS BEEN UPLOADED -->
+    <ng-container *ngIf="true">
+      <div class="action-btn-group">
+        <button class="action-btn" (click)="toggleLineChart()">line chart</button>
+        <button class="action-btn" (click)="toggleBarChart()">bar chart</button>
+        <button class="action-btn" (click)="toggleMarketCard()">market</button>
+        <button class="action-btn" (click)="toggleProfitLossCard()">profit & loss</button>
+        <button class="action-btn" (click)="toggleFrequencyCard()">frequency</button>
+        <button class="action-btn" (click)="toggleTradeCard()">trade</button>
+        <button class="action-btn" (click)="saveTrades()">save trades</button>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Section for info / summary data -->
+  <app-market-result 
+    [showMarketCard]="showMarketCard"
+    [showProfitLossCard]="showProfitLossCard"
+    [showFrequencyCard]="showFrequencyCard"
+    [showTradeCard]="showTradeCard" 
+    class=""></app-market-result>
 
   <!-- Section for charts -->
-  <section class="bg-slate-700 w-screen">
-    <article>
-      <label>This is for the left info or chart</label>
-    </article>
-    <article>
-      <label>This is for the right info or chart</label>
-    </article>
-  </section>
+  <app-analytic 
+    [showLineChart]="showLineChart"
+    [showBarChart]="showBarChart" class=""></app-analytic>
 
 
-  <!-- Section for uploading  -->
-  <section class="w-screen">
-    <label>
-      the upload input box
-    </label>
-    <div class="flex justify-center gap-1 items-center">
-      <input class="bg-[#FBF9F9] w-2/6 p-2" type="file" placeholder="Drop .csv file here ..." />
-      <input class="bg-[#DEB465] text-white uppercase py-2 px-8" type="button" value="Upload" />
-    </div>
-  </section>
+  <!-- Section for selecting column headers -->
+  <app-data-select-table
+    [showSelectDataTable]="showSelectDataTable"
+    class=""></app-data-select-table>
 
+    
+  <!-- Section for uploading / show after file is uploaded -->
+  <app-data-table 
+    [showDataTable]="showDataTable"
+    class=""></app-data-table>
 
-  <!-- Section for table displaying trades -->
-  <section class="bg-slate-900 w-screen justify-center items-center">
-    <table>
-      <caption>for the trade history table</caption>
-      <thead>
-        <tr>
-          <th>h-col 1</th>
-          <th>h-col 2</th>
-          <th>h-col 3</th>
-          <th>h-col 4</th>
-          <th>h-col 5</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>col 1</td>
-          <td>col 2</td>
-          <td>col 3</td>
-          <td>col 4</td>
-          <td>col 5</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td>This is the footer row</td>
-        </tr>
-      </tfoot>
-    </table>
-  </section>
+  <footer class="app-footer">
+    <span class="">Yield | @Copyright 2023</span>
+  </footer>
 
-</div>
+</section> 

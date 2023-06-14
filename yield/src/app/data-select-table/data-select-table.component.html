@@ -1,0 +1,30 @@
+<ng-container *ngIf="showSelectDataTable">
+  <!-- Section for table displaying trades -->
+  <table class="table-trade">
+    <thead class="table-trade-header">
+      <tr>
+        <!-- Generate the table column header row - quantity and amount will depend on dataset -->
+        <th *ngFor="let i of tableColumnsPerRow;" scope="col" class="px-6 py-3">
+          <label for="tradeColumnOption" class="table-trade-select-label">Column {{i}}</label>
+          <select id="tradeColumnOption" class="table-trade-select">
+            <!-- Generate the select dropdown options -->
+            <option selected value=''>Choose an option</option>
+            <ng-container *ngFor="let opt of tradeColumnOption; index as i;">
+              <option value={{i}}>{{ opt }}</option>
+            </ng-container>
+          </select>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-[#F9FBFB] border-b-2">
+        <td *ngFor="let val of tradeColumnValues; index as i;" class="table-trade-cell-data">
+          {{val}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <nav class="table-trade-footer" >
+    <button class="table-trade-footer-btn" type="button">Submit</button>
+  </nav>
+</ng-container>

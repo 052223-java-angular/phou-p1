@@ -4,96 +4,79 @@
          width="80"
          alt="Angular Logo"
          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" />
-    <h3 class="text-[#4B4664] uppercase font-extrabold italic text-4xl font-serif">{{ title }}</h3>
+    <h3 class="text-[#4B4664] uppercase font-extrabold italic text-4xl">{{ title }}</h3>
   </div>
+
   <ul class="inline-flex items-center gap-x-10">
-    <li class="py-2 px-8 text-white my-4 bg-[#9DACC6] uppercase rounded shadow-md" (click)="toggleLogin()">Login</li>
-    <li class="py-2 px-8 text-white my-4 bg-[#DEB465] uppercase rounded shadow-md" (click)="toggleSignup()">Signup</li>
+    <ng-container *ngIf="!isLoggedIn">
+      <!-- Login / Signup when unauthentiacted user -->
+      <li class="auth-btn auth-btn-login" (click)="toggleLogin()">Login</li>
+      <li class="auth-btn auth-btn-signup" (click)="toggleSignup()">Signup</li>
+    </ng-container>
+    <ng-container *ngIf="isLoggedIn">
+      <!-- Account options - show when user is authenticated -->
+      <span class="text-2xl text-[#9DACC6]">{{ loginUsername.value | uppercase }}</span>
+      <a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      </a>
+    </ng-container>
+
   </ul>
 </nav>
 
-<div *ngIf="showLogin"
-     class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-  <div class="relative w-auto my-6 mx-auto max-w-3xl">
-    <!--content-->
-    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-      <!--header-->
-      <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-        <h3 class="text-3xl font-semibold">
-          Modal Title
-        </h3>
-        <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                (click)="toggleLogin()">
-          <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-            ×
-          </span>
-        </button>
-      </div>
-      <!--body-->
-      <div class="relative p-6 flex-auto">
-        <p class="my-4 text-slate-500 text-lg leading-relaxed">
-          I always felt like I could do anything. That’s the main
-          thing people are controlled by! Thoughts- their perception
-          of themselves! They're slowed down by their perception of
-          themselves. If you're taught you can’t do anything, you
-          won’t do anything. I was taught I could do everything.
-        </p>
-      </div>
-      <!--footer-->
-      <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-        <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button" (click)="toggleLogin()">
-          Close
-        </button>
-        <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button" (click)="toggleLogin()">
-          Save Changes
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-<div *ngIf="showLogin" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+<!-- Modals for signup and login -->
 
-<div *ngIf="showSignup"
-     class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-  <div class="relative w-auto my-6 mx-auto max-w-3xl">
-    <!--content-->
-    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-      <!--header-->
-      <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-        <h3 class="text-3xl font-semibold">
-          Modal Title
-        </h3>
-        <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                (click)="toggleSignup()">
-          <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-            ×
-          </span>
+<div *ngIf="showSignup" class="fixed inset-0 z-50 justify-center items-center flex">
+  <div class="relative w-2/4 min-h-3/6 bg-[#F9FBFB] mx-auto max-w-3xl">
+
+    <form [formGroup]="signupForm" (ngSubmit)="signup()" class="uppercase border-0 rounded-lg py-2 px-4 mx-4 flex flex-col w-full h-full gap-4 bg-[#FBF9F9]">
+
+      <p class="flex justify-between items-center text-[#DEB465] text-5xl font-bold py-4">
+        SIGNUP
+        <button class="auth-close-modal" (click)="closeModal()">
+          x
         </button>
-      </div>
-      <!--body-->
-      <div class="relative p-6 flex-auto">
-        <p class="my-4 text-slate-500 text-lg leading-relaxed">
-          I always felt like I could do anything. That’s the main
-          thing people are controlled by! Thoughts- their perception
-          of themselves! They're slowed down by their perception of
-          themselves. If you're taught you can’t do anything, you
-          won’t do anything. I was taught I could do everything.
-        </p>
-      </div>
-      <!--footer-->
-      <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-        <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button" (click)="toggleSignup()">
-          Close
-        </button>
-        <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button" (click)="toggleSignup()">
-          Save Changes
-        </button>
-      </div>
-    </div>
+      </p>
+
+      <ng-container *ngIf="errorMessage.length > 0" >
+        <p class="text-red-600">{{errorMessage}}</p>
+      </ng-container>
+
+      <app-input type="text" [control]="username" placeholder="USER@EXAMPLE.COM" label="username" ></app-input>
+      <app-input type="password" [control]="password" placeholder="PASSWORD" label="password"></app-input>
+      <app-input type="password" [control]="confirmPassword" placeholder="CONFIRM PASSWORD" label="confirm password"></app-input>
+      <button [ngClass]="signupForm.invalid ? 'auth-btn-submit' : 'auth-btn-submit-effect'" [disabled]="signupForm.invalid">Submit </button>
+
+    </form>
   </div>
 </div>
 <div *ngIf="showSignup" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+
+
+<div *ngIf="showLogin" class="fixed inset-0 z-50 justify-center items-center flex">
+  <div class="relative w-2/4 min-h-3/6 bg-[#F9FBFB] mx-auto max-w-3xl">
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()"
+          class="uppercase border-0 rounded-lg py-2 px-4 mx-4 flex flex-col w-full h-full gap-4 bg-[#FBF9F9]">
+
+      <p class="flex justify-between items-center text-[#DEB465] text-5xl font-bold py-4">
+        LOGIN
+        <button class="auth-close-modal" (click)="closeModal()">
+         x
+        </button>
+      </p>
+
+      <ng-container *ngIf="errorMessage.length > 0" >
+        <p class="text-red-600">{{errorMessage}}</p>
+      </ng-container>
+
+      <app-input type="text" [control]="loginUsername" placeholder="USER@EXAMPLE.COM" label="username" ></app-input>
+      <app-input type="password" [control]="loginPassword" placeholder="PASSWORD" label="password"></app-input>
+      <button [ngClass]="loginForm.invalid ? 'auth-btn-submit' : 'auth-btn-submit-effect'" [disabled]="loginForm.invalid">Submit </button>
+
+    </form>
+  </div>
+</div>
+  
+<div *ngIf="showLogin" class="auth-modal-underlay"></div>
+  

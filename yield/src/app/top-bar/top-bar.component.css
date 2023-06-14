@@ -1,0 +1,28 @@
+.auth-btn {
+  @apply py-3 px-8 text-white my-4 uppercase rounded shadow-md;
+}
+
+.auth-btn-login {
+  @apply bg-[#9DACC6];
+}
+
+.auth-btn-signup {
+  @apply bg-[#DEB465];
+}
+
+.auth-btn-submit {
+  @apply py-4 my-4 text-white text-2xl uppercase bg-[#DEB465] opacity-20;
+}
+
+.auth-btn-submit-effect {
+  @apply py-4 my-4 text-white text-2xl uppercase cursor-pointer outline-1 outline-white shadow-orange-50 shadow-sm bg-[#DEB465];
+}
+
+
+.auth-close-modal {
+  @apply mr-4 mb-4 bg-transparent border-0 text-[#9DACC6] outline-none focus:outline-none;
+}
+
+.auth-modal-underlay {
+  @apply opacity-25 fixed inset-0 z-40 bg-black;
+}

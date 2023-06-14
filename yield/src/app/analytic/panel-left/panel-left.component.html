@@ -1,0 +1,25 @@
+
+<ng-container *ngIf="showLineChart">
+  <canvas baseChart class="chart"
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [type]="lineChartType"
+          (chartClick)="chartClicked($event)"></canvas>
+  <table class="w-full text-sm text-left text-gray-500 overflow-hidden">
+    <tr>
+      <th *ngFor="let label of lineChartData.labels">{{label}}</th>
+    </tr>
+    <tr class="" *ngFor="let d of lineChartData.datasets; let i=index" [class]="'line-'+i">
+      <td class="" *ngFor="let label of lineChartData.labels; let j=index">{{d && d.data[j]}}</td>
+    </tr>
+  </table>
+  <div class="inline-flex rounded-md shadow-sm justify-start w-full mt-4" role="group">
+    <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white" (click)="randomize()">Randomize</button>
+    <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white" (click)="pushOne()">Push</button>
+    <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white" (click)="changeColor()">Recolor</button>
+    <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white" (click)="hideOne()">Toggle Series B</button>
+    <button class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white" (click)="changeLabel()">Change Label</button>
+  </div>
+</ng-container>
+
+<!-- (chartHover)="chartHovered($event)" -->
