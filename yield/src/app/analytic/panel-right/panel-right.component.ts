@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import {
   Chart,
@@ -16,6 +16,7 @@ import { BaseChartDirective } from 'ng2-charts';
 })
 export class PanelRightComponent {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @Input() showBarChart: boolean = false;
 
   constructor() {
     Chart.register(DatalabelsPlugin);

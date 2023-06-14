@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-data-table',
@@ -6,13 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./data-table.component.css']
 })
 export class DataTableComponent {
-
   showModal: boolean = false;
+  @Input() showDataTable: boolean = false;
 
   constructor() { }
 
 
-  toggleModal() {
+  toggleEditModal() {
     this.showModal = !this.showModal;
   }
 

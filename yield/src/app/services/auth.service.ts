@@ -16,6 +16,7 @@ export class AuthService {
   ) { }
 
   register(formData: FormGroup) : Observable<any> {
+    let list: Array<number> = [1, 2, 3]
     return this.httpClient.post<Observable<any>>(`${this.BASE_URI}/auth/register`, formData.value);
   }
 

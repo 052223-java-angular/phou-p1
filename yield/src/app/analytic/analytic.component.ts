@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-analytic',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./analytic.component.css'],
 })
 export class AnalyticComponent {
-  // BAR CHART
+  @Input() showLineChart: boolean = false;
+  @Input() showBarChart: boolean = false;
 }

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -11,6 +11,7 @@ import { default as Annotation } from 'chartjs-plugin-annotation';
 })
 export class PanelLeftComponent {
   private newLabel? = 'New label';
+  @Input() showLineChart: boolean = false;
 
   constructor() {
     Chart.register(Annotation);

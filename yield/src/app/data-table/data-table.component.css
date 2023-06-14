@@ -1,2 +1,28 @@
+.table-trade {
+  @apply w-[98%] mx-auto text-left text-sm text-gray-800 overflow-hidden;
+}
 
+.table-trade-footer {
+  @apply flex w-[98%] py-2 mx-auto justify-between text-sm text-gray-800;
+}
+
+.table-footer-text {
+  @apply text-sm font-normal text-[#9DACC6];
+}
+
+.table-trade-header {
+  @apply text-xs text-white uppercase tracking-wider bg-[#9DACC6];
+}
+
+.table-trade-checkbox {
+  @apply w-4 h-4 text-blue-600 bg-[#9DACC6] border-gray-300 rounded focus:ring-blue-500 focus:ring-2;
+}
+
+.table-trade-edit-btn {
+  @apply font-medium text-blue-600 dark:text-blue-500 hover:underline visited:text-[#9DACC6];
+}
+
+.col-padding {
+  @apply px-6 py-3;
+}
 

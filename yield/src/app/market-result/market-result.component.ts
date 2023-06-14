@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-market-result',
@@ -6,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./market-result.component.css']
 })
 export class MarketResultComponent implements OnInit {
+  @Input() showMarketCard: boolean = false;
+  @Input() showProfitLossCard: boolean = false;
+  @Input() showFrequencyCard: boolean = false;
+  @Input() showTradeCard: boolean = false;
+
 
   constructor() { }
 
