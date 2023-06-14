@@ -1,0 +1,36 @@
+.table-trade {
+  @apply w-[98%] mx-auto text-left text-sm text-gray-800 overflow-hidden;
+}
+
+.table-trade-footer {
+  @apply flex py-2 px-6 justify-end text-sm text-gray-800 hover:opacity-60;
+}
+
+.table-trade-footer-btn {
+  @apply py-2 px-8 text-white text-xl uppercase bg-[#DEB465];
+}
+
+.table-footer-text {
+  @apply text-sm font-normal text-[#9DACC6];
+}
+
+.table-trade-header {
+  @apply text-xs text-white capitalize tracking-wide bg-[#9DACC6];
+}
+
+.table-trade-select-label {
+  @apply block mb-2 text-xs text-white;
+}
+
+.table-trade-select {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1;
+}
+
+.table-trade-cell-data {
+  @apply px-7 py-1 text-right font-semibold text-sm whitespace-nowrap;
+}
+
+.col-padding {
+  @apply px-6 py-3;
+}
+

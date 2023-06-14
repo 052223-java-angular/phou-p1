@@ -16,6 +16,7 @@ export class AppComponent {
   showProfitLossCard: boolean = false;
   showFrequencyCard: boolean = false;
   showTradeCard: boolean = false;
+  showSelectDataTable: boolean = true; // todo logic for showing after file upload
   showDataTable: boolean = false;
 
   constructor(

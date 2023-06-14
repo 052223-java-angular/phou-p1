@@ -14,6 +14,7 @@ import { PanelRightComponent } from './analytic/panel-right/panel-right.componen
 import { DataTableComponent } from './data-table/data-table.component';
 import { MarketResultComponent } from './market-result/market-result.component';
 import { SharedModule } from './shared/shared.module';
+import { DataSelectTableComponent } from './data-select-table/data-select-table.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SharedModule } from './shared/shared.module';
     PanelRightComponent,
     DataTableComponent,
     MarketResultComponent,
+    DataSelectTableComponent,
   ],
   imports: [
     BrowserModule, 

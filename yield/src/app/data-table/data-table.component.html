@@ -1,5 +1,5 @@
 
-
+<ng-container *ngIf="showDataTable">
 <!-- Section for table displaying trades -->
   <table class="table-trade">
     <thead class="table-trade-header">
@@ -7,78 +7,20 @@
         <th scope="col" class="p-4">
           <div class="flex items-center">
             <input id="checkbox-all" type="checkbox" class="table-trade-checkbox">
-            <label for="checkbox-all" class="sr-only">checkbox</label>
           </div>
         </th>
-        <th scope="col" class="px-6 py-3">
-          <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Column 1 identfier</label>
-          <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1">
-            <option selected>Choose an option</option>
-            <option value="assetPair">Asset Pair</option>
-            <option value="assetPairValue">Asset Pair Value</option>
-            <option value="boughtDate">Bought Date</option>
-            <option value="boughtQty">Bought Qty</option>
-            <option value="boughtValue">Bought Value</option>
-            <option value="boughtFee">Bought Fee</option>
-            <option value="soldDate">Sold Date</option>
-            <option value="soldQty">Sold Qty</option>
-            <option value="soldValue">Sold Value</option>
-            <option value="soldFee">Sold Fee</option>
+        <!-- Generate the table column header row -->
+        <th *ngFor="let i of tableColumnsPerRow.slice(0, 10);" scope="col" class="px-6 py-3">
+          <label for="tradeColumnOption" class="table-trade-select-label">Column {{i}} identfier</label>
+          <select id="tradeColumnOption"  class="table-trade-select">
+            <!-- Generate the select dropdown options -->
+            <option selected value=''>Choose an option</option>
+            <ng-container *ngFor="let opt of tradeColumnOption; index as i;"> 
+              <option value={{i}}>{{ opt }}</option>
+            </ng-container>
           </select>
         </th>
-        <th scope="col" class="px-6 py-3">
-          <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Column 2 identfier</label>
-          <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1">
-            <option selected>Choose an option</option>
-            <option value="assetPair">Asset Pair</option>
-            <option value="assetPairValue">Asset Pair Value</option>
-            <option value="boughtDate">Bought Date</option>
-            <option value="boughtQty">Bought Qty</option>
-            <option value="boughtValue">Bought Value</option>
-            <option value="boughtFee">Bought Fee</option>
-            <option value="soldDate">Sold Date</option>
-            <option value="soldQty">Sold Qty</option>
-            <option value="soldValue">Sold Value</option>
-            <option value="soldFee">Sold Fee</option>
-          </select>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Column 3 identfier</label>
-          <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1">
-            <option selected>Choose an option</option>
-            <option value="assetPair">Asset Pair</option>
-            <option value="assetPairValue">Asset Pair Value</option>
-            <option value="boughtDate">Bought Date</option>
-            <option value="boughtQty">Bought Qty</option>
-            <option value="boughtValue">Bought Value</option>
-            <option value="boughtFee">Bought Fee</option>
-            <option value="soldDate">Sold Date</option>
-            <option value="soldQty">Sold Qty</option>
-            <option value="soldValue">Sold Value</option>
-            <option value="soldFee">Sold Fee</option>
-          </select>
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Bought Qty
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Bought Value
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Bought Fee
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Sold Date
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Sold Qty
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Sold Value
-        </th>
-        <th scope="col" class="px-6 py-3">
-          Sold Fee
-        </th>
+        <!-- add additional columns -->
         <th scope="col" class="px-6 py-3">
           Profit / Loss
         </th>
@@ -92,152 +34,34 @@
         <td class="w-4 p-4">
           <div class="flex items-center">
             <input id="checkbox-table-1" type="checkbox" class="table-trade-checkbox">
-            <label for="checkbox-table-1" class="sr-only">checkbox</label>
           </div>
         </td>
-        <th scope="row" class="px-6 py-1 font-semibold whitespace-nowrap">
-          ADA / USD
-        </th>
-        <td class="px-6 py-1">
-          $ 1.00
+        <td *ngFor="let val of tradeColumnValues; index as i;" class="table-trade-cell-data">
+          {{val}}
         </td>
         <td class="px-6 py-1">
-          05-30-2022
-        </td>
-        <td class="px-6 py-1">
-          $ 832
-        </td>
-        <td class="px-6 py-1">
-          $ 832.0832
-        </td>
-        <td class="px-6 py-1">
-          $ 0.0832
-        </td>
-        <td class="px-6 py-1">
-          05-31-2022
-        </td>
-        <td class="px-6 py-1">
-          $ 832
-        </td>
-        <td class="px-6 py-1">
-          $ 862.32
-        </td>
-        <td class="px-6 py-1">
-          $ 0.0832
-        </td>
-        <td class="px-6 py-1">
-          $ 30.32
-        </td>
-        <td class="px-6 py-1">
-          <a href="#" type="button" (click)="toggleEditModal()" class="table-trade-edit-btn">Edit</a>
+          <a href="#" type="button" (click)="toggleEditModal(0)" class="table-trade-edit-btn">Edit</a>
         </td>
       </tr>
-      <tr class="bg-[#F9FBFB] border-b-2 hover:bg-[#DEB465]">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-1" type="checkbox" class="table-trade-checkbox">
-            <label for="checkbox-table-1" class="sr-only">checkbox</label>
-          </div>
-        </td>
-        <th scope="row" class="px-6 py-1 font-semibold whitespace-nowrap">
-          ADA / USD
-        </th>
-        <td class="px-6 py-1">
-          $ 1.00
-        </td>
-        <td class="px-6 py-1">
-          05-30-2022
-        </td>
-        <td class="px-6 py-1">
-          $ 832
-        </td>
-        <td class="px-6 py-1">
-          $ 832.0832
-        </td>
-        <td class="px-6 py-1">
-          $ 0.0832
-        </td>
-        <td class="px-6 py-1">
-          05-31-2022
-        </td>
-        <td class="px-6 py-1">
-          $ 832
-        </td>
-        <td class="px-6 py-1">
-          $ 862.32
-        </td>
-        <td class="px-6 py-1">
-          $ 0.0832
-        </td>
-        <td class="px-6 py-1">
-          $ 30.32
-        </td>
-        <td class="px-6 py-1">
-          <a href="#" type="button" (click)="toggleEditModal()" class="table-trade-edit-btn">Edit</a>
-        </td>
-      </tr>
-      <tr class="bg-[#F9FBFB] border-b-2 hover:bg-[#DEB465]">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-1" type="checkbox" class="table-trade-checkbox">
-            <label for="checkbox-table-1" class="sr-only">checkbox</label>
-          </div>
-        </td>
-        <th scope="row" class="px-6 py-1 font-semibold whitespace-nowrap">
-          ADA / USD
-        </th>
-        <td class="px-6 py-1">
-          $ 1.00
-        </td>
-        <td class="px-6 py-1">
-          05-30-2022
-        </td>
-        <td class="px-6 py-1">
-          $ 832
-        </td>
-        <td class="px-6 py-1">
-          $ 832.0832
-        </td>
-        <td class="px-6 py-1">
-          $ 0.0832
-        </td>
-        <td class="px-6 py-1">
-          05-31-2022
-        </td>
-        <td class="px-6 py-1">
-          $ 832
-        </td>
-        <td class="px-6 py-1">
-          $ 862.32
-        </td>
-        <td class="px-6 py-1">
-          $ 0.0832
-        </td>
-        <td class="px-6 py-1">
-          $ 30.32
-        </td>
-        <td class="px-6 py-1">
-          <a href="#" type="button" (click)="toggleEditModal()" class="table-trade-edit-btn">Edit</a>
-        </td>
-      </tr>
-
+     
     </tbody>
   </table>
+
+  <!-- table footer / navigation -->
   <nav class="table-trade-footer" >
     <span class="table-footer-text">Showing 1-3 of 100</span>
     <ul class="inline-flex items-center -space-x-px">
       <li>
-        <a href="#"
-           class="block px-3 py-2 ml-0 leading-tight text-[#9DACC6] bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">
+        <a href="#" class="block px-3 py-2 ml-0 leading-tight text-[#9DACC6] bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">
           <span class="sr-only">Previous</span>
-          <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-               xmlns="http://www.w3.org/2000/svg">
+          <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"  xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
                   d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
                   clip-rule="evenodd"></path>
           </svg>
         </a>
       </li>
+      <!-- TODO create emthod for determining pages -->
       <li>
         <a href="#"
            class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">1</a>
@@ -285,7 +109,7 @@
           Modal Title
         </h3>
         <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                (click)="toggleEditModal()">
+                (click)="toggleEditModal(0)">
           <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
             ×
           </span>
@@ -304,11 +128,11 @@
       <!--footer-->
       <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
         <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button" (click)="toggleEditModal()">
+                type="button" (click)="toggleEditModal(0)">
           Close
         </button>
         <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button" (click)="toggleEditModal()">
+                type="button" (click)="toggleEditModal(0)">
           Save Changes
         </button>
       </div>
@@ -319,3 +143,5 @@
 
 
 <!-- Edit modal -->
+
+</ng-container>
