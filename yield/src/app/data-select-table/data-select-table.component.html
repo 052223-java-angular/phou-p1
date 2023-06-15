@@ -1,16 +1,25 @@
 <ng-container *ngIf="showSelectDataTable">
   <!-- Section for table displaying trades -->
   <table class="table-trade">
+    <caption>Identify the columns and its data 
+      <span class="text-xs text-red-700 px-8" *ngIf="selectOptionError">
+        Column options must be unique
+      </span>
+    </caption>
     <thead class="table-trade-header">
       <tr>
         <!-- Generate the table column header row - quantity and amount will depend on dataset -->
         <th *ngFor="let i of tableColumnsPerRow;" scope="col" class="px-6 py-3">
-          <label for="tradeColumnOption" class="table-trade-select-label">Column {{i}}</label>
-          <select id="tradeColumnOption" class="table-trade-select">
+          <label for="tradeColumnOption" class="table-trade-select-label">Column {{i}} </label>
+          <select #selectedOption 
+            (change)="setColumnPair($event, i, selectedOption.value)" 
+            id="tradeColumnOption" 
+            class="table-trade-select"
+            >
             <!-- Generate the select dropdown options -->
-            <option selected value=''>Choose an option</option>
+            <option value=''>Choose an option</option>
             <ng-container *ngFor="let opt of tradeColumnOption; index as i;">
-              <option value={{i}}>{{ opt }}</option>
+              <option [ngValue]='opt+"_"+i'>{{ opt }}</option>
             </ng-container>
           </select>
         </th>
@@ -23,8 +32,26 @@
         </td>
       </tr>
     </tbody>
+    <tfoot class="table-trade-footer" >
+      <button class="table-trade-footer-btn" type="button">Submit</button>
+    </tfoot>
   </table>
-  <nav class="table-trade-footer" >
-    <button class="table-trade-footer-btn" type="button">Submit</button>
-  </nav>
 </ng-container>
+
+
+<!-- For vertical display of options -->
+<ng-container *ngIf="false" >
+  <ul class="">
+      <li class="flex flex-col px-6 py-3 w-80" *ngFor="let val of tradeColumnValues; index as i; ">
+        <label for="">Column {{i+1}}</label>
+        <label for="">{{val}}</label>
+        <select id="tradeColumnOption" class="table-trade-select">
+          <!-- Generate the select dropdown options -->
+          <option selected value=''>Choose an option</option>
+          <ng-container *ngFor="let opt of tradeColumnOption; index as x;">
+            <option value={{x}}>{{ opt }}</option>
+          </ng-container>
+        </select>
+      </li>
+  </ul>
+</ng-container>"

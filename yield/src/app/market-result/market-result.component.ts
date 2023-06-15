@@ -11,7 +11,6 @@ export class MarketResultComponent implements OnInit {
   @Input() showFrequencyCard: boolean = false;
   @Input() showTradeCard: boolean = false;
 
-
   constructor() { }
 
   ngOnInit(): void {
