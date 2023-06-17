@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IUser } from './models/IUser';
 import { AuthService } from './services/auth.service';
+import { FileService } from './services/file.service';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +17,8 @@ export class AppComponent {
   showProfitLossCard: boolean = false;
   showFrequencyCard: boolean = false;
   showTradeCard: boolean = false;
-  showSelectDataTable: boolean = true; // todo logic for showing after file upload
-  showDataTable: boolean = false;
+  showSelectTable: boolean = false; // todo logic for showing after file upload
+  showTable: boolean = false;
 
   constructor(
     private authService : AuthService

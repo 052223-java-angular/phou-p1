@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../models/IUser';
+import { IUser, User } from '../models/IUser';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -20,7 +20,6 @@ export class AuthService {
   }
 
   login(formData: FormGroup) : Observable<IUser> {
-    console.info(formData.value)
     return this.httpClient.post<IUser>(`${this.BASE_URI}/auth/login`, formData.value);
   }
 

@@ -15,6 +15,8 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { MarketResultComponent } from './market-result/market-result.component';
 import { SharedModule } from './shared/shared.module';
 import { DataSelectTableComponent } from './data-select-table/data-select-table.component';
+import { Papa } from 'ngx-papaparse';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { DataSelectTableComponent } from './data-select-table/data-select-table.
     DataTableComponent,
     MarketResultComponent,
     DataSelectTableComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule, 
@@ -33,7 +36,7 @@ import { DataSelectTableComponent } from './data-select-table/data-select-table.
     NgChartsModule, 
     HttpClientModule, 
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

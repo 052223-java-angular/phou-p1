@@ -1,5 +1,5 @@
 .auth-btn {
-  @apply py-3 px-8 text-white my-4 uppercase rounded shadow-md;
+  @apply py-3 px-8 text-white my-4 uppercase rounded shadow-md cursor-pointer;
 }
 
 .auth-btn-login {

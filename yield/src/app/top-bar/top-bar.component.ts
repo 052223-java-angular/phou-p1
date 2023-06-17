@@ -13,7 +13,7 @@ import { IUser } from '../models/IUser';
 })
 export class TopBarComponent implements OnInit {
   title: string = 'Yield';
-  loggedInUser: IUser | undefined;
+  loggedInUser!: IUser;
   errorMessage: string = "";
   showLogin: boolean = false;
   showSignup: boolean = false;
@@ -75,10 +75,10 @@ export class TopBarComponent implements OnInit {
 
   login(): void {
     this.authService.login(this.loginForm).subscribe({
-      next: (v) => {
+      next: (res) => {
         this.showLogin = !this.showLogin;
-        this.authService.setSessionObj(v);
-        this.loggedInUser = this.authService.getSessionObj();
+        this.authService.setSessionObj(res);
+        this.loggedInUser = res; 
       }, 
       error: (err) => {
         this.showThenResetHttpErrorMessage(err.error.message);
