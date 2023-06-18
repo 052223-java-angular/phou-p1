@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { IRegisterUser } from '../models/iRegisterUser';
 import { ILoginUser } from '../models/ILoginUser';
+import { IUser } from '../models/IUser';
 
 
 @Component({
@@ -12,10 +13,10 @@ import { ILoginUser } from '../models/ILoginUser';
 })
 export class TopBarComponent implements OnInit {
   title: string = 'Yield';
+  loggedInUser!: IUser;
   errorMessage: string = "";
   showLogin: boolean = false;
   showSignup: boolean = false;
-  isLoggedIn: boolean = false;
 
   loginForm!: FormGroup;
   signupForm!: FormGroup;
@@ -74,12 +75,10 @@ export class TopBarComponent implements OnInit {
 
   login(): void {
     this.authService.login(this.loginForm).subscribe({
-      next: (v) => {
-        console.info(v);
+      next: (res) => {
         this.showLogin = !this.showLogin;
-        sessionStorage.setItem("user", JSON.stringify(v));
-        this.loginUsername.setValue(v.username);
-        this.isLoggedIn = !this.isLoggedIn;
+        this.authService.setSessionObj(res);
+        this.loggedInUser = res; 
       }, 
       error: (err) => {
         this.showThenResetHttpErrorMessage(err.error.message);

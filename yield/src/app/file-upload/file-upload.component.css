@@ -1,0 +1,20 @@
+
+.action-btn {
+  @apply px-4 py-2 mx-2 bg-slate-400 text-white rounded-sm shadow-sm uppercase w-36 hover:bg-slate-300 duration-150;
+}
+
+.action-input-group-center {
+  @apply flex w-full justify-center items-center px-4 ;
+}
+
+.action-input {
+  @apply ml-24 flex-1 text-sm text-gray-900 border border-gray-300 bg-white file:px-4 file:py-3 file:bg-slate-400 file:outline-none file:border-none file:text-white file:uppercase file:min-w-fit file:text-xs;
+}
+
+.action-input-btn {
+  @apply px-4 py-2 bg-[#DEB465] text-white;
+}
+
+.file-type-error {
+  @apply mt-6 pr-6 text-xs italic text-red-500 font-normal;
+}

@@ -1,30 +1,49 @@
-<ng-container *ngIf="showSelectDataTable">
+<ng-container>
   <!-- Section for table displaying trades -->
-  <table class="table-trade">
-    <thead class="table-trade-header">
+  <table>
+    <caption >Identify the columns and its data </caption>
+    <thead >
       <tr>
         <!-- Generate the table column header row - quantity and amount will depend on dataset -->
-        <th *ngFor="let i of tableColumnsPerRow;" scope="col" class="px-6 py-3">
-          <label for="tradeColumnOption" class="table-trade-select-label">Column {{i}}</label>
-          <select id="tradeColumnOption" class="table-trade-select">
+        <th *ngFor="let rawFieldName of rawHeaderFields; index as idx" scope="col" class="">
+
+          <label for="tradeColumnOption" >{{rawFieldName}}</label>
+          <span class="option-error" *ngIf="optionError">
+            Column must be unique!
+          </span>
+
+          <select #selectedOption 
+            (change)="setSelectedOption($event, idx, selectedOption.value)" 
+            id="tradeColumnOption"  >
+
             <!-- Generate the select dropdown options -->
-            <option selected value=''>Choose an option</option>
-            <ng-container *ngFor="let opt of tradeColumnOption; index as i;">
-              <option value={{i}}>{{ opt }}</option>
+            <option value=''>Choose an option</option>
+            <ng-container *ngFor="let rawOption of rawSelectOptions; index as idx;">
+              <option [ngValue]='rawOption+"_"+idx'>{{ rawOption }}</option>
             </ng-container>
           </select>
+
         </th>
       </tr>
     </thead>
-    <tbody>
-      <tr class="bg-[#F9FBFB] border-b-2">
-        <td *ngFor="let val of tradeColumnValues; index as i;" class="table-trade-cell-data">
-          {{val}}
+    <tbody >
+      <ng-container *ngFor="let rawRecord of rawTradeRecords; let i = index">
+        <tr>
+          <td *ngFor="let value of rawRecord;" class="">
+            {{ value }}
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+    <tfoot >
+      <tr>
+        <td colspan="11">
+          <span class="submit-error" *ngIf="submitError">
+            Column identifiers must be selected before submitting!
+          </span>
+          <button (click)="submitSelectedOptions()" type="button">Submit</button>
         </td>
       </tr>
-    </tbody>
+    </tfoot>
   </table>
-  <nav class="table-trade-footer" >
-    <button class="table-trade-footer-btn" type="button">Submit</button>
-  </nav>
 </ng-container>
