@@ -9,15 +9,15 @@
   <div class="action-container">
     
     <app-file-upload 
-      [(hasUploadFile)]="showSelectTable"
-      class="flex flex-col flex-1 items-center justify-center">
+      [(didUploadFile)]="showSelectTable"
+      class="mx-auto w-4/6">
 
       <p typeError class="file-type-error text-red-600">Incorrect file type, must be .csv type</p>
     </app-file-upload>
   
 
     <!-- HIDE BUTTON GROUP; ONLY SHOW AFTER FILE HAS BEEN UPLOADED -->
-    <ng-container *ngIf="true">
+    <ng-container *ngIf="showTable">
       <div class="action-btn-group">
         <button class="action-btn" (click)="toggleLineChart()">line chart</button>
         <button class="action-btn" (click)="toggleBarChart()">bar chart</button>
@@ -52,7 +52,7 @@
     
   <!-- Section for uploading / show after file is uploaded -->
   <app-data-table 
-    *ngIf="showTable && showSelectTable"
+    *ngIf="didUploadFile || (showTable && showSelectTable)"
     class=""></app-data-table>
 
   <footer class="app-footer">

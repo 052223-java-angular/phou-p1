@@ -10,8 +10,8 @@ export class FileUploadComponent {
   hasFileTypeError: boolean = false;
   file: File | null = null;
 
-  @Input() hasUploadFile: boolean = false;
-  @Output() hasUploadFileChange = new EventEmitter<boolean>();
+  @Input() didUploadFile: boolean = false;
+  @Output() didUploadFileChange = new EventEmitter<boolean>();
 
   constructor(
     private fileService: FileService,
@@ -25,7 +25,8 @@ export class FileUploadComponent {
     if (this.file && this.isValidFileType()) {
 
       this.fileService.parseCsvFile(this.file);
-      this.hasUploadFileChange.emit(true);
+      this.didUploadFileChange.emit(true);
+      this.resetInput(event);
       return;
     }
 

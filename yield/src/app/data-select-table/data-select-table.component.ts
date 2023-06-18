@@ -18,6 +18,7 @@ export class DataSelectTableComponent implements AfterContentChecked {
   // local error
   optionError: boolean = false;
   submitError: boolean = false;
+  submitErrorMessage: string = '';
 
   // for raw data
   rawHeaderFields: string[] = [];
@@ -45,6 +46,8 @@ export class DataSelectTableComponent implements AfterContentChecked {
 
    private setSubmitError() : void {
     this.submitError = !this.submitError;
+    this.submitErrorMessage = `${this.rawSelectOptions.length} identifiers 
+    of ${this.selectedColumnOptions.length} must be selected before submitting!`;
     setTimeout(() => {
       this.submitError = false;
     }, 3000)
@@ -133,16 +136,39 @@ export class DataSelectTableComponent implements AfterContentChecked {
     this.submitError = false;
     this.optionError = false;
 
-    const foundColumOption = this.selectedColumnOptions.filter(ele => ele.name === cName);
-
-    if (foundColumOption.length == 1 && foundColumOption[0].name === cName) {
-      this.optionError = true;
-      event.target.value = '';
-      return;
+    // find the existing pair if it exists
+    let foundPair;
+    if (this.selectedColumnOptions.length > 0) {
+      for (let pair of this.selectedColumnOptions) {
+        if (pair.slot === cIndex) {
+          foundPair = pair;
+        }
+      }
     }
-
-    this.selectedColumnOptions.push(new SelectOption(cName, cIndex));
-
+    
+    // add new item when not found, else update
+    if (foundPair === undefined) {
+      const foundColumnNames = this.selectedColumnOptions.filter(ele => ele.name === cName);
+      if (foundColumnNames.length === 0) {
+        this.selectedColumnOptions.push({slot: cIndex, name: cName})
+        this.optionError = false;
+      } else {
+        this.optionError = !this.optionError;
+        event.target.value = "";
+      }
+    } else {
+      // check if another column has the column name
+      const foundColumnNames = this.selectedColumnOptions.filter(ele => ele.name === cName);
+      if (foundColumnNames.length === 0) {
+        foundPair.slot = cIndex;
+        foundPair.name = cName;
+        this.optionError = false;
+      } else {
+        // throw error or set value
+        this.optionError = !this.optionError;
+        event.target.value = foundPair.name;
+      }
+    }
   }
 
 }
