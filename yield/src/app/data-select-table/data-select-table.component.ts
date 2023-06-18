@@ -46,7 +46,7 @@ export class DataSelectTableComponent implements AfterContentChecked {
    private setSubmitError() : void {
     this.submitError = !this.submitError;
     setTimeout(() => {
-      this.submitError = true;
+      this.submitError = false;
     }, 3000)
    }
 

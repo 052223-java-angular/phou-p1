@@ -38,7 +38,7 @@
     <tfoot >
       <tr>
         <td colspan="11">
-          <span id=i class="column-error" *ngIf="submitError">
+          <span class="submit-error" *ngIf="submitError">
             Column identifiers must be selected before submitting!
           </span>
           <button (click)="submitSelectedOptions()" type="button">Submit</button>
@@ -47,21 +47,3 @@
     </tfoot>
   </table>
 </ng-container>
-
-
-<!-- NOT IMPLENTED - For vertical display of options -->
-<!-- <ng-container *ngIf="false" >
-  <ul class="">
-      <li class="flex flex-col px-6 py-3 w-80" *ngFor="let val of tradeColumnValues; index as i; ">
-        <label for="">Column {{i+1}}</label>
-        <label for="">{{val}}</label>
-        <select id="tradeColumnOption" class="table-trade-select"> -->
-          <!-- Generate the select dropdown options -->
-          <!-- <option selected value=''>Choose an option</option>
-          <ng-container *ngFor="let opt of tradeColumnOption; index as x;">
-            <option value={{x}}>{{ opt }}</option>
-          </ng-container>
-        </select>
-      </li>
-  </ul>
-</ng-container>" -->
