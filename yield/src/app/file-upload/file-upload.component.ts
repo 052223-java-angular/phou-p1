@@ -1,59 +1,53 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FileService } from '../services/file.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.css']
 })
-export class FileUploadComponent implements OnInit {
-  @Input() hasUploadFile: boolean = false;
-  @Input() hasFileTypeError: boolean = false;
-  // @Input() componentId: string = '';
-  // hasFileChange: boolean = false;
-
+export class FileUploadComponent {
+  hasFileTypeError: boolean = false;
   file: File | null = null;
 
+  @Input() hasUploadFile: boolean = false;
   @Output() hasUploadFileChange = new EventEmitter<boolean>();
-  // @Output() fileChange = new EventEmitter<boolean>();
 
   constructor(
     private fileService: FileService,
   ) { }
 
-  ngOnInit(): void { }
-
-  onFileSelect(event: any) : void {
+  // for handling file uploads
+  onFileUpload(event: any) : void {
     event.preventDefault();
     this.file = event.target?.files[0];
 
-    if (this.file) {
-
-      // // this.showTable = false;
-      // this.hasFileChange = false;
-      // this.componentId = 'data-select-table-' + Date.now();
-      // setTimeout(() => {
-      //   this.hasFileChange = true;
-      // }, 0);
-
-      const ext = this.file.type;
-
-      if (!ext.includes("csv")) {
-        this.setError();
-        return;
-      }
+    if (this.file && this.isValidFileType()) {
 
       this.fileService.parseCsvFile(this.file);
       this.hasUploadFileChange.emit(true);
-      event.traget.value = '';
-      this.file = null;
+      return;
     }
+
+    // invalid file, reset and throw error
+    this.resetInput(event);
+    this.showInputError();
 
   }
 
-  setError() {
+  // for resetting input and class file variable
+  private resetInput(event: any) {
+    event.target.value = '';
+    this.file = null;
+  }
+
+  // for checking whether file has correct ext
+  private isValidFileType() : boolean | undefined {
+      return this.file?.type.includes("csv");
+  }
+
+  // for showing error
+  private showInputError() {
     this.hasFileTypeError = !this.hasFileTypeError;
     setTimeout(() => {
       this.hasFileTypeError = !this.hasFileTypeError;
