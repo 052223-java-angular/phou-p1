@@ -19,7 +19,7 @@
             <!-- Generate the select dropdown options -->
             <option value=''>Choose an option</option>
             <ng-container *ngFor="let rawOption of rawSelectOptions; index as idx;">
-              <option [ngValue]='rawOption+"_"+idx'>{{ rawOption }}</option>
+              <option [ngValue]='idx'>{{ rawOption }}</option>
             </ng-container>
           </select>
 
@@ -39,7 +39,7 @@
       <tr>
         <td colspan="11">
           <span class="submit-error" *ngIf="submitError">
-            Column identifiers must be selected before submitting!
+            {{submitErrorMessage}}
           </span>
           <button (click)="submitSelectedOptions()" type="button">Submit</button>
         </td>
