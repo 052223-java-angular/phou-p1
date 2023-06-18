@@ -5,21 +5,21 @@
     <thead >
       <tr>
         <!-- Generate the table column header row - quantity and amount will depend on dataset -->
-        <th *ngFor="let i of tableColumnsPerRow; index as idx" scope="col" class="">
+        <th *ngFor="let rawFieldName of rawHeaderFields; index as idx" scope="col" class="">
 
-          <label for="tradeColumnOption" >Column {{idx}} </label>
-          <span id=i class="option-error" *ngIf="selectOptionError">
+          <label for="tradeColumnOption" >{{rawFieldName}}</label>
+          <span class="option-error" *ngIf="optionError">
             Column must be unique!
           </span>
 
           <select #selectedOption 
-            (change)="setColumnPair($event, idx, selectedOption.value)" 
+            (change)="setSelectedOption($event, idx, selectedOption.value)" 
             id="tradeColumnOption"  >
 
             <!-- Generate the select dropdown options -->
             <option value=''>Choose an option</option>
-            <ng-container *ngFor="let opt of tradeColumnOption; index as i;">
-              <option [ngValue]='opt+"_"+i'>{{ opt }}</option>
+            <ng-container *ngFor="let rawOption of rawSelectOptions; index as idx;">
+              <option [ngValue]='rawOption+"_"+idx'>{{ rawOption }}</option>
             </ng-container>
           </select>
 
@@ -27,10 +27,10 @@
       </tr>
     </thead>
     <tbody >
-      <ng-container *ngFor="let row of tradeColumnValues; let i = index">
+      <ng-container *ngFor="let rawRecord of rawTradeRecords; let i = index">
         <tr>
-          <td *ngFor="let val of row;" class="">
-            {{ val.trim() }}
+          <td *ngFor="let value of rawRecord;" class="">
+            {{ value }}
           </td>
         </tr>
       </ng-container>
@@ -38,7 +38,7 @@
     <tfoot >
       <tr>
         <td colspan="11">
-          <span id=i class="column-error" *ngIf="showTableSubmitError">
+          <span id=i class="column-error" *ngIf="submitError">
             Column identifiers must be selected before submitting!
           </span>
           <button (click)="submitSelectedOptions()" type="button">Submit</button>

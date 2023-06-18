@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, AfterContentChecked, EventEmitter, Output } from '@angular/core';
-import { IColumnPair } from '../models/IColumnPair';
+import { Component, Input, AfterContentChecked, EventEmitter, Output } from '@angular/core';
+import { ISelectOption, SelectOption } from '../models/SelectOption';
 import { FileService } from '../services/file.service';
 import { ITrade, Trade } from '../models/Trade';
 import { Header, IHeader } from '../models/Header';
@@ -9,94 +9,112 @@ import { Header, IHeader } from '../models/Header';
   templateUrl: './data-select-table.component.html',
   styleUrls: ['./data-select-table.component.css']
 })
-export class DataSelectTableComponent implements OnInit, AfterContentChecked {
-  // @Input() showSelectDataTable: boolean = false;
-  @Input() selectOptionError: boolean = false;
-  @Input() showTableSubmitError: boolean = false;
-  @Input() showTable: boolean = false;
-  // componentId: string = 'data-select-table';
+export class DataSelectTableComponent implements AfterContentChecked {
 
+  // for table changes
+  @Input() showTable: boolean = false;
   @Output() showTableChange = new EventEmitter<boolean>();
 
-  tableColumnsPerRow: string[] = [];
-  tradeColumnOption: string[] = []; 
-  tradeColumnValues: string[] = [];
-  reassignedColumnValues: string[][] = [];
+  // local error
+  optionError: boolean = false;
+  submitError: boolean = false;
+
+  // for raw data
+  rawHeaderFields: string[] = [];
+  rawSelectOptions: string[] = []; 
+  rawTradeRecords: string[] = [];
+
+  // for filtered data
   tradeRecords: ITrade[] = [];
-  headerRow: IHeader[] = [];
+  headerFields: IHeader[] = [];
  
-  columnPairs: IColumnPair[] = [];
+  selectedColumnOptions: ISelectOption[] = [];
   selectedOption: string = '';
 
   constructor(
     private fileService: FileService
   ) { }
 
-  ngOnInit(): void {}
-
   // require hook for detecting content changes after load
   ngAfterContentChecked(): void {
-    this.tradeColumnOption = this.fileService.getTradeColumnOptions();
-    this.tableColumnsPerRow= this.fileService.getRawHeaderFields();
-    this.tradeColumnValues = this.fileService.getRawRecords().map(e => e).slice(0, 2);
+    this.rawSelectOptions = this.fileService.getTradeColumnOptions();
+    this.rawHeaderFields= this.fileService.getRawHeaderFields();
+    this.rawTradeRecords = this.fileService.getRawRecords().map(e => e).slice(0, 2);
    }
 
-   submitSelectedOptions() {
-      // when all data lengths are equal, hide this table
-      if (this.columnPairs.length !== this.tradeColumnOption.length) {
-          this.showTableSubmitError = true;
-          return;
+
+   private setSubmitError() : void {
+    this.submitError = !this.submitError;
+    setTimeout(() => {
+      this.submitError = true;
+    }, 3000)
+   }
+
+   // for validating the selected option matches available
+   private hasValidSelection() : boolean {
+      if (this.selectedColumnOptions.length === this.rawSelectOptions.length) {
+        return true;
       }
+      return false;
+   }
 
-      // emit change and ssign column data 
-      this.showTableChange.emit(true);
+   // for creating a trade record
+   private createTradeRecord(record: string) : ITrade {
+    let tradeRecord = new Trade();
 
-      const data = this.fileService.getRawRecords();
-      let isRequireHeader = true;
-      for (const element of data) {
+    for (let option of this.selectedColumnOptions) {
+      const colName = option.name;
 
-        let rowData = element;
-        let colValues = [];
+      switch (colName) {
+        case 'asset':
+          tradeRecord.asset = record[option.slot]; break;
+        case 'order_id':
+          tradeRecord.orderId = record[option.slot]; break;
+        case 'date':
+          tradeRecord.date = record[option.slot]; break;
+        case 'side':
+          tradeRecord.side = record[option.slot]; break;
+        case 'unit_price':
+          tradeRecord.unitPrice = Number.parseFloat(record[option.slot]); break;
+        case 'qty':
+          tradeRecord.qty = Number.parseFloat(record[option.slot]); break;
+        case 'amount_paid':
+          tradeRecord.amountPaid = Number.parseFloat(record[option.slot]); break;
+        case 'fee':
+          tradeRecord.fee = Number.parseFloat(record[option.slot]); break;
+        case 'currency_pair':
+          tradeRecord.currencyPair = record[option.slot]; break;
+        default:
+          break;
+      }
+    } 
+    return tradeRecord;
+   }
 
-        let trade = new Trade();
-        for (let pair of this.columnPairs) {
-          const colName = pair.columnName;
+   // for adding trade record header fields
+   private addHeaderFields() : void {
+    for (let option of this.selectedColumnOptions) {
+      this.headerFields.push(new Header(option.name, option.slot));
+    }
+   }
 
-          // run for 1 iteration
-          if (isRequireHeader) {
-            this.headerRow.push(new Header(pair.columnName, pair.columnSlot));
-          }
+   // for submitting the selected options
+   submitSelectedOptions() : void {
 
-          switch (colName) {
-            case 'asset':
-              trade.asset = rowData[pair.columnSlot]; break;
-            case 'order_id':
-              trade.orderId = rowData[pair.columnSlot]; break;
-            case 'date':
-              trade.date = rowData[pair.columnSlot]; break;
-            case 'side':
-              trade.side = rowData[pair.columnSlot]; break;
-            case 'unit_price':
-              trade.unitPrice = Number.parseFloat(rowData[pair.columnSlot]); break;
-            case 'qty':
-              trade.qty = Number.parseFloat(rowData[pair.columnSlot]); break;
-            case 'amount_paid':
-              trade.amountPaid = Number.parseFloat(rowData[pair.columnSlot]); break;
-            case 'fee':
-              trade.fee = Number.parseFloat(rowData[pair.columnSlot]); break;
-            case 'currency_pair':
-              trade.currencyPair = rowData[pair.columnSlot]; break;
-            default:
-              break;
+    if (!this.hasValidSelection()) {
+      this.setSubmitError();
+      return;
+    }
 
-          }
-          
-          colValues.push(rowData[pair.columnSlot]);
-        } 
-        
-        isRequireHeader = false;
-        this.tradeRecords.push(trade);       
-        this.reassignedColumnValues.push(colValues);
+      const records = this.fileService.getRawRecords();
+      let includeHeader = true;
+      for (const element of records) {
+        if (includeHeader) {
+          this.addHeaderFields();
+          includeHeader = false;
+          continue;
+        }
+        this.tradeRecords.push(this.createTradeRecord(element));
       }
 
       // perform calculation, add column or send to  backend for processing
@@ -105,54 +123,26 @@ export class DataSelectTableComponent implements OnInit, AfterContentChecked {
 
       // then pass / output the value ito the parent in order to complete the trade table rendering
       this.fileService.saveTradeRecords(this.tradeRecords);
-      this.fileService.saveTradeHeaderFields(this.headerRow);
-      // this.fileService.saveOrganizedFileData(this.reassignedColumnValues);
+      this.fileService.saveTradeHeaderFields(this.headerFields);
+      // emit change and ssign column data 
+      this.showTableChange.emit(true);
    }
 
+   // sets selected options and throws error when duplicate is found
+  setSelectedOption(event: any, cIndex: number, cName: string) : void {
+    this.submitError = false;
+    this.optionError = false;
 
-   // todo refactor this method - if time permits
-   // todo more validation selected type if of correct type, e.g. number is number, date is date, etc.
-  setColumnPair(event: any, columnSlot: number, columnName: string) : void {
-    this.showTableSubmitError = false;
+    const foundColumOption = this.selectedColumnOptions.filter(ele => ele.name === cName);
 
-    // find the existing pair if it exists
-    let foundPair;
-    if (this.columnPairs.length > 0) {
-      for (let pair of this.columnPairs) {
-        if (pair.columnSlot === columnSlot) {
-          foundPair = pair;
-        }
-      }
+    if (foundColumOption.length == 1 && foundColumOption[0].name === cName) {
+      this.optionError = true;
+      event.target.value = '';
+      return;
     }
 
-    // add new item when not found, else update
-    if (foundPair === undefined) {
-      const foundColumnNames = this.columnPairs.filter(ele => ele.columnName === columnName);
-      if (foundColumnNames.length === 0) {
-        this.columnPairs.push({columnSlot: columnSlot, columnName: columnName})
-        this.selectOptionError = false;
-      } else {
-        this.selectOptionError = !this.selectOptionError;
-        event.target.value = "";
-      }
+    this.selectedColumnOptions.push(new SelectOption(cName, cIndex));
 
-    } else {
-      // check if another column has the column name
-      const foundColumnNames = this.columnPairs.filter(ele => ele.columnName === columnName);
-
-      if (foundColumnNames.length === 0) {
-        foundPair.columnSlot = columnSlot;
-        foundPair.columnName = columnName;
-        this.selectOptionError = false;
-      } else {
-        // throw error or set value
-        this.selectOptionError = !this.selectOptionError;
-        event.target.value = foundPair.columnName;
-      }
-    }
-
-    // console.log(columnPair)
-    console.log(this.columnPairs);
   }
 
 }
