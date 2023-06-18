@@ -46,8 +46,8 @@ export class DataSelectTableComponent implements AfterContentChecked {
 
    private setSubmitError() : void {
     this.submitError = !this.submitError;
-    this.submitErrorMessage = `${this.rawSelectOptions.length} identifiers 
-    of ${this.selectedColumnOptions.length} must be selected before submitting!`;
+    this.submitErrorMessage = `${this.selectedColumnOptions.length} identifiers 
+    of ${this.rawSelectOptions.length} must be selected before submitting!`;
     setTimeout(() => {
       this.submitError = false;
     }, 3000)
@@ -145,7 +145,7 @@ export class DataSelectTableComponent implements AfterContentChecked {
         }
       }
     }
-    
+
     // add new item when not found, else update
     if (foundPair === undefined) {
       const foundColumnNames = this.selectedColumnOptions.filter(ele => ele.name === cName);
