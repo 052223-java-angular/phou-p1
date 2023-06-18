@@ -1,42 +1,52 @@
 import { Injectable } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
-import { IColumnPair } from '../models/IColumnPair';
-import { IColumn } from '../models/IColumn';
+import { ITrade } from '../models/Trade';
+import { IHeader } from '../models/Header';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
-  private fileData: string[] = [];
-  private fileData2D: string[][] = [];
-  private headerFields!: string[];
-  private tradeColumnOptions: string[] = ['asset_pair', 'asset_pair_value', 'bought_date', 'bought_qty', 'bought_value', 'bought_fee', 'sold_date', 'sold_qty', 'sold_value', 'sold_fee'];
+  // for raw data rawRecords
+  private rawRecords: string[] = [];
+  private rawHeaderFields: string[] = [];
+  private tradeColumnOptions: string[] = ['asset', 'order_id', 'date', 'side', 'unit_price', 'qty', 'amount_paid', 'fee', 'currency_pair'];
+  
+  // for filtered rawRecords
+  private tradeRecords: ITrade[] = [];
+  private tradeHeaderFields: IHeader[] = [];
 
   constructor(
     private papa: Papa
   ) {}
 
-  // 1. parse the file using papa
+  private filterRawRecords(records: string[]) : string[] {
+    return records.map((row: any) => row.filter((field: any) => field.trim() !== ''));
+  }
+
+  private findMaxColSpan(records: string[]) : number {
+    let maxColSpan = 0;
+    for (let i = 0; i < 20; i++) {
+      if (records[i].length > maxColSpan) {
+        maxColSpan = records[i].length;
+      }
+    }
+    return maxColSpan;
+  }
+
+  // method for parsing file
   parseCsvFile(file: File) : void {
+    this.rawHeaderFields = [];
+    this.rawRecords = [];
 
     this.papa.parse(file, {
       header: false,
       skipEmptyLines: true,
       complete: (result) => {
-        // save the data results
-        this.headerFields = result.data[0];
+        // remove all of the empty fields
+        this.saveRawRecords(this.filterRawRecords(result.data));
 
-        for (let i = 0; i < result.data.length; i++) {
-
-          // bug - trailing space from document is being added, 
-          // pop for a temp fix 
-          let data = result.data[i];
-          data.pop();
-
-          if (data !== "") {
-            this.fileData.push(result.data[i]);
-          }
-        }
       },
       error: (error) => {
         console.log(error);
@@ -44,40 +54,61 @@ export class FileService {
     })
   }
 
-  getFile2D() : string[][] {
-    return this.fileData2D;
+
+  getRawRecords() : string[] {
+    return this.rawRecords;
   }
 
-  getFileData() : string[] {
-    return this.fileData;
+  getRawHeaderFields() : string[] {
+    return this.rawHeaderFields;
   }
 
-  getHeaderFields() : string[] {
-    return this.headerFields;
+  getTradeHeaderFields() : IHeader[] {
+    return this.tradeHeaderFields;
   }
 
-  getTradeColumnOptions() {
+  getTradeColumnOptions() : string[] {
     return this.tradeColumnOptions;
   }
 
-  // 2. save the header field of the file
-  saveFileHeaderFields(fields: IColumnPair[]) : void {
-    this.headerFields = [];
-    for (let col of fields) {
-      this.headerFields.push(col.columnName);
+  getTradeRecords() : ITrade[] {
+    return this.tradeRecords;
+  }
+
+  // 
+  saveTradeHeaderFields(tradeHeaderFields: IHeader[]) : void {
+    this.tradeHeaderFields = [];
+    this.tradeHeaderFields = tradeHeaderFields;
+  }
+
+  saveTradeRecords(tradeRecords: ITrade[]) : void {
+    this.tradeRecords = [];
+    this.tradeRecords = tradeRecords;
+  }
+
+  // save the header field of the file
+  private saveRawHeader(rawHeaderFields: string) : void {
+    this.rawHeaderFields = [];
+    this.rawHeaderFields = this.rawHeaderFields.concat(rawHeaderFields);
+  }
+
+  // save raw records
+  private saveRawRecords(rawRecords: string[]) : void {
+    // find the max column span // todo - assess for removal; should reject file instead
+    const maxColSpan = this.findMaxColSpan(rawRecords);
+
+    let isFirstEqualRow = true;
+    for (const row of rawRecords) {
+      if (row.length === maxColSpan) {
+        // extract first valid row as the header
+        if (isFirstEqualRow) {
+          this.saveRawHeader(row);
+          isFirstEqualRow = false;
+          continue;
+        }
+        this.rawRecords.push(row); 
+      }
     }
-  }
-
-  // replace row on of the file with new header row
-  // identify the valid column #'s
-  // cleanup 
-
-  consoleLogFileData() {
-    console.log(this.fileData);
-  }
-
-  consoleLogHeaderFields() {
-    console.log(this.headerFields);
   }
 
 }

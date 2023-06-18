@@ -4,14 +4,14 @@
     <caption >Trade results </caption>
     <thead >
       <tr>
-        <th scope="col" class="p-4">
+        <th class="p-4">
           <div class="">
             <input id="checkbox-all" type="checkbox" class="">
           </div>
         </th>
         <!-- Generate the table column header row - quantity and amount will depend on dataset -->
-        <th *ngFor="let name of tradeColumnHeader; index as idx" scope="col" class="">
-          {{name}}
+        <th *ngFor="let column of headerRow;">
+          {{ column.name }}
         </th>
         <th>
           Profit / Loss
@@ -22,16 +22,23 @@
       </tr>
     </thead>
     <tbody >
-      <ng-container *ngFor="let row of tradeColumnValues; index as idx">
+      <ng-container *ngFor="let record of tradeRecords; index as idx">
         <tr>
           <td class="p-4">
             <div class="">
               <input id="checkbox-all" type="checkbox" class="">
             </div>
           </td>
-          <td *ngFor="let val of row;">
-            {{ val.trim() }}
-          </td>
+          <td>{{ record.date }}</td>
+          <td>{{ record.orderId }}</td>
+          <td>{{ record.asset }}</td>
+          <td>{{ record.side }}</td>
+          <td>{{ record.unitPrice }}</td>
+          <td>{{ record.qty }}</td>
+          <td>{{ record.amountPaid }}</td>
+          <td>{{ record.fee }}</td>
+          <td>{{ record.currencyPair }}</td>
+
           <!-- for profit and loss pipe -->
           <td> {{ 0.00 }} </td>
           <td>
@@ -41,6 +48,24 @@
           </td>
         </tr>
       </ng-container>
+      <!-- <ng-container *ngFor="let row of tradeColumnValues; index as idx">
+        <tr>
+          <td class="p-4">
+            <div class="">
+              <input id="checkbox-all" type="checkbox" class="">
+            </div>
+          </td>
+          <td *ngFor="let val of row;">
+            {{ val.trim() }}
+          </td>
+          <td> {{ 0.00 }} </td>
+          <td>
+            <a href="#" type="button" 
+              (click)="toggleEditModal(idx)" 
+              class="table-trade-edit-btn">Edit</a>
+          </td>
+        </tr>
+      </ng-container> -->
     </tbody>
     <tfoot >
       <tr>

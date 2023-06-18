@@ -45,7 +45,7 @@
 
   <!-- Section for selecting column headers -->
   <app-data-select-table
-    *ngIf="showSelectTable && !showTable"
+    *ngIf="(showSelectTable && !showTable)"
     [(showTable)]="showTable"
     [(showTable)]="!showSelectTable" ></app-data-select-table>
 

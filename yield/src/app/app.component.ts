@@ -19,6 +19,7 @@ export class AppComponent {
   showTradeCard: boolean = false;
   showSelectTable: boolean = false; // todo logic for showing after file upload
   showTable: boolean = false;
+  hasFileChange: boolean = false;
 
   constructor(
     private authService : AuthService

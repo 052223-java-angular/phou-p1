@@ -1,24 +1,29 @@
-import { Component, Input, OnInit, AfterContentChecked, AfterViewChecked, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, AfterContentChecked, EventEmitter, Output } from '@angular/core';
 import { IColumnPair } from '../models/IColumnPair';
 import { FileService } from '../services/file.service';
-import { IColumn } from '../models/IColumn';
+import { ITrade, Trade } from '../models/Trade';
+import { Header, IHeader } from '../models/Header';
 
 @Component({
   selector: 'app-data-select-table',
   templateUrl: './data-select-table.component.html',
   styleUrls: ['./data-select-table.component.css']
 })
-export class DataSelectTableComponent implements OnInit, AfterContentChecked, AfterViewChecked {
+export class DataSelectTableComponent implements OnInit, AfterContentChecked {
   // @Input() showSelectDataTable: boolean = false;
   @Input() selectOptionError: boolean = false;
   @Input() showTableSubmitError: boolean = false;
   @Input() showTable: boolean = false;
+  // componentId: string = 'data-select-table';
 
   @Output() showTableChange = new EventEmitter<boolean>();
 
   tableColumnsPerRow: string[] = [];
   tradeColumnOption: string[] = []; 
   tradeColumnValues: string[] = [];
+  reassignedColumnValues: string[][] = [];
+  tradeRecords: ITrade[] = [];
+  headerRow: IHeader[] = [];
  
   columnPairs: IColumnPair[] = [];
   selectedOption: string = '';
@@ -27,33 +32,81 @@ export class DataSelectTableComponent implements OnInit, AfterContentChecked, Af
     private fileService: FileService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   // require hook for detecting content changes after load
   ngAfterContentChecked(): void {
     this.tradeColumnOption = this.fileService.getTradeColumnOptions();
-    this.tableColumnsPerRow= this.fileService.getHeaderFields();
-    this.tradeColumnValues = this.fileService.getFileData().map(e => e).slice(0, 5);
+    this.tableColumnsPerRow= this.fileService.getRawHeaderFields();
+    this.tradeColumnValues = this.fileService.getRawRecords().map(e => e).slice(0, 2);
    }
 
-   ngAfterViewChecked(): void {
-
-   }
-
-   // todo 
    submitSelectedOptions() {
-    // when all data lengths are equal, hide this table
-    if (this.columnPairs.length === this.tradeColumnOption.length) {
-        // this.showSelectDataTable = false;
-        this.showTableChange.emit(true);
-        console.log("Hiding select table");
-      } else {
-        this.showTableSubmitError = true;
-        return;
+      // when all data lengths are equal, hide this table
+      if (this.columnPairs.length !== this.tradeColumnOption.length) {
+          this.showTableSubmitError = true;
+          return;
       }
 
+      // emit change and ssign column data 
+      this.showTableChange.emit(true);
+
+      const data = this.fileService.getRawRecords();
+      let isRequireHeader = true;
+      for (const element of data) {
+
+        let rowData = element;
+        let colValues = [];
+
+        let trade = new Trade();
+        for (let pair of this.columnPairs) {
+          const colName = pair.columnName;
+
+          // run for 1 iteration
+          if (isRequireHeader) {
+            this.headerRow.push(new Header(pair.columnName, pair.columnSlot));
+          }
+
+          switch (colName) {
+            case 'asset':
+              trade.asset = rowData[pair.columnSlot]; break;
+            case 'order_id':
+              trade.orderId = rowData[pair.columnSlot]; break;
+            case 'date':
+              trade.date = rowData[pair.columnSlot]; break;
+            case 'side':
+              trade.side = rowData[pair.columnSlot]; break;
+            case 'unit_price':
+              trade.unitPrice = Number.parseFloat(rowData[pair.columnSlot]); break;
+            case 'qty':
+              trade.qty = Number.parseFloat(rowData[pair.columnSlot]); break;
+            case 'amount_paid':
+              trade.amountPaid = Number.parseFloat(rowData[pair.columnSlot]); break;
+            case 'fee':
+              trade.fee = Number.parseFloat(rowData[pair.columnSlot]); break;
+            case 'currency_pair':
+              trade.currencyPair = rowData[pair.columnSlot]; break;
+            default:
+              break;
+
+          }
+          
+          colValues.push(rowData[pair.columnSlot]);
+        } 
+        
+        isRequireHeader = false;
+        this.tradeRecords.push(trade);       
+        this.reassignedColumnValues.push(colValues);
+      }
+
+      // perform calculation, add column or send to  backend for processing
+      // consolidate pairs, create oject by date
+
+
       // then pass / output the value ito the parent in order to complete the trade table rendering
-      this.fileService.saveFileHeaderFields(this.columnPairs);
+      this.fileService.saveTradeRecords(this.tradeRecords);
+      this.fileService.saveTradeHeaderFields(this.headerRow);
+      // this.fileService.saveOrganizedFileData(this.reassignedColumnValues);
    }
 
 

@@ -11,32 +11,44 @@ import { HttpClient } from '@angular/common/http';
 export class FileUploadComponent implements OnInit {
   @Input() hasUploadFile: boolean = false;
   @Input() hasFileTypeError: boolean = false;
+  // @Input() componentId: string = '';
+  // hasFileChange: boolean = false;
+
+  file: File | null = null;
 
   @Output() hasUploadFileChange = new EventEmitter<boolean>();
-
+  // @Output() fileChange = new EventEmitter<boolean>();
 
   constructor(
     private fileService: FileService,
   ) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   onFileSelect(event: any) : void {
     event.preventDefault();
-    const file: File = event.target?.files[0];
+    this.file = event.target?.files[0];
 
-    if (file) {
-      const ext = file.type;
+    if (this.file) {
+
+      // // this.showTable = false;
+      // this.hasFileChange = false;
+      // this.componentId = 'data-select-table-' + Date.now();
+      // setTimeout(() => {
+      //   this.hasFileChange = true;
+      // }, 0);
+
+      const ext = this.file.type;
 
       if (!ext.includes("csv")) {
         this.setError();
         return;
       }
 
-      this.fileService.parseCsvFile(file);
+      this.fileService.parseCsvFile(this.file);
       this.hasUploadFileChange.emit(true);
+      event.traget.value = '';
+      this.file = null;
     }
 
   }
