@@ -3,6 +3,7 @@ import { ISelectOption, SelectOption } from '../models/SelectOption';
 import { FileService } from '../services/file.service';
 import { ITrade, Trade } from '../models/Trade';
 import { Header, IHeader } from '../models/Header';
+import { TradeRecordService } from '../services/trade-record.service';
 
 @Component({
   selector: 'app-data-select-table',
@@ -33,14 +34,14 @@ export class DataSelectTableComponent implements AfterContentChecked {
   selectedOption: string = '';
 
   constructor(
-    private fileService: FileService
+    private tradeRecordService: TradeRecordService
   ) { }
 
   // require hook for detecting content changes after load
   ngAfterContentChecked(): void {
-    this.rawSelectOptions = this.fileService.getTradeColumnOptions();
-    this.rawHeaderFields= this.fileService.getRawHeaderFields();
-    this.rawTradeRecords = this.fileService.getRawRecords().map(e => e).slice(0, 2);
+    this.rawSelectOptions = this.tradeRecordService.getTradeColumnOptions();
+    this.rawHeaderFields= this.tradeRecordService.getRawHeaderFields();
+    this.rawTradeRecords = this.tradeRecordService.getRawTradeRecords().map(e => e).slice(0, 2);
    }
 
 
@@ -96,8 +97,12 @@ export class DataSelectTableComponent implements AfterContentChecked {
 
    // for adding trade record header fields
    private addHeaderFields() : void {
+    if (this.tradeRecordService.getLocalHeaderFields().length > 0) {
+      this.tradeRecordService.clearLocalHeaderFields();
+    }
+
     for (let option of this.selectedColumnOptions) {
-      this.headerFields.push(new Header(option.name, option.slot));
+      this.tradeRecordService.addLocalHeaderField(new Header(option.name, option.slot));
     }
    }
 
@@ -109,7 +114,12 @@ export class DataSelectTableComponent implements AfterContentChecked {
       return;
     }
 
-      const records = this.fileService.getRawRecords();
+      const records = this.tradeRecordService.getRawTradeRecords();
+
+      // if (this.tradeRecordService.getLocalTradeRecords().length > 0) {
+      //   this.tradeRecordService.clearLocalTradeRecords();
+      // }
+
       let includeHeader = true;
       for (const element of records) {
         if (includeHeader) {
@@ -117,16 +127,13 @@ export class DataSelectTableComponent implements AfterContentChecked {
           includeHeader = false;
           continue;
         }
-        this.tradeRecords.push(this.createTradeRecord(element));
+        this.tradeRecordService.addLocalTradeRecord(this.createTradeRecord(element))
       }
 
       // perform calculation, add column or send to  backend for processing
       // consolidate pairs, create oject by date
 
-
-      // then pass / output the value ito the parent in order to complete the trade table rendering
-      this.fileService.saveTradeRecords(this.tradeRecords);
-      this.fileService.saveTradeHeaderFields(this.headerFields);
+      console.log(this.tradeRecordService.getLocalHeaderFields());
       // emit change and ssign column data 
       this.showTableChange.emit(true);
    }

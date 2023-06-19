@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ITrade, Trade } from '../models/Trade';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { TradeReportService } from '../services/trade-report.service';
+import { TradeRecordService } from '../services/trade-record.service';
 
 @Component({
   selector: 'app-edit-modal',
@@ -29,7 +29,7 @@ export class EditModalComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private tradeReportService: TradeReportService
+    private TradeRecordService: TradeRecordService
   ) { }
 
   ngOnInit(): void {
@@ -65,15 +65,25 @@ export class EditModalComponent implements OnInit {
   updateTradeRecord() : void {
     console.log("updating record ... ");
 
-    this.updateTradeRecordValues();
+    this.tradeRecord = this.TradeRecordService.updateLocalTrade(
+      this.editForm.get('asset')?.value,
+      this.editForm.get('orderId')?.value,
+      this.editForm.get('date')?.value,
+      this.editForm.get('side')?.value,
+      this.editForm.get('unitPrice')?.value,
+      this.editForm.get('qty')?.value,
+      this.editForm.get('amountPaid')?.value,
+      this.editForm.get('fee')?.value,
+      this.editForm.get('currencyPair')?.value,
+      this.tradeRecord.index || 0
+    );
+
     this.showModal = false;
     this.showModalChange.emit(this.showModal);
     this.tradeRecordChange.emit(this.tradeRecord);
   }
 
   private updateTradeRecordValues() : void {
-    console.log("Before: ");
-    console.log(this.tradeRecord);
     this.tradeRecord.asset = this.editForm.get('asset')?.value;
     this.tradeRecord.orderId = this.editForm.get('orderId')?.value
     this.tradeRecord.date  = this.editForm.get('date')?.value
@@ -83,8 +93,6 @@ export class EditModalComponent implements OnInit {
     this.tradeRecord.amountPaid = this.editForm.get('amountPaid')?.value
     this.tradeRecord.fee = this.editForm.get('fee')?.value
     this.tradeRecord.currencyPair = this.editForm.get('currencyPair')?.value
-    console.log("After: ");
-    console.log(this.tradeRecord);
   }
 
 

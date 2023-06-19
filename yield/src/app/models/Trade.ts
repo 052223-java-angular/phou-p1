@@ -7,7 +7,8 @@ export interface ITrade {
   qty: number,
   amountPaid: number,
   fee: number,
-  currencyPair: string
+  currencyPair: string,
+  index?: number
 }
 
 export class Trade implements ITrade {
@@ -20,7 +21,8 @@ export class Trade implements ITrade {
     public qty: number = 0,
     public amountPaid: number = 0,
     public fee: number = 0,
-    public currencyPair: string = ''
+    public currencyPair: string = '',
+    public index?: number
   ) {}
 
   
