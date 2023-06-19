@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser, User } from '../models/IUser';
+import { IUser } from '../models/IUser';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';

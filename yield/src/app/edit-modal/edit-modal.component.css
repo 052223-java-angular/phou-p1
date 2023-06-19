@@ -1,0 +1,44 @@
+/*========= MODAL STYLES ==============*/
+.modal-bg-back {
+  @apply opacity-25 fixed inset-0 z-40 bg-black;
+}
+
+.modal-wrapper {
+  @apply flex justify-center items-center fixed p-6 inset-0 z-50 outline-none focus:outline-none;
+}
+
+.modal-wrap-content {
+  @apply relative my-auto mx-auto p-6 w-3/6 max-w-3xl;
+}
+
+.modal-content {
+  @apply flex flex-col mx-auto p-6 border-0 rounded-sm shadow-lg bg-white outline-none focus:outline-none;
+}
+
+.modal-wrap-title {
+  @apply flex items-start py-6 border-b border-b-slate-700 border-[#FBF9F9];
+}
+
+.modal-input-wrap {
+  @apply flex flex-1 w-full justify-evenly gap-4;
+}
+
+.modal-input-wrap.last {
+  @apply pl-8 justify-start items-start;
+}
+
+.modal-wrap-btn {
+  @apply flex items-center justify-end p-6;
+}
+
+.btn-close, .btn-save {
+  @apply w-2/6 font-bold uppercase px-6 py-2 mr-1 mb-1 text-sm shadow-slate-700 hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150;
+}
+
+.btn-save {
+  @apply bg-[#DEB465] text-white;
+}
+
+.btn-close {
+  @apply bg-red-500  text-white;
+}

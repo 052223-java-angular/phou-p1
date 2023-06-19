@@ -35,6 +35,24 @@ export class FileService {
     return maxColSpan;
   }
 
+  loadFromText(text: any) : void {
+    this.rawHeaderFields = [];
+    this.rawRecords = [];
+
+    this.papa.parse(text, {
+      header: false,
+      skipEmptyLines: true,
+      complete: (result) => {
+        // remove all of the empty fields
+        this.saveRawRecords(this.filterRawRecords(result.data));
+        console.log(this.rawRecords);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
+
   // method for parsing file
   parseCsvFile(file: File) : void {
     this.rawHeaderFields = [];

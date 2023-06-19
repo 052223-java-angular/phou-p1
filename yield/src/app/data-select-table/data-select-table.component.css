@@ -1,9 +1,13 @@
 table {
-  @apply relative mx-auto border;
+  @apply relative mx-auto overflow-auto;
 }
 
 thead {
   @apply py-2 px-3 text-white capitalize tracking-wide bg-[#9DACC6] rounded-sm;
+}
+
+thead, tbody {
+  @apply mx-auto h-full;
 }
 
 caption {
@@ -41,10 +45,6 @@ tfoot > tr > td {
 
 tfoot > tr > td > button {
   @apply py-2 px-8 m-0 text-white text-xl uppercase bg-[#DEB465] rounded-sm;
-}
-
-td[colspan] {
-  @apply relative;
 }
 
 .option-error {

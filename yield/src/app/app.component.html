@@ -10,7 +10,7 @@
     
     <app-file-upload 
       [(didUploadFile)]="showSelectTable"
-      class="mx-auto w-4/6">
+      class="mx-auto w-5/6">
 
       <p typeError class="file-type-error text-red-600">Incorrect file type, must be .csv type</p>
     </app-file-upload>
@@ -50,9 +50,10 @@
     [(showTable)]="!showSelectTable" ></app-data-select-table>
 
     
+    <!-- *ngIf="didUploadFile || (showTable && showSelectTable)" -->
   <!-- Section for uploading / show after file is uploaded -->
   <app-data-table 
-    *ngIf="didUploadFile || (showTable && showSelectTable)"
+    *ngIf="true"
     class=""></app-data-table>
 
   <footer class="app-footer">
