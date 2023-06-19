@@ -65,6 +65,8 @@ export class EditModalComponent implements OnInit {
   updateTradeRecord() : void {
     console.log("updating record ... ");
 
+    // this.updateTradeRecordValues();
+
     this.tradeRecord = this.TradeRecordService.updateLocalTrade(
       this.editForm.get('asset')?.value,
       this.editForm.get('orderId')?.value,
@@ -77,6 +79,7 @@ export class EditModalComponent implements OnInit {
       this.editForm.get('currencyPair')?.value,
       this.tradeRecord.index || 0
     );
+
 
     this.showModal = false;
     this.showModalChange.emit(this.showModal);

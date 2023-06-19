@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, AfterContentChecked } from '@angular/core';
-import { FileService } from '../services/file.service';
 import { ITrade, Trade } from '../models/Trade';
 import { Header, IHeader } from '../models/Header';
 import { TradeRecordService } from '../services/trade-record.service';
@@ -35,16 +34,20 @@ export class DataTableComponent implements OnInit, AfterContentChecked {
     if (!this.showDataTable) {
       this.headerRow = this.tradeRecordService.getLocalHeaderFields();
       this.tradeRecords = this.tradeRecordService.getLocalTradeRecords();
+      // console.log(this.tradeRecords)
     }
     
   }
 
   ngAfterContentChecked(): void {
-    this.headerRow = this.tradeRecordService.getLocalHeaderFields();
-    this.tradeRecords = this.tradeRecordService.getLocalTradeRecords().slice(1,20);
+    if (false) {
+      this.headerRow = this.tradeRecordService.getLocalHeaderFields();
+      this.tradeRecords = this.tradeRecordService.getLocalTradeRecords().slice(1,20);
+    }
   }
 
   editTrade(index: number, tradeRecord: Trade) {
+    console.log(index);
     tradeRecord.index = index;
     this.tradeRecord = tradeRecord;
     this.showModal = !this.showModal;
