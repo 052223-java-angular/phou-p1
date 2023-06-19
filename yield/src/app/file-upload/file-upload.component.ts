@@ -14,7 +14,7 @@ export class FileUploadComponent {
   @Output() didUploadFileChange = new EventEmitter<boolean>();
 
   constructor(
-    private fileService: FileService,
+    private fileService: FileService
   ) { }
 
   // for handling file uploads

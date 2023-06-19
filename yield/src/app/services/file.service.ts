@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
 import { ITrade } from '../models/Trade';
 import { IHeader } from '../models/Header';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -18,7 +19,8 @@ export class FileService {
   private tradeHeaderFields: IHeader[] = [];
 
   constructor(
-    private papa: Papa
+    private papa: Papa,
+    private httpClient: HttpClient
   ) {}
 
   private filterRawRecords(records: string[]) : string[] {
@@ -35,43 +37,42 @@ export class FileService {
     return maxColSpan;
   }
 
-  loadFromText(text: any) : void {
-    this.rawHeaderFields = [];
-    this.rawRecords = [];
+  // not working with the return file type
+  // getRecordsFromAssetsDir() : any {
+  //   return this.httpClient.get('/assets/sample.csv', {responseType: 'arraybuffer'}).subscribe({
+  //     next: (res) => {
+  //       return res;
+  //     },
+  //     error: (err) => console.log(err.message),
+  //     complete: () => console.log("complete ...")
+  //   })
+  // }
 
-    this.papa.parse(text, {
-      header: false,
-      skipEmptyLines: true,
-      complete: (result) => {
-        // remove all of the empty fields
-        this.saveRawRecords(this.filterRawRecords(result.data));
-        console.log(this.rawRecords);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
-  }
+  // parseFromResponse(file: any) {
+  //   this.papaParse(file); 
+  // }
 
   // method for parsing file
   parseCsvFile(file: File) : void {
     this.rawHeaderFields = [];
     this.rawRecords = [];
+    this.papaParse(file);
+  }
+  
 
+  private papaParse(file: any) {
     this.papa.parse(file, {
       header: false,
       skipEmptyLines: true,
       complete: (result) => {
         // remove all of the empty fields
         this.saveRawRecords(this.filterRawRecords(result.data));
-
       },
       error: (error) => {
         console.log(error);
       }
     })
   }
-
 
   getRawRecords() : string[] {
     return this.rawRecords;
