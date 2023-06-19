@@ -7,7 +7,7 @@ thead {
 }
 
 caption {
-  @apply text-2xl text-gray-400 py-4;
+  @apply text-2xl py-4;
 }
 
 tr {

@@ -10,7 +10,7 @@
   @apply flex items-center w-full py-8;
 }
 
-.action-btn {
+/* .action-btn {
   @apply px-4 py-2 mx-2 bg-slate-400 text-white rounded-sm shadow-sm uppercase w-36 hover:bg-slate-300 duration-150;
 }
 
@@ -24,12 +24,20 @@
 
 .action-input-group-center {
   @apply flex flex-1 justify-center items-center px-4 ;
-}
+} */
 
-.action-input {
+/* .action-input {
   @apply w-4/6 text-sm text-gray-900 border border-gray-300 bg-white file:px-4 file:py-3 file:bg-slate-400 file:outline-none file:border-none file:text-white file:uppercase file:min-w-fit file:text-xs;
 }
 
 .action-btn-group {
   @apply flex flex-1 justify-end px-6;
+} */
+
+.action-btn-group {
+  @apply flex flex-1 w-full justify-start items-start;
+}
+
+.action-btn {
+  @apply px-4 py-2 mx-2 bg-slate-400 text-white rounded-sm shadow-sm uppercase w-36 hover:bg-slate-300 duration-150;
 }

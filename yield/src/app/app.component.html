@@ -5,29 +5,30 @@
   <app-top-bar class="z-50"></app-top-bar>
 
   <!-- Action bar for performing actions, e.g. upload file, submit trades i.e save, clearing table, fetching historical -->
-  <caption class="block text-2xl pt-8">Upload a trade file in .csv format to view options</caption>
+  <caption class="block text-2xl pt-8">Upload a trade file to enable view options</caption>
   <div class="action-container">
     
     <app-file-upload 
       [(didUploadFile)]="showSelectTable"
-      class="mx-auto w-5/6">
-
-      <p typeError class="file-type-error text-red-600">Incorrect file type, must be .csv type</p>
+      class="mx-auto w-3/6">
     </app-file-upload>
   
 
     <!-- HIDE BUTTON GROUP; ONLY SHOW AFTER FILE HAS BEEN UPLOADED -->
-    <ng-container *ngIf="showTable">
-      <div class="action-btn-group">
+    <!-- <ng-container *ngIf="showTable"> -->
+    <div class="action-btn-group" >
+      <div class="flex flex-col gap-4">
         <button class="action-btn" (click)="toggleLineChart()">line chart</button>
         <button class="action-btn" (click)="toggleBarChart()">bar chart</button>
         <button class="action-btn" (click)="toggleMarketCard()">market</button>
         <button class="action-btn" (click)="toggleProfitLossCard()">profit & loss</button>
+      </div>
+      <div class="flex flex-col gap-4">
         <button class="action-btn" (click)="toggleFrequencyCard()">frequency</button>
         <button class="action-btn" (click)="toggleTradeCard()">trade</button>
         <button class="action-btn" (click)="saveTrades()">save trades</button>
       </div>
-    </ng-container>
+    </div>
   </div>
 
   <!-- Section for info / summary data -->
