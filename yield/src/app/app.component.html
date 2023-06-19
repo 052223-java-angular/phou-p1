@@ -14,14 +14,13 @@
     </app-file-upload>
   
 
-    <!-- HIDE BUTTON GROUP; ONLY SHOW AFTER FILE HAS BEEN UPLOADED -->
-    <!-- <ng-container *ngIf="showTable"> -->
+    <!-- action buttons -->
     <div class="action-btn-group" >
       <div class="flex flex-col gap-4">
+        <button class="action-btn" (click)="toggleProfitLossCard()">profit & loss</button>
         <button class="action-btn" (click)="toggleLineChart()">line chart</button>
         <button class="action-btn" (click)="toggleBarChart()">bar chart</button>
         <button class="action-btn" (click)="toggleMarketCard()">market</button>
-        <button class="action-btn" (click)="toggleProfitLossCard()">profit & loss</button>
       </div>
       <div class="flex flex-col gap-4">
         <button class="action-btn" (click)="toggleFrequencyCard()">frequency</button>
