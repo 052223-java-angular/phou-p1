@@ -57,10 +57,3 @@ export class FileUploadComponent {
 
 }
 
-
-
-
-function output(): (target: FileUploadComponent, propertyKey: "uploadFileChange") => void {
-  throw new Error('Function not implemented.');
-}
-

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ITrade, Trade } from '../models/Trade';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { TradeReportService } from '../services/trade-report.service';
 
 @Component({
   selector: 'app-edit-modal',
@@ -27,7 +28,8 @@ export class EditModalComponent implements OnInit {
   currencyPair!: FormControl;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private tradeReportService: TradeReportService
   ) { }
 
   ngOnInit(): void {

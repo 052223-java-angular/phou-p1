@@ -1,7 +1,7 @@
 
 
 .action-input-group {
-  @apply relative flex justify-end items-end px-6;
+  @apply relative flex justify-end px-6;
 }
 
 .action-input {
