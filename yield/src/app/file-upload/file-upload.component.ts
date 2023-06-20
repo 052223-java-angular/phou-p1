@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FileService } from '../services/file.service';
+import { TradeRecordService } from '../services/trade-record.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -14,17 +15,22 @@ export class FileUploadComponent {
   @Output() didUploadFileChange = new EventEmitter<boolean>();
 
   constructor(
-    private fileService: FileService
+    private fileService: FileService,
+    private tradeRecordService: TradeRecordService
   ) { }
 
   // for handling file uploads
-  onFileUpload(event: any) : void {
+  async onFileUpload(event: any) : Promise<void> {
     event.preventDefault();
     this.file = event.target?.files[0];
 
     if (this.file && this.isValidFileType()) {
 
-      this.fileService.parseCsvFile(this.file);
+      let rawTradeRecordsWithHeader = await this.fileService.parseCsvFile(this.file);
+      this.tradeRecordService.concatRawHeaderFields(rawTradeRecordsWithHeader[0])
+      rawTradeRecordsWithHeader.shift();
+      this.tradeRecordService.saveRawTradeRecords(rawTradeRecordsWithHeader);
+
       this.didUploadFileChange.emit(true);
       this.resetInput(event);
       return;

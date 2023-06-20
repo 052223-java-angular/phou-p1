@@ -11,7 +11,8 @@ export interface ITrade {
   index?: number
 }
 
-export class Trade implements ITrade {
+
+export class LocalTrade implements ITrade {
   constructor(
     public asset: string = '',
     public orderId: string = '',
@@ -24,6 +25,5 @@ export class Trade implements ITrade {
     public currencyPair: string = '',
     public index?: number
   ) {}
-
   
 }

@@ -1,7 +1,7 @@
 import { Component, Input, AfterContentChecked, EventEmitter, Output } from '@angular/core';
 import { ISelectOption, SelectOption } from '../models/SelectOption';
 import { FileService } from '../services/file.service';
-import { ITrade, Trade } from '../models/Trade';
+import { ITrade, LocalTrade } from '../models/ITrade';
 import { Header, IHeader } from '../models/Header';
 import { TradeRecordService } from '../services/trade-record.service';
 
@@ -64,7 +64,7 @@ export class DataSelectTableComponent implements AfterContentChecked {
 
    // for creating a trade record
    private createTradeRecord(record: string) : ITrade {
-    let tradeRecord = new Trade();
+    let tradeRecord = new LocalTrade();
 
     for (let option of this.selectedColumnOptions) {
       const colName = option.name;

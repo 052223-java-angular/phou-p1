@@ -1,167 +1,252 @@
 import { Injectable } from '@angular/core';
-import { ITrade, Trade } from '../models/Trade';
+import { ITrade, LocalTrade } from '../models/ITrade';
 import { HttpClient } from '@angular/common/http';
 import { Header, IHeader } from '../models/Header';
-
-
+import { IPrice, Bnb } from '../models/IPrice';
+import { ApiTradeRecord, IApiTrade } from '../models/IApiTrade';
+import { FileService } from './file.service';
 
 //====================================
 // Service for handling the get, save, update or delete of trade records
 //
 //====================================
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TradeRecordService {
-  localTradeRecords: ITrade[] = [];
-  localHeaderFields: IHeader[] = [];
-
+  // for raw unformatted records
   rawTradeRecords: string[] = [];
   rawHeaderFields: string[] = [];
 
-  private tradeColumnOptions: string[] = ['asset', 'order_id', 'date', 'side', 'unit_price', 'qty', 'amount_paid', 'fee', 'currency_pair'];
+  // for local formatted records
+  localTradeRecords: ITrade[] = [];
+  localHeaderFields: IHeader[] = [];
 
+  // for api requested trade records
+  apiTradeRecords: IApiTrade[] = [];
+  apiHeaderFields: string[] = [];
+
+  // for major pair historical pricing
+  priceFields: string[] = [];
+  bnbPriceHistory: IPrice[] = [];
+  ethPriceHistory: IPrice[] = [];
+  btcPriceHistory: IPrice[] = [];
+
+  private tradeColumnOptions: string[] = [
+    'asset',
+    'order_id',
+    'date',
+    'side',
+    'unit_price',
+    'qty',
+    'amount_paid',
+    'fee',
+    'currency_pair',
+  ];
 
   constructor(
-    private httpCient: HttpClient
+    private fileService: FileService
   ) {
-    let arrHead = ['asset', 'order_id', 'date', 'side', 'unit_price', 'qty', 'amount_paid', 'fee', 'currency_pair']
-    this.localTradeRecords.push(new Trade('2022-04-02 10:24:03','6247b3c2d332c0000176aee6','BNB-USDT','buy',452.375,0.17724318,80.1803835525,0.0801803835525,'USDT'))
-    this.localTradeRecords.push(new Trade('2022-04-02 10:24:03','6247b3c2d332c0000176aee6','BNB-USDT','buy',452.369,0.1815,82.1049735,0.0821049735,'USDT'),)
-    this.localTradeRecords.push(new Trade('2022-04-02 10:24:03','6247b3c2d332c0000176aee6','BNB-USDT','buy',452.369,0.1815,82.1049735,0.0821049735,'USDT'),)
-    
+
+    const arrHead = ['asset','order_id', 'date', 'side', 'unit_price', 'qty', 'amount_paid','fee', 'currency_pair' ];
+    this.localTradeRecords.push(
+      new LocalTrade('2022-04-02 10:24:03', '6247b3c2d332c0000176aee6','BNB-USDT', 'buy', 452.375, 0.17724318,80.1803835525,0.0801803835525,'USDT'));
+    this.localTradeRecords.push(
+      new LocalTrade('2022-04-02 10:24:03', '6247b3c2d332c0000176aee6', 'BNB-USDT', 'buy', 452.369, 0.1815, 82.1049735, 0.0821049735,'USDT'));
+    this.localTradeRecords.push(
+      new LocalTrade( '2022-04-02 10:24:03', '6247b3c2d332c0000176aee6', 'BNB-USDT', 'buy', 452.369,0.1815, 82.1049735, 0.0821049735,'USDT'));
+
     // console.log(this.localTradeRecords)
     for (let i = 0; i < arrHead.length; i++) {
-      this.localHeaderFields.push(new Header(arrHead[i], i+1));
+      this.localHeaderFields.push(new Header(arrHead[i], i + 1));
     }
-   }
 
-  getTradeColumnOptions() : string[] {
+    this.initApiHeaderFields();
+    this.initPriceFields();
+    this.initBnbPrice('../../assets/bnb_price_history.csv');
+
+  }
+
+  private initApiHeaderFields(): void {
+    const apiTrade = new ApiTradeRecord( '','','','','','','','','','', '','','','');
+    for (const propertyName in apiTrade) {
+      this.apiHeaderFields.push(propertyName);
+    }
+  }
+
+  private initPriceFields(): void {
+    const apiTrade = new Bnb('','','','','');
+    for (const propertyName in apiTrade) {
+      this.apiHeaderFields.push(propertyName);
+    }
+  }
+
+  private initBnbPrice(filePath: string) : void {
+    this.fileService.getBnbPriceFromFile(filePath);
+  }
+
+
+  /////////// Price
+
+  addPriceRecord(records: string) : void {
+    debugger;
+    for (const record of records) {
+      const values = record.split(",");
+      for (const field of this.priceFields) {
+
+        // this.bnbPriceHistory.push(new Bnb(field))
+
+      }
+    }
+  }
+
+  ///////////////////////////////////////////////////////////
+
+  // coluumn / field options for the select input drop down
+  getTradeColumnOptions(): string[] {
     return this.tradeColumnOptions;
   }
 
-  getRawHeaderFields() : string[] {
+  // the unformatted header fields
+  getRawHeaderFields(): string[] {
     return this.rawHeaderFields;
-   }
+  }
 
-  getRawTradeRecords() : string[] {
+  // the unformatted trade records
+  getRawTradeRecords(): string[] {
     return this.rawTradeRecords;
-   }
+  }
 
-  getLocalHeaderFields() : IHeader[] {
+  // the local formatted / match header fields
+  getLocalHeaderFields(): IHeader[] {
     return this.localHeaderFields;
   }
 
-  // DQL
-  getLocalTradeRecords() : ITrade[] {
+  // the local formatted trade records
+  getLocalTradeRecords(): ITrade[] {
     return this.localTradeRecords;
   }
 
-  getLocalTradeRecordById(id: number) : ITrade {
-    return this.localTradeRecords[id];
+  // a singe local trade record by index
+  getLocalTradeRecordByIndex(index: number): ITrade {
+    return this.localTradeRecords[index];
   }
 
-  getTradeRecords() : ITrade[] | null {
+  // trade records received from an api endpoint
+  getTradeRecords(): ITrade[] | null {
     // todo http
     return [];
   }
 
-  getTradeRecordById(id: number) : ITrade | null {
+  // trade records by its id; recieved from an api endpoint
+  getTradeRecordById(id: number): ITrade | null {
     // todo http
     return null;
   }
 
-
-  addRawTradeRecord(rawTradeRecord: string) : void {
+  // adds one raw trade reccord to local class member
+  addRawTradeRecord(rawTradeRecord: string): void {
     this.rawTradeRecords.push(rawTradeRecord);
   }
 
-  saveRawTradeRecords(rawTradeRecords: string[]) : void {
+  // saves an array of raw trade records
+  saveRawTradeRecords(rawTradeRecords: string[]): void {
     this.rawTradeRecords = rawTradeRecords;
   }
 
-  saveRawHeaderFields(rawHeaderFields: string) : void {
+  // saves a string of raw header fields
+  concatRawHeaderFields(rawHeaderFields: string): void {
     this.rawHeaderFields = [];
     this.rawHeaderFields = this.rawHeaderFields.concat(rawHeaderFields);
   }
 
-  //=========== for local trade records ===============//
-
-  clearLocalHeaderFields() : void {
-    this.localHeaderFields = [];
+  // saves a string of raw header fields
+  saveRawHeaderFields(rawHeaderFields: string[]): void {
+    this.rawHeaderFields = [];
+    for (const field of rawHeaderFields) {
+      this.rawHeaderFields.push(field);
+    }
   }
 
-  clearLocalTradeRecords() : void {
-    this.localTradeRecords = [];
-  }
-
-  addLocalHeaderField(headerField: IHeader) : void {
-    this.localHeaderFields.push(headerField);
-  }
-
-  addLocalTradeRecord(localTradeRecord: ITrade) : void {
-    this.localTradeRecords.push(localTradeRecord);
-  }
-
-  saveLocalHeaderFields(headerFields: IHeader[]) : void {
+  saveLocalHeaderFields(headerFields: IHeader[]): void {
     this.localHeaderFields = headerFields;
-  } 
+  }
 
-  saveLocalTradeRecords(tradeRecords: ITrade[]) : void {
+  saveLocalTradeRecords(tradeRecords: ITrade[]): void {
     this.localTradeRecords = tradeRecords;
   }
 
+  //=========== for local trade records ===============//
+
+  // clear the local header fields array
+  clearLocalHeaderFields(): void {
+    this.localHeaderFields = [];
+  }
+
+  // clear the local trade record array
+  clearLocalTradeRecords(): void {
+    this.localTradeRecords = [];
+  }
+
+  // add one local header field to local member variable
+  addLocalHeaderField(headerField: IHeader): void {
+    this.localHeaderFields.push(headerField);
+  }
+
+  // add one local trade record to the local member variable
+  addLocalTradeRecord(localTradeRecord: ITrade): void {
+    this.localTradeRecords.push(localTradeRecord);
+  }
+
   updateLocalTrade(
-    asset: string, 
-    orderId: string, 
-    date: string, 
-    side: string, 
+    asset: string,
+    orderId: string,
+    date: string,
+    side: string,
     unitPrice: number,
     qty: number,
     amountPaid: number,
     fee: number,
-    currencyPair: string, 
-    idx: number ) : ITrade {
+    currencyPair: string,
+    idx: number
+  ): ITrade {
+    console.log(idx);
+    this.localTradeRecords[idx].asset = asset;
+    this.localTradeRecords[idx].orderId = orderId;
+    this.localTradeRecords[idx].date = date;
+    this.localTradeRecords[idx].side = side;
+    this.localTradeRecords[idx].unitPrice = unitPrice;
+    this.localTradeRecords[idx].qty = qty;
+    this.localTradeRecords[idx].amountPaid = amountPaid;
+    this.localTradeRecords[idx].fee = fee;
+    this.localTradeRecords[idx].currencyPair = currencyPair;
 
-      console.log(idx);
-      this.localTradeRecords[idx].asset = asset;
-      this.localTradeRecords[idx].orderId = orderId
-      this.localTradeRecords[idx].date  = date;
-      this.localTradeRecords[idx].side = side;
-      this.localTradeRecords[idx].unitPrice = unitPrice;
-      this.localTradeRecords[idx].qty = qty;
-      this.localTradeRecords[idx].amountPaid = amountPaid;
-      this.localTradeRecords[idx].fee = fee;
-      this.localTradeRecords[idx].currencyPair = currencyPair;
-
-      console.log(this.localTradeRecords[idx]);
-    return this.localTradeRecords[idx+1];
+    console.log(this.localTradeRecords[idx]);
+    return this.localTradeRecords[idx + 1];
   }
 
-
-  updateLocalTradeRecord(tradeRecord: ITrade) : ITrade {
+  updateLocalTradeRecord(tradeRecord: ITrade): ITrade {
     const idx = tradeRecord.index ?? 0;
     this.localTradeRecords[idx] = tradeRecord;
     return this.localTradeRecords[idx];
   }
 
-  deleteLocalTradeRecord(index: number) : ITrade[] {
+  deleteLocalTradeRecord(index: number): ITrade[] {
     this.localTradeRecords.splice(index, 1);
     return this.localTradeRecords;
   }
 
-
   //============ FOR HTTP ==============//
 
-  saveTradeRecords(tradeRecords: ITrade[]) : void {
+  saveTradeRecords(tradeRecords: ITrade[]): void {
     // todo http
   }
 
-  updateTradeRecord(tradeRecord: ITrade) : void {
+  updateTradeRecord(tradeRecord: ITrade): void {
     // todo http
   }
 
-  deleteTradeRecord(tradeRecord: ITrade) : void {
+  deleteTradeRecord(tradeRecord: ITrade): void {
     // todo http
   }
 
@@ -177,7 +262,4 @@ export class TradeRecordService {
   //   this.tradeRecords[idx].fee = this.editForm.get('fee')?.value
   //   this.tradeRecords[idx].currencyPair = this.editForm.get('currencyPair')?.value
   // }
-
-
-
 }

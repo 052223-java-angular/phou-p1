@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ITrade, Trade } from '../models/Trade';
+import { ITrade, LocalTrade } from '../models/ITrade';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TradeRecordService } from '../services/trade-record.service';
 
@@ -13,7 +13,7 @@ export class EditModalComponent implements OnInit {
   @Input() showModal: boolean = false;
   @Input() tradeRecord!: ITrade;
   @Output() showModalChange = new EventEmitter<boolean>();
-  @Output() tradeRecordChange = new EventEmitter<Trade>();
+  @Output() tradeRecordChange = new EventEmitter<LocalTrade>();
 
   editForm!: FormGroup;
 
