@@ -28,7 +28,7 @@ export class FileUploadComponent {
 
       let rawTradeRecordsWithHeader = await this.fileService.parseCsvFile(this.file);
       this.tradeRecordService.concatRawHeaderFields(rawTradeRecordsWithHeader[0])
-      rawTradeRecordsWithHeader.shift();
+      rawTradeRecordsWithHeader.shift(); // remove the first header element
       this.tradeRecordService.saveRawTradeRecords(rawTradeRecordsWithHeader);
 
       this.didUploadFileChange.emit(true);

@@ -82,21 +82,19 @@ export class TradeRecordService {
   }
 
   private initBnbPrice(filePath: string) : void {
-    this.fileService.getBnbPriceFromFile(filePath);
+    this.fileService.getBnbPriceFromFile(filePath)
+      .then(priceRecords => {
+        this.addBnbPriceRecords(priceRecords);
+      }).catch(err => console.log(err));
   }
 
 
   /////////// Price
 
-  addPriceRecord(records: string) : void {
-    debugger;
-    for (const record of records) {
-      const values = record.split(",");
-      for (const field of this.priceFields) {
-
-        // this.bnbPriceHistory.push(new Bnb(field))
-
-      }
+  addBnbPriceRecords(priceRecords: string[]) : void {
+    priceRecords.shift(); // remove header row
+    for (const record of priceRecords) {
+      this.bnbPriceHistory.push(new Bnb('BNB', record[0], record[4], record[6], record[5]))
     }
   }
 
