@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IUser } from './models/IUser';
 import { AuthService } from './services/auth.service';
+import { TradeRecordService } from './services/trade-record.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class AppComponent {
   didUploadFile: boolean = false;
 
   constructor(
-    private authService : AuthService
+    private authService : AuthService,
+    private tradeRecordService: TradeRecordService
   ) {}
 
   toggleLineChart() : void {
@@ -50,10 +52,24 @@ export class AppComponent {
   }
 
   saveTrades() : void {
-    // todo persist trades to 
-    console.log("Saving trades")
+    console.log("Saving trades...")
+    this.tradeRecordService.saveTradeRecordsToApi()
   }
 
+  getTradeRecords() : void {
+    console.log("Getting trades ...")
+    this.tradeRecordService.getTradeRecordsFromApi()
+  }
+
+  getReportIds() : void {
+    console.log("Getting report ids ...");
+    this.tradeRecordService.getTradeRecordsReportIds();
+  }
+
+  deleteReport(id: string) : void {
+    console.log("Deleting report ...");
+    this.tradeRecordService.deleteTradeRecord(id);
+  }
 
 
 }

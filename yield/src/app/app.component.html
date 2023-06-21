@@ -25,7 +25,16 @@
       <div class="flex flex-col gap-4">
         <button class="action-btn" (click)="toggleFrequencyCard()">frequency</button>
         <button class="action-btn" (click)="toggleTradeCard()">trade</button>
-        <button class="action-btn" (click)="saveTrades()">save trades</button>
+        <!-- disable buttons when user is not logged in -->
+        <button class="action-btn" [disabled]="false" (click)="saveTrades()">save trades</button>
+        <button class="action-btn" [disabled]="false" (click)="getTradeRecords()">fetch trades</button>
+      </div>
+      <div class="flex flex-col gap-4">
+        <button class="action-btn" (click)="getReportIds()">report ids</button>
+        <button class="action-btn" (click)="deleteReport('test')">not impl</button>
+        <!-- disable buttons when user is not logged in -->
+        <button class="action-btn" [disabled]="false" >not impl</button>
+        <button class="action-btn" [disabled]="false" >not impl</button>
       </div>
     </div>
   </div>

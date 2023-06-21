@@ -12,6 +12,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
+          
           "options": {
             "outputPath": "dist/yield",
             "index": "src/index.html",
@@ -67,7 +68,8 @@
               "browserTarget": "yield:build:production"
             },
             "development": {
-              "browserTarget": "yield:build:development"
+              "browserTarget": "yield:build:development",
+              "proxyConfig": "proxy.config.json"
             }
           },
           "defaultConfiguration": "development"

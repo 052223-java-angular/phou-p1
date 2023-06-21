@@ -25,8 +25,10 @@ export class FileService {
   getBnbPriceFromFile(filePath: string): Promise<string[]> {
     // return new Promise<string[]>((resolve, reject) => {
       return new Promise<string[]>((resolve, reject) => {
+
         this.httpClient.get(filePath, { responseType: 'text' })
           .subscribe((resTxt: string) => {
+
             this.parseHttpResText(resTxt)
               .then((priceRecords: string[]) => {
                 resolve(priceRecords)
@@ -34,6 +36,7 @@ export class FileService {
               .catch(err => {
                 reject(err);
               })
+
             }, (error) => {
               reject(error);
             });
@@ -44,6 +47,7 @@ export class FileService {
   
   private parseHttpResText(resTxt: string) : Promise<string[]> {
     return new Promise<string[]>((resolve) => {
+
       this.papa.parse(resTxt, {
         header: false,
         skipEmptyLines: true,
@@ -52,6 +56,7 @@ export class FileService {
           resolve(this.formatRawRecords(filteredRecords));
         }
       })
+
     })
   }
 

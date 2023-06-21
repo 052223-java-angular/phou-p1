@@ -2,6 +2,7 @@ import { Component, Input, OnInit, AfterContentChecked } from '@angular/core';
 import { ITrade, LocalTrade } from '../models/ITrade';
 import { Header, IHeader } from '../models/Header';
 import { TradeRecordService } from '../services/trade-record.service';
+import { TradeReportService } from '../services/trade-report.service';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class DataTableComponent implements OnInit, AfterContentChecked {
   @Input() showDataTable: boolean = false;
 
   constructor(
-    private tradeRecordService: TradeRecordService
+    private tradeRecordService: TradeRecordService,
+    private tradeReportService: TradeReportService
     ) { }
 
   ngOnInit(): void {
@@ -34,6 +36,8 @@ export class DataTableComponent implements OnInit, AfterContentChecked {
     if (!this.showDataTable) {
       this.headerRow = this.tradeRecordService.getLocalHeaderFields();
       this.tradeRecords = this.tradeRecordService.getLocalTradeRecords();
+      // this.tradeReportService.initLocalTradesSides();
+      // this.tradeReportService.initProfitAndLoss();
       // console.log(this.tradeRecords)
     }
     

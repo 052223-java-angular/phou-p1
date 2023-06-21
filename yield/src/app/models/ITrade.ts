@@ -8,7 +8,8 @@ export interface ITrade {
   amountPaid: number,
   fee: number,
   currencyPair: string,
-  index?: number
+  index?: number,
+  userId?: string
 }
 
 
@@ -23,7 +24,8 @@ export class LocalTrade implements ITrade {
     public amountPaid: number = 0,
     public fee: number = 0,
     public currencyPair: string = '',
-    public index?: number
+    public index?: number,
+    public userId?: string
   ) {}
   
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../models/IUser';
+import { IUser, User } from '../models/IUser';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   BASE_URI: string = "http://localhost:9001/v1/api"
-  User: IUser | undefined;
+  ser: IUser | undefined;
 
   constructor(
     private httpClient: HttpClient
@@ -28,7 +28,24 @@ export class AuthService {
   }
 
   getSessionObj() : IUser {
-    return JSON.parse(JSON.stringify(sessionStorage.getItem("user")));
+    const jsonUser = sessionStorage.getItem("user");
+    return jsonUser ? JSON.parse(jsonUser) : null;
+  }
+
+  getIdOfUser() : string {
+    return this.getSessionObj().id;
+  }
+
+  getUsernameOfUser() : string {
+    return this.getSessionObj().username
+  }
+
+  getAuthTokenOfUser() : string {
+    return this.getSessionObj().token;
+  }
+
+  getRoleOfUser() : string {
+    return this.getSessionObj().role;
   }
 
 }
