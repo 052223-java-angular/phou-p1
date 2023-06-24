@@ -36,7 +36,7 @@
             (click)="saveTrades()">save trades</button>
         <button class="action-btn api-btn" 
             [ngClass]="!showSelectTable ? 'opacity-30' : 'opacity-100' "
-            [disabled]="!showSelectTable" (click)="getTradeRecords()">fetch trades</button>
+            [disabled]="false" (click)="getTradeRecords()">fetch trades</button>
       </div>
       <div class="flex flex-col gap-4">
         <button class="action-btn api-btn" (click)="getReportIds()">report ids</button>

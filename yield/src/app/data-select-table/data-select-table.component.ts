@@ -25,32 +25,39 @@ export class DataSelectTableComponent implements AfterContentChecked {
 
   // for raw data
   rawHeaderFields: string[] = [];
-  rawSelectOptions: string[] = []; 
   rawTradeRecords: string[] = [];
+  // selectable options for drop down
+  rawSelectOptions: string[] = ['asset','order_id','date','side','unit_price','qty','amount_paid','fee','currency_pair'];
 
-  // for filtered data
+  // for filtered data. for persisting
   tradeRecords: ITrade[] = [];
   headerFields: IHeader[] = [];
  
-  selectedColumnOptions: ISelectOption[] = [];
+  // arrays containing the selected select options
+  selectedOptionsForColumns: ISelectOption[] = [];
   selectedOption: string = '';
+
+
+
+
 
   constructor(
     private tradeRecordService: TradeRecordService
   ) { }
 
-  // require hook for detecting content changes after load
+
   ngAfterContentChecked(): void {
-    this.rawSelectOptions = this.tradeRecordService.getTradeColumnOptions();
     this.rawHeaderFields= this.tradeRecordService.getRawHeaderFields();
-    this.rawTradeRecords = this.tradeRecordService.getRawTradeRecords().map(e => e).slice(0, 2);
+    this.rawTradeRecords = this.tradeRecordService.getRawTradeRecords().map(e => e).slice(0, 1);
    }
 
 
+   // for showing errors
    private setSubmitError() : void {
     this.submitError = !this.submitError;
-    this.submitErrorMessage = `${this.selectedColumnOptions.length} identifiers 
+    this.submitErrorMessage = `${this.selectedOptionsForColumns.length} identifiers 
     of ${this.rawSelectOptions.length} must be selected before submitting!`;
+
     setTimeout(() => {
       this.submitError = false;
     }, 3000)
@@ -58,7 +65,7 @@ export class DataSelectTableComponent implements AfterContentChecked {
 
    // for validating the selected option matches available
    private hasValidSelection() : boolean {
-      if (this.selectedColumnOptions.length === this.rawSelectOptions.length) {
+      if (this.selectedOptionsForColumns.length === this.rawSelectOptions.length) {
         return true;
       }
       return false;
@@ -68,7 +75,7 @@ export class DataSelectTableComponent implements AfterContentChecked {
    private createTradeRecord(record: string) : ITrade {
     let tradeRecord = new LocalTrade();
 
-    for (let option of this.selectedColumnOptions) {
+    for (let option of this.selectedOptionsForColumns) {
       const colName = option.name;
 
       switch (colName) {
@@ -97,18 +104,19 @@ export class DataSelectTableComponent implements AfterContentChecked {
     return tradeRecord;
    }
 
-   // for adding trade record header fields
+   // for adding Header instances to indentify the column fields
    private addHeaderFields() : void {
     if (this.tradeRecordService.getLocalHeaderFields().length > 0) {
       this.tradeRecordService.clearLocalHeaderFields();
     }
 
-    for (let option of this.selectedColumnOptions) {
+    for (let option of this.selectedOptionsForColumns) {
       this.tradeRecordService.addLocalHeaderField(new Header(option.name, option.slot));
     }
    }
 
-   // for submitting the selected options
+  
+   // for submitting the selected o
    submitSelectedOptions() : void {
 
     if (!this.hasValidSelection()) {
@@ -116,13 +124,16 @@ export class DataSelectTableComponent implements AfterContentChecked {
       return;
     }
 
+      // retrieve the latest trade records
       const records = this.tradeRecordService.getRawTradeRecords();
+
 
       // clear existing local trade records if they exist
       if (this.tradeRecordService.getLocalTradeRecords().length > 0) {
         this.tradeRecordService.clearLocalTradeRecords();
       }
 
+      // add header fields and trade records
       let includeHeader = true;
       for (const element of records) {
         if (includeHeader) {
@@ -133,35 +144,32 @@ export class DataSelectTableComponent implements AfterContentChecked {
         this.tradeRecordService.addLocalTradeRecord(this.createTradeRecord(element))
       }
 
-      // perform calculation, add column or send to  backend for processing
-      // consolidate pairs, create oject by date
-
-      console.log(this.tradeRecordService.getLocalHeaderFields());
       // emit change and ssign column data 
       this.showSelectTableChange.emit(false);
       this.showTableChange.emit(true);
    }
 
-   // sets selected options and throws error when duplicate is found
+
+   // sets selected options or throws error message when duplicate(s) are found
   setSelectedOption(event: any, cIndex: number, cName: string) : void {
     this.submitError = false;
     this.optionError = false;
 
     // find the existing pair if it exists
     let foundPair;
-    if (this.selectedColumnOptions.length > 0) {
-      for (let pair of this.selectedColumnOptions) {
+    if (this.selectedOptionsForColumns.length > 0) {
+      for (let pair of this.selectedOptionsForColumns) {
         if (pair.slot === cIndex) {
           foundPair = pair;
         }
       }
     }
 
-    // add new item when not found, else update
+    // TODO cleanup; add new item when not found, else update
     if (foundPair === undefined) {
-      const foundColumnNames = this.selectedColumnOptions.filter(ele => ele.name === cName);
+      const foundColumnNames = this.selectedOptionsForColumns.filter(ele => ele.name === cName);
       if (foundColumnNames.length === 0) {
-        this.selectedColumnOptions.push({slot: cIndex, name: cName})
+        this.selectedOptionsForColumns.push({slot: cIndex, name: cName})
         this.optionError = false;
       } else {
         this.optionError = !this.optionError;
@@ -169,7 +177,7 @@ export class DataSelectTableComponent implements AfterContentChecked {
       }
     } else {
       // check if another column has the column name
-      const foundColumnNames = this.selectedColumnOptions.filter(ele => ele.name === cName);
+      const foundColumnNames = this.selectedOptionsForColumns.filter(ele => ele.name === cName);
       if (foundColumnNames.length === 0) {
         foundPair.slot = cIndex;
         foundPair.name = cName;

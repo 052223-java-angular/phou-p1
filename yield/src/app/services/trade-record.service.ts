@@ -10,7 +10,7 @@ import { IUser } from '../models/IUser';
 import { Observable } from 'rxjs';
 
 //====================================
-// Service for handling the get, save, update or delete of trade records
+// Service handling and managing the trade records CRUD ops
 //
 //====================================
 @Injectable({
@@ -29,10 +29,6 @@ export class TradeRecordService {
   apiTradeRecords: IApiTrade[] = [];
   apiHeaderFields: IHeader[] = [];
 
-  // // for api requested trade records
-  // apiTradeRecords: IApiTrade[] = [];
-  // apiHeaderFields: string[] = [];
-
   // for major pair historical pricing
   priceFields: string[] = [];
   bnbPriceHistory: IPrice[] = [];
@@ -41,49 +37,10 @@ export class TradeRecordService {
 
   hasInit: boolean = false;
 
-  private tradeColumnOptions: string[] = [
-    'asset',
-    'order_id',
-    'date',
-    'side',
-    'unit_price',
-    'qty',
-    'amount_paid',
-    'fee',
-    'currency_pair',
-  ];
-
   constructor(
-    private fileService: FileService,
     private httpClient: HttpClient,
     private authService: AuthService
   ) {
-
-    // if (!this.hasInit) {
-    //   const arrHead = ['asset','order_id', 'date', 'side', 'unit_price', 'qty', 'amount_paid','fee', 'currency_pair' ];
-
-    //   // for local testing
-    //   for (let i = 0; i < 2; i++) {
-    //     this.localTradeRecords.push(
-    //       new LocalTrade('2022-04-02 10:24:03', '6247b3c2d332c0000176aee6','BNB-USDT', 'buy', 452.375, 0.17724318,80.1803835525,0.0801803835525,'USDT'));
-    //     this.localTradeRecords.push(
-    //       new LocalTrade('2022-04-02 10:24:03', '6247b3c2d332c0000176aee6', 'BNB-USDT', 'buy', 452.369, 0.1815, 82.1049735, 0.0821049735,'USDT'));
-    //     this.localTradeRecords.push(
-    //       new LocalTrade( '2022-04-02 10:24:03', '6247b3c2d332c0000176aee6', 'BNB-USDT', 'sell', 452.369,0.1815, 86.1049735, 0.0861049735,'USDT'));
-    //     this.localTradeRecords.push(
-    //       new LocalTrade( '2022-04-02 10:24:03', '6247b3c2d332c0000176aee6', 'BNB-USDT', 'sell', 452.369,0.1815, 87.1049735, 0.0871049735,'USDT'));
-    //   }
-
-    //   // console.log(this.localTradeRecords)
-    //   for (let i = 0; i < arrHead.length; i++) {
-    //     this.localHeaderFields.push(new Header(arrHead[i], i + 1));
-    //   }
-
-      // this.initApiHeaderFields();
-      // this.initPriceFields();
-      // this.initBnbPrice('../../assets/bnb_price_history.csv');
-    //   this.hasInit = true;
-    // }
 
   }
 
@@ -98,6 +55,7 @@ export class TradeRecordService {
     }
   }
 
+  // temp
   // private initPriceFields(): void {
   //   const apiTrade = new Bnb('','','','','');
   //   for (const propertyName in apiTrade) {
@@ -105,12 +63,12 @@ export class TradeRecordService {
   //   }
   // }
 
-  private initBnbPrice(filePath: string) : void {
-    this.fileService.getBnbPriceFromFile(filePath)
-      .then(priceRecords => {
-        this.addBnbPriceRecords(priceRecords);
-      }).catch(err => console.log(err));
-  }
+  // private initBnbPrice(filePath: string) : void {
+  //   this.fileService.getBnbPriceFromFile(filePath)
+  //     .then(priceRecords => {
+  //       this.addBnbPriceRecords(priceRecords);
+  //     }).catch(err => console.log(err));
+  // }
 
 
   /////////// Price
@@ -124,10 +82,10 @@ export class TradeRecordService {
 
   ///////////////////////////////////////////////////////////
 
-  // coluumn / field options for the select input drop down
-  getTradeColumnOptions(): string[] {
-    return this.tradeColumnOptions;
-  }
+  // // coluumn / field options for the select input drop down
+  // getTradeColumnOptions(): string[] {
+  //   return this.tradeColumnOptions;
+  // }
 
   // the unformatted header fields
   getRawHeaderFields(): string[] {
