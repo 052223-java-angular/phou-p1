@@ -35,14 +35,12 @@
             [ngClass]="!showSelectTable ? 'opacity-30' : 'opacity-100' "
             (click)="saveTrades()">save trades</button>
         <button class="action-btn api-btn" 
-            [ngClass]="!showSelectTable ? 'opacity-30' : 'opacity-100' "
             [disabled]="false" (click)="getTradeRecords()">fetch trades</button>
       </div>
       <div class="flex flex-col gap-4">
-        <button class="action-btn api-btn" (click)="getReportIds()">report ids</button>
-        <button class="action-btn api-btn" (click)="deleteTradeRecord('test')">del record</button>
-        <!-- disable buttons when user is not logged in -->
-        <button class="action-btn api-btn" (click)="updateTradeRecord()" [disabled]="false" >update record</button>
+        <button class="action-btn api-btn" 
+            [disabled]="true" 
+            (click)="getReportIds()">report ids</button>
         <button class="action-btn api-btn" (click)="clearRecords()">clear record</button>
       </div>
     </div>

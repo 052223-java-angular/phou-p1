@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, DoCheck } from '@angular/core';
+import { Component, Input, OnInit, AfterContentChecked } from '@angular/core';
 import { ITrade, LocalTrade } from '../models/ITrade';
 import { Header, IHeader } from '../models/Header';
 import { TradeRecordService } from '../services/trade-record.service';
@@ -11,11 +11,12 @@ import { IApiTrade } from '../models/IApiTrade';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css']
 })
-export class DataTableComponent implements OnInit, DoCheck {
+export class DataTableComponent implements OnInit, AfterContentChecked {
 
   // for edit modal
   showModal: boolean = false;
   tradeRecord!: ITrade;
+  apiTradeRecord!: IApiTrade;
 
   // for showing trade records
   tradeRecords: ITrade[] = [];
@@ -37,7 +38,7 @@ export class DataTableComponent implements OnInit, DoCheck {
     console.log("data table initializing ... ")
   }
 
-  ngDoCheck(): void {
+  ngAfterContentChecked(): void {
     this.headerRow = this.tradeRecordService.getLocalHeaderFields();
     this.tradeRecords = this.tradeRecordService.getLocalTradeRecords().slice(0,20);
 
@@ -46,7 +47,7 @@ export class DataTableComponent implements OnInit, DoCheck {
       this.apiTradeRecords = this.tradeRecordService.getApiTradeRecords();
     }
     
-    console.log("data table ngDoCheck initializing ... +trade");
+    console.log("data table ngDoCheck initializing ... ");
   }
 
   // saveTradeRecords() : void {
@@ -64,6 +65,18 @@ export class DataTableComponent implements OnInit, DoCheck {
 
   commitTradeDelete(index: number, tradeRecord: LocalTrade) {
     this.tradeRecords = this.tradeRecordService.deleteLocalTradeRecord(index);
+    console.log('Deleting record ...')
+  }
+
+  showEditApiTradeModal(id: string, apiTradeRecord: IApiTrade) {
+    console.log("Editing index : "+id);
+    this.showModal = !this.showModal;
+    this.tradeRecordService.updateApiTradeRecord(id, apiTradeRecord);
+  }
+
+
+  commitApiTradeDelete(id: string, apiTradeRecord: IApiTrade) {
+    this.tradeRecordService.deleteApiTradeRecord(id, apiTradeRecord);
     console.log('Deleting record ...')
   }
 
