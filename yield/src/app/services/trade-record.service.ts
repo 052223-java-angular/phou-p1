@@ -7,6 +7,7 @@ import { ApiTradeRecord, IApiTrade } from '../models/IApiTrade';
 import { FileService } from './file.service';
 import { AuthService } from './auth.service';
 import { IUser } from '../models/IUser';
+import { Observable } from 'rxjs';
 
 //====================================
 // Service for handling the get, save, update or delete of trade records
@@ -24,9 +25,13 @@ export class TradeRecordService {
   localTradeRecords: ITrade[] = [];
   localHeaderFields: IHeader[] = [];
 
-  // for api requested trade records
+  // for api trade records
   apiTradeRecords: IApiTrade[] = [];
-  apiHeaderFields: string[] = [];
+  apiHeaderFields: IHeader[] = [];
+
+  // // for api requested trade records
+  // apiTradeRecords: IApiTrade[] = [];
+  // apiHeaderFields: string[] = [];
 
   // for major pair historical pricing
   priceFields: string[] = [];
@@ -54,47 +59,51 @@ export class TradeRecordService {
     private authService: AuthService
   ) {
 
-    if (!this.hasInit) {
-      const arrHead = ['asset','order_id', 'date', 'side', 'unit_price', 'qty', 'amount_paid','fee', 'currency_pair' ];
+    // if (!this.hasInit) {
+    //   const arrHead = ['asset','order_id', 'date', 'side', 'unit_price', 'qty', 'amount_paid','fee', 'currency_pair' ];
 
-      // for local testing
-      for (let i = 0; i < 2; i++) {
-        this.localTradeRecords.push(
-          new LocalTrade('2022-04-02 10:24:03', '6247b3c2d332c0000176aee6','BNB-USDT', 'buy', 452.375, 0.17724318,80.1803835525,0.0801803835525,'USDT'));
-        this.localTradeRecords.push(
-          new LocalTrade('2022-04-02 10:24:03', '6247b3c2d332c0000176aee6', 'BNB-USDT', 'buy', 452.369, 0.1815, 82.1049735, 0.0821049735,'USDT'));
-        this.localTradeRecords.push(
-          new LocalTrade( '2022-04-02 10:24:03', '6247b3c2d332c0000176aee6', 'BNB-USDT', 'sell', 452.369,0.1815, 86.1049735, 0.0861049735,'USDT'));
-        this.localTradeRecords.push(
-          new LocalTrade( '2022-04-02 10:24:03', '6247b3c2d332c0000176aee6', 'BNB-USDT', 'sell', 452.369,0.1815, 87.1049735, 0.0871049735,'USDT'));
-      }
+    //   // for local testing
+    //   for (let i = 0; i < 2; i++) {
+    //     this.localTradeRecords.push(
+    //       new LocalTrade('2022-04-02 10:24:03', '6247b3c2d332c0000176aee6','BNB-USDT', 'buy', 452.375, 0.17724318,80.1803835525,0.0801803835525,'USDT'));
+    //     this.localTradeRecords.push(
+    //       new LocalTrade('2022-04-02 10:24:03', '6247b3c2d332c0000176aee6', 'BNB-USDT', 'buy', 452.369, 0.1815, 82.1049735, 0.0821049735,'USDT'));
+    //     this.localTradeRecords.push(
+    //       new LocalTrade( '2022-04-02 10:24:03', '6247b3c2d332c0000176aee6', 'BNB-USDT', 'sell', 452.369,0.1815, 86.1049735, 0.0861049735,'USDT'));
+    //     this.localTradeRecords.push(
+    //       new LocalTrade( '2022-04-02 10:24:03', '6247b3c2d332c0000176aee6', 'BNB-USDT', 'sell', 452.369,0.1815, 87.1049735, 0.0871049735,'USDT'));
+    //   }
 
-      // console.log(this.localTradeRecords)
-      for (let i = 0; i < arrHead.length; i++) {
-        this.localHeaderFields.push(new Header(arrHead[i], i + 1));
-      }
+    //   // console.log(this.localTradeRecords)
+    //   for (let i = 0; i < arrHead.length; i++) {
+    //     this.localHeaderFields.push(new Header(arrHead[i], i + 1));
+    //   }
 
-      this.initApiHeaderFields();
-      this.initPriceFields();
-      this.initBnbPrice('../../assets/bnb_price_history.csv');
-      this.hasInit = true;
-    }
+      // this.initApiHeaderFields();
+      // this.initPriceFields();
+      // this.initBnbPrice('../../assets/bnb_price_history.csv');
+    //   this.hasInit = true;
+    // }
 
   }
 
   private initApiHeaderFields(): void {
-    const apiTrade = new ApiTradeRecord( '','','','','','','','','','', '','','','');
+    const apiTrade = new ApiTradeRecord( '','','','','','','','','');
+    let i = 0;
     for (const propertyName in apiTrade) {
-      this.apiHeaderFields.push(propertyName);
+      if (propertyName != "reportDate" && propertyName != "reportId") {
+        this.apiHeaderFields.push(new Header(propertyName, i));
+        i++;
+      }
     }
   }
 
-  private initPriceFields(): void {
-    const apiTrade = new Bnb('','','','','');
-    for (const propertyName in apiTrade) {
-      this.apiHeaderFields.push(propertyName);
-    }
-  }
+  // private initPriceFields(): void {
+  //   const apiTrade = new Bnb('','','','','');
+  //   for (const propertyName in apiTrade) {
+  //     this.apiHeaderFields.push(propertyName);
+  //   }
+  // }
 
   private initBnbPrice(filePath: string) : void {
     this.fileService.getBnbPriceFromFile(filePath)
@@ -135,6 +144,11 @@ export class TradeRecordService {
     return this.localHeaderFields;
   }
 
+  // the local formatted / match header fields
+  getApiHeaderFields(): IHeader[] {
+    return this.apiHeaderFields;
+  }
+
   // the local formatted trade records
   getLocalTradeRecords(): ITrade[] {
     return this.localTradeRecords;
@@ -145,16 +159,8 @@ export class TradeRecordService {
     return this.localTradeRecords[index];
   }
 
-  // trade records received from an api endpoint
-  getTradeRecords(): ITrade[] | null {
-    // todo http
-    return [];
-  }
-
-  // trade records by its id; recieved from an api endpoint
-  getTradeRecordById(id: number): ITrade | null {
-    // todo http
-    return null;
+  getApiTradeRecords() : IApiTrade[] {
+    return this.apiTradeRecords;
   }
 
   // adds one raw trade reccord to local class member
@@ -201,6 +207,13 @@ export class TradeRecordService {
     this.localTradeRecords = [];
   }
 
+  clearAll() : void {
+    this.localHeaderFields = [];
+    this.localTradeRecords = [];
+    this.apiHeaderFields = [];
+    this.apiTradeRecords = [];
+  }
+
   // add one local header field to local member variable
   addLocalHeaderField(headerField: IHeader): void {
     this.localHeaderFields.push(headerField);
@@ -211,7 +224,8 @@ export class TradeRecordService {
     this.localTradeRecords.push(localTradeRecord);
   }
 
-  updateLocalTrade(
+  updateLocalTradeRecordFields(
+    idx: number,
     asset: string,
     orderId: string,
     date: string,
@@ -221,7 +235,6 @@ export class TradeRecordService {
     amountPaid: number,
     fee: number,
     currencyPair: string,
-    idx: number
   ): ITrade {
     console.log(idx);
     this.localTradeRecords[idx].asset = asset;
@@ -235,13 +248,28 @@ export class TradeRecordService {
     this.localTradeRecords[idx].currencyPair = currencyPair;
 
     console.log(this.localTradeRecords[idx]);
-    return this.localTradeRecords[idx + 1];
+    return this.localTradeRecords[idx];
   }
 
-  updateLocalTradeRecord(tradeRecord: ITrade): ITrade {
-    const idx = tradeRecord.index ?? 0;
-    this.localTradeRecords[idx] = tradeRecord;
+
+  // update the local trade record state
+  private updateLocalTrade(idx: number, localTradeRecord: ITrade): ITrade {
+    this.localTradeRecords[idx].asset = localTradeRecord.asset;
+    this.localTradeRecords[idx].orderId = localTradeRecord.orderId;
+    this.localTradeRecords[idx].date = localTradeRecord.date;
+    this.localTradeRecords[idx].side = localTradeRecord.side;
+    this.localTradeRecords[idx].unitPrice = localTradeRecord.unitPrice;
+    this.localTradeRecords[idx].qty = localTradeRecord.qty;
+    this.localTradeRecords[idx].amountPaid = localTradeRecord.amountPaid;
+    this.localTradeRecords[idx].fee = localTradeRecord.fee;
+    this.localTradeRecords[idx].currencyPair = localTradeRecord.currencyPair;
+
+    console.log(localTradeRecord);
     return this.localTradeRecords[idx];
+  }
+
+  updateLocalTradeRecord(idx: number, localTradeRecord: ITrade): ITrade {
+    return this.updateLocalTrade(idx, localTradeRecord);
   }
 
   deleteLocalTradeRecord(index: number): ITrade[] {
@@ -259,17 +287,42 @@ export class TradeRecordService {
 
 
 
-  saveTradeRecordsToApi(): void {
+  saveTradeRecordsToApi(): IApiTrade[] {
     const customHeader = this.getAuthHeader();
 
     if (customHeader) {
       console.log("created header with user, saving records");
-      this.httpClient.post("/api/trades/records", this.localTradeRecords, {headers: customHeader} )
+      this.httpClient.post<IApiTrade[]>("/api/trades/records", this.localTradeRecords, {headers: customHeader} )
         .subscribe((res: any) => {
           console.log(res);
+          this.localTradeRecords = [];
+          return res;
         });
     }
+    return [];
   }
+
+  
+  // trade records received from an api endpoint
+  getTradeRecords(): ITrade[] | null {
+    // todo http
+    return [];
+  }
+
+  // trade records by its id; recieved from an api endpoint
+  getTradeRecordById(id: string): void {
+      const customHeader = this.getAuthHeader();
+  
+      if (customHeader) {
+        this.httpClient.get(`/api/trades/records?id`, {headers: customHeader})
+        .subscribe((res: any) => {
+          console.log(res);
+          // this.apiTradeRecords = res;
+        });
+      }
+      
+  }
+
 
   getTradeRecordsFromApi() : void {
     const customHeader = this.getAuthHeader();
@@ -277,11 +330,26 @@ export class TradeRecordService {
     if (customHeader) {
       this.httpClient.get(`/api/trades/records`, {headers: customHeader})
       .subscribe((res: any) => {
-        console.log(res);
-        this.apiTradeRecords = res;
+        this.initApiHeaderFields();
+        // Object.keys(res[0]).forEach((key, idx) => this.apiHeaderFields.push(new Header(key, idx)));
+        // console.log(this.apiHeaderFields);
+        this.apiTradeRecords = res.slice(0, 50);
       });
     }
   }
+
+  
+  // getTradeRecordsFromApi2() : void {
+  //   const customHeader = this.getAuthHeader();
+
+  //   if (customHeader) {
+  //     this.httpClient.get(`/api/trades/records`, {headers: customHeader})
+  //     .subscribe((res: any) => {
+  //       console.log(res);
+  //       this.localTradeRecords = res.slice(0, 50);
+  //     });
+  //   }
+  // }
 
   getTradeRecordsReportIds() : void {
     const customHeader = this.getAuthHeader();
@@ -295,19 +363,31 @@ export class TradeRecordService {
   }
 
   
-  updateTradeRecord(tradeRecord: ITrade): void {
-    // todo http
+  // todo -- implement
+  updateTradeRecord(tradeRecord: IApiTrade): void {
+    const customHeader = this.getAuthHeader();
+
+    if (customHeader) {
+      this.httpClient.put("/api/trades/records", tradeRecord, {headers: customHeader})
+      .subscribe((res: any) => {
+        console.log(res)
+      })
+    }
   }
 
   deleteTradeRecord(tradeId: string): void {
     const customHeader = this.getAuthHeader();
 
     if (customHeader) {
-      this.httpClient.get(`/api/trades/records/${tradeId}`, {headers: customHeader})
+      this.httpClient.delete(`/api/trades/records?trade_record_id=${tradeId}`, {headers: customHeader})
       .subscribe((res: any) => {
         console.log(res)
       })
     }
+  }
+
+  deleteReport(id: string) : void {
+    
   }
 
   //=========== PRIVATE ================//

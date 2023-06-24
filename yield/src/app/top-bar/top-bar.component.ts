@@ -74,6 +74,7 @@ export class TopBarComponent implements OnInit {
   }
 
   login(): void {
+    
     this.authService.login(this.loginForm).subscribe({
       next: (res) => {
         this.showLogin = !this.showLogin;

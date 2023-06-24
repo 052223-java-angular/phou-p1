@@ -4,6 +4,10 @@
   <!-- Nav / Top Bar -->
   <app-top-bar class="z-50"></app-top-bar>
 
+  <span>showTable: {{showTable}}</span>
+  <br /><span>showSelect: {{showSelectTable}}</span>
+  <br /><span>didUploadFile: {{didUploadFile}}</span>
+
   <!-- Action bar for performing actions, e.g. upload file, submit trades i.e save, clearing table, fetching historical -->
   <caption class="block text-2xl pt-8">Upload a trade file to enable view options</caption>
   <div class="action-container">
@@ -26,15 +30,20 @@
         <button class="action-btn" (click)="toggleFrequencyCard()">frequency</button>
         <button class="action-btn" (click)="toggleTradeCard()">trade</button>
         <!-- disable buttons when user is not logged in -->
-        <button class="action-btn" [disabled]="false" (click)="saveTrades()">save trades</button>
-        <button class="action-btn" [disabled]="false" (click)="getTradeRecords()">fetch trades</button>
+        <button class="action-btn api-btn" 
+            [disabled]="!showSelectTable" 
+            [ngClass]="!showSelectTable ? 'opacity-30' : 'opacity-100' "
+            (click)="saveTrades()">save trades</button>
+        <button class="action-btn api-btn" 
+            [ngClass]="!showSelectTable ? 'opacity-30' : 'opacity-100' "
+            [disabled]="!showSelectTable" (click)="getTradeRecords()">fetch trades</button>
       </div>
       <div class="flex flex-col gap-4">
-        <button class="action-btn" (click)="getReportIds()">report ids</button>
-        <button class="action-btn" (click)="deleteReport('test')">not impl</button>
+        <button class="action-btn api-btn" (click)="getReportIds()">report ids</button>
+        <button class="action-btn api-btn" (click)="deleteTradeRecord('test')">del record</button>
         <!-- disable buttons when user is not logged in -->
-        <button class="action-btn" [disabled]="false" >not impl</button>
-        <button class="action-btn" [disabled]="false" >not impl</button>
+        <button class="action-btn api-btn" (click)="updateTradeRecord()" [disabled]="false" >update record</button>
+        <button class="action-btn api-btn" (click)="clearRecords()">clear record</button>
       </div>
     </div>
   </div>
@@ -54,17 +63,17 @@
 
   <!-- Section for selecting column headers -->
   <app-data-select-table
-    *ngIf="(showSelectTable && !showTable)"
+    *ngIf="showSelectTable"
     [(showTable)]="showTable"
-    [(showTable)]="!showSelectTable" ></app-data-select-table>
+    [(showSelectTable)]="showSelectTable"></app-data-select-table>
 
     <!-- *ngIf="didUploadFile || (showTable && showSelectTable)" -->
   <!-- Section for uploading / show after file is uploaded -->
   <app-data-table 
-    class=""></app-data-table>
-
-  <footer class="app-footer">
-    <span class="">Yield | @Copyright 2023</span>
-  </footer>
+    *ngIf="showTable && !showSelectTable"></app-data-table>
 
 </section> 
+
+<footer class="app-footer">
+  <span class="">Yield | @Copyright 2023</span>
+</footer>

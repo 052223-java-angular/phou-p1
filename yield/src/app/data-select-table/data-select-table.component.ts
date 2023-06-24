@@ -13,8 +13,10 @@ import { TradeRecordService } from '../services/trade-record.service';
 export class DataSelectTableComponent implements AfterContentChecked {
 
   // for table changes
+  @Input() showSelectTable: boolean = false;
   @Input() showTable: boolean = false;
   @Output() showTableChange = new EventEmitter<boolean>();
+  @Output() showSelectTableChange = new EventEmitter<boolean>();
 
   // local error
   optionError: boolean = false;
@@ -116,9 +118,10 @@ export class DataSelectTableComponent implements AfterContentChecked {
 
       const records = this.tradeRecordService.getRawTradeRecords();
 
-      // if (this.tradeRecordService.getLocalTradeRecords().length > 0) {
-      //   this.tradeRecordService.clearLocalTradeRecords();
-      // }
+      // clear existing local trade records if they exist
+      if (this.tradeRecordService.getLocalTradeRecords().length > 0) {
+        this.tradeRecordService.clearLocalTradeRecords();
+      }
 
       let includeHeader = true;
       for (const element of records) {
@@ -135,6 +138,7 @@ export class DataSelectTableComponent implements AfterContentChecked {
 
       console.log(this.tradeRecordService.getLocalHeaderFields());
       // emit change and ssign column data 
+      this.showSelectTableChange.emit(false);
       this.showTableChange.emit(true);
    }
 

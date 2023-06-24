@@ -1,9 +1,9 @@
 .app-wrapper {
-  @apply relative w-full flex-col h-screen bg-slate-100 items-center overflow-y-auto;
+  @apply mx-auto w-full flex-col h-screen bg-slate-100 items-center overflow-y-auto overflow-x-hidden;
 }
 
 .app-footer {
-  @apply relative top-6 text-center w-full;
+  @apply mt-auto bottom-6 text-center w-full bg-slate-100;
 }
 
 .action-container {
@@ -15,5 +15,9 @@
 }
 
 .action-btn {
-  @apply mx-2 px-3 py-3 bg-[#9DACC6] text-white rounded-sm shadow-sm uppercase w-36 hover:bg-slate-300 duration-150;
+  @apply mx-2 py-3 bg-[#9DACC6] text-white rounded-sm shadow-sm uppercase w-36 hover:bg-slate-300 duration-150;
+}
+
+.action-btn.api-btn {
+  @apply bg-green-800;
 }

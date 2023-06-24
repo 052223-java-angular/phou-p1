@@ -62,31 +62,19 @@ export class EditModalComponent implements OnInit {
     this.showModalChange.emit(this.showModal);
   }
 
-  updateTradeRecord() : void {
+  commitTradeRecordUpdate() : void {
     console.log("updating record ... ");
 
-    // this.updateTradeRecordValues();
-
-    this.tradeRecord = this.TradeRecordService.updateLocalTrade(
-      this.editForm.get('asset')?.value,
-      this.editForm.get('orderId')?.value,
-      this.editForm.get('date')?.value,
-      this.editForm.get('side')?.value,
-      this.editForm.get('unitPrice')?.value,
-      this.editForm.get('qty')?.value,
-      this.editForm.get('amountPaid')?.value,
-      this.editForm.get('fee')?.value,
-      this.editForm.get('currencyPair')?.value,
-      this.tradeRecord.index || 0
-    );
-
+    const idx = this.tradeRecord.index || 0;
+    this.tradeRecord = this.TradeRecordService.updateLocalTradeRecord(idx, this.updateTradeRecordValues());
 
     this.showModal = false;
     this.showModalChange.emit(this.showModal);
     this.tradeRecordChange.emit(this.tradeRecord);
   }
 
-  private updateTradeRecordValues() : void {
+  // for updating the local trade record declared in this component
+  private updateTradeRecordValues() : ITrade {
     this.tradeRecord.asset = this.editForm.get('asset')?.value;
     this.tradeRecord.orderId = this.editForm.get('orderId')?.value
     this.tradeRecord.date  = this.editForm.get('date')?.value
@@ -96,7 +84,19 @@ export class EditModalComponent implements OnInit {
     this.tradeRecord.amountPaid = this.editForm.get('amountPaid')?.value
     this.tradeRecord.fee = this.editForm.get('fee')?.value
     this.tradeRecord.currencyPair = this.editForm.get('currencyPair')?.value
+    return this.tradeRecord;
   }
 
 
 }
+
+// new LocalTrade(
+//   this.editForm.get('asset')?.value,
+//   this.editForm.get('orderId')?.value,
+//   this.editForm.get('date')?.value,
+//   this.editForm.get('side')?.value,
+//   this.editForm.get('unitPrice')?.value,
+//   this.editForm.get('qty')?.value,
+//   this.editForm.get('amountPaid')?.value,
+//   this.editForm.get('fee')?.value,
+//   this.editForm.get('currencyPair')?.value)
