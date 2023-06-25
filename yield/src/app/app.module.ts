@@ -17,6 +17,7 @@ import { SharedModule } from './shared/shared.module';
 import { DataSelectTableComponent } from './data-select-table/data-select-table.component';
 import { Papa } from 'ngx-papaparse';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { EditModalComponent } from './edit-modal/edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     MarketResultComponent,
     DataSelectTableComponent,
     FileUploadComponent,
+    EditModalComponent,
   ],
   imports: [
     BrowserModule, 

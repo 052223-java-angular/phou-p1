@@ -12,6 +12,8 @@ export class InputComponent {
   @Input() type = "text";
   @Input() placeholder = '';
   @Input() label = '';
+  @Input() value = '';
+  @Input() disabled = false;
 
   constructor() {}
 

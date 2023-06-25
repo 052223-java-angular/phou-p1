@@ -1,0 +1,99 @@
+
+<div class="modal-wrapper">
+  <div class="modal-wrap-content">
+
+    <form [formGroup]="editForm"
+          (ngSubmit)="commitTradeRecordUpdate()" 
+          class="modal-content">
+
+      <div class="modal-wrap-title">
+        <h3 class="text-3xl font-semibold">
+          Edit Trade
+        </h3>
+      </div>
+
+      <div class="py-6">
+        <div class="modal-input-wrap">
+          <app-input 
+            type="text"
+            label="asset" 
+            placeholder="{{tradeRecord.asset}}"
+            [control]="asset"
+            >
+        </app-input>
+          <app-input 
+            type="text"
+            label="order ID"
+            placeholder="{{tradeRecord.orderId}}"
+            [control]="orderId"
+            >
+        </app-input>
+        </div>
+        <div class="modal-input-wrap">
+          <app-input 
+            type="text"
+            label="date" 
+            placeholder="{{tradeRecord.date}}"
+            [control]="date"
+            >
+        </app-input>
+          <app-input 
+            type="text"
+            label="side"
+            placeholder="{{tradeRecord.side}}"
+            [control]="side"
+            >
+        </app-input>
+        </div>
+        <div class="modal-input-wrap">
+          <app-input 
+            label="unit_price"
+            placeholder="{{tradeRecord.unitPrice}}"
+            [control]="unitPrice"
+            >
+        </app-input>
+          <app-input 
+            label="qty"
+            placeholder="{{tradeRecord.qty}}"
+            [control]="qty"
+            >
+        </app-input>
+        </div>
+        <div class="modal-input-wrap">
+          <app-input 
+            label="amount_paid" 
+            placeholder="{{tradeRecord.amountPaid}}"
+            [control]="amountPaid"
+            >
+        </app-input>
+          <app-input 
+            label="fee" 
+            placeholder="{{tradeRecord.fee}}"
+            [control]="fee"
+            >
+          </app-input>
+        </div>
+        <div class="modal-input-wrap last">
+          <app-input 
+            label="currency_pair" 
+            placeholder="{{tradeRecord.currencyPair}}"
+            [control]="currencyPair"
+            >
+          </app-input>
+        </div>
+      </div>
+
+      <div class="modal-wrap-btn">
+        <button class="btn-close" type="button" (click)="cancelEdit()">
+          Cancel
+        </button>
+        <button class="btn-save" 
+                type="submit">
+          Update
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+<div class="modal-bg-back"></div>

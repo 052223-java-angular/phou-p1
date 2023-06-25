@@ -7,10 +7,13 @@ export interface ITrade {
   qty: number,
   amountPaid: number,
   fee: number,
-  currencyPair: string
+  currencyPair: string,
+  index?: number,
+  userId?: string
 }
 
-export class Trade implements ITrade {
+
+export class LocalTrade implements ITrade {
   constructor(
     public asset: string = '',
     public orderId: string = '',
@@ -20,8 +23,9 @@ export class Trade implements ITrade {
     public qty: number = 0,
     public amountPaid: number = 0,
     public fee: number = 0,
-    public currencyPair: string = ''
+    public currencyPair: string = '',
+    public index?: number,
+    public userId?: string
   ) {}
-
   
 }

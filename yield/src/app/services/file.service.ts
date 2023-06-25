@@ -1,33 +1,97 @@
 import { Injectable } from '@angular/core';
 import { Papa } from 'ngx-papaparse';
-import { ITrade } from '../models/Trade';
-import { IHeader } from '../models/Header';
+import { TradeRecordService } from './trade-record.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
-  // for raw data rawRecords
-  private rawRecords: string[] = [];
-  private rawHeaderFields: string[] = [];
-  private tradeColumnOptions: string[] = ['asset', 'order_id', 'date', 'side', 'unit_price', 'qty', 'amount_paid', 'fee', 'currency_pair'];
-  
-  // for filtered rawRecords
-  private tradeRecords: ITrade[] = [];
-  private tradeHeaderFields: IHeader[] = [];
 
   constructor(
-    private papa: Papa
+    private papa: Papa,
+    private httpClient: HttpClient
   ) {}
 
+
+  // public method for parsing file
+  async parseCsvFile(file: File) : Promise<string[]> {
+    return await this.papaParse(file);
+  }
+
+
+  getBnbPriceFromFile(filePath: string): Promise<string[]> {
+    // return new Promise<string[]>((resolve, reject) => {
+      return new Promise<string[]>((resolve, reject) => {
+
+        this.httpClient.get(filePath, { responseType: 'text' })
+          .subscribe((resTxt: string) => {
+
+            this.parseHttpResText(resTxt)
+              .then((priceRecords: string[]) => {
+                resolve(priceRecords)
+              })
+              .catch(err => {
+                reject(err);
+              })
+
+            }, (error) => {
+              reject(error);
+            });
+        });
+  }
+
+  //============== PRIVATE METHODS
+  
+  private parseHttpResText(resTxt: string) : Promise<string[]> {
+    return new Promise<string[]>((resolve) => {
+
+      this.papa.parse(resTxt, {
+        header: false,
+        skipEmptyLines: true,
+        complete: (result) => {
+          const filteredRecords = this.filterRawRecords(result.data);
+          resolve(this.formatRawRecords(filteredRecords));
+        }
+      })
+
+    })
+  }
+
+
+  private papaParse(file: any): Promise<string[]> {
+    return new Promise<string[]>((resolve, reject) => {
+      this.papa.parse(file, {
+        header: false,
+        skipEmptyLines: true,
+        complete: (result) => {
+          const filteredRecords = this.filterRawRecords(result.data);
+          resolve(this.formatRawRecords(filteredRecords));
+        },
+        error: (error) => {
+          console.log(error);
+          reject(error);
+        }
+      });
+    });
+  }
+
+  //==============  HELPER METHODS
+
+
+  // for cleaning up any empty data columns
   private filterRawRecords(records: string[]) : string[] {
     return records.map((row: any) => row.filter((field: any) => field.trim() !== ''));
   }
 
+
+  // for getting the max col span of the first 20 rows
   private findMaxColSpan(records: string[]) : number {
     let maxColSpan = 0;
-    for (let i = 0; i < 20; i++) {
+    const len = records.length < 20 ? records.length : 20;
+    for (let i = 0; i < len; i++) {
       if (records[i].length > maxColSpan) {
         maxColSpan = records[i].length;
       }
@@ -35,80 +99,27 @@ export class FileService {
     return maxColSpan;
   }
 
-  // method for parsing file
-  parseCsvFile(file: File) : void {
-    this.rawHeaderFields = [];
-    this.rawRecords = [];
-
-    this.papa.parse(file, {
-      header: false,
-      skipEmptyLines: true,
-      complete: (result) => {
-        // remove all of the empty fields
-        this.saveRawRecords(this.filterRawRecords(result.data));
-
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
-  }
-
-
-  getRawRecords() : string[] {
-    return this.rawRecords;
-  }
-
-  getRawHeaderFields() : string[] {
-    return this.rawHeaderFields;
-  }
-
-  getTradeHeaderFields() : IHeader[] {
-    return this.tradeHeaderFields;
-  }
-
-  getTradeColumnOptions() : string[] {
-    return this.tradeColumnOptions;
-  }
-
-  getTradeRecords() : ITrade[] {
-    return this.tradeRecords;
-  }
-
-  // 
-  saveTradeHeaderFields(tradeHeaderFields: IHeader[]) : void {
-    this.tradeHeaderFields = [];
-    this.tradeHeaderFields = tradeHeaderFields;
-  }
-
-  saveTradeRecords(tradeRecords: ITrade[]) : void {
-    this.tradeRecords = [];
-    this.tradeRecords = tradeRecords;
-  }
-
-  // save the header field of the file
-  private saveRawHeader(rawHeaderFields: string) : void {
-    this.rawHeaderFields = [];
-    this.rawHeaderFields = this.rawHeaderFields.concat(rawHeaderFields);
-  }
 
   // save raw records
-  private saveRawRecords(rawRecords: string[]) : void {
+  private formatRawRecords(rawRecords: string[]) : string[] {
     // find the max column span // todo - assess for removal; should reject file instead
     const maxColSpan = this.findMaxColSpan(rawRecords);
+    const rawTradeRecordsWithHeader: string[] = []
 
     let isFirstEqualRow = true;
     for (const row of rawRecords) {
+
+      // maxcol check is used for files in which the header does not begin at n-row
       if (row.length === maxColSpan) {
-        // extract first valid row as the header
         if (isFirstEqualRow) {
-          this.saveRawHeader(row);
+          rawTradeRecordsWithHeader.push(row);
           isFirstEqualRow = false;
           continue;
         }
-        this.rawRecords.push(row); 
+        rawTradeRecordsWithHeader.push(row)
       }
     }
+    return rawTradeRecordsWithHeader;
   }
 
 }

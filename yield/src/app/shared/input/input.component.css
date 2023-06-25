@@ -3,5 +3,5 @@
 }
 
 .input {
-  @apply bg-transparent border-b-2 outline-none focus:outline-none focus:bottom-1 focus:border-[#DEB465] text-2xl w-full placeholder:opacity-30;
+  @apply flex w-full flex-1 bg-transparent border-b-2 outline-none focus:outline-none focus:bottom-1 focus:border-[#DEB465] text-2xl placeholder:opacity-30;
 }
