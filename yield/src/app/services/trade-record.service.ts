@@ -6,6 +6,7 @@ import { IPrice, Bnb } from '../models/IPrice';
 import { ApiTradeRecord, IApiTrade } from '../models/IApiTrade';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
+import { IReport, ProfitLossRecord } from '../models/IReport';
 
 //====================================
 // Service handling and managing the trade records CRUD ops
@@ -26,6 +27,10 @@ export class TradeRecordService {
   // for api trade records
   apiTradeRecords: IApiTrade[] = [];
   apiHeaderFields: IHeader[] = [];
+
+  // for api profit loss records
+  apiProfitLossRecords: IReport[] = [];
+  apiProfitLossFields: IHeader[] = [];
 
   // for major pair historical pricing
   priceFields: string[] = [];
@@ -53,6 +58,16 @@ export class TradeRecordService {
     }
   }
 
+  private initApiProfitLossHeaderFields(): void {
+    const plRecord = new ProfitLossRecord( '','','','','','','',0,0, 0, 0, 0);
+    let i = 0;
+    for (const propertyName in plRecord) {
+      if (propertyName != "reportDate" && propertyName != "reportId") {
+        this.apiProfitLossFields.push(new Header(propertyName, i));
+        i++;
+      }
+    }
+  }
   
   /////////// Price
 
@@ -94,10 +109,14 @@ export class TradeRecordService {
   }
 
   clearAll() : void {
+    this.rawHeaderFields = [];
+    this.rawTradeRecords = [];
     this.localHeaderFields = [];
     this.localTradeRecords = [];
     this.apiHeaderFields = [];
     this.apiTradeRecords = [];
+    this.apiProfitLossFields = [];
+    this.apiProfitLossRecords = [];
   }
 
 
@@ -136,6 +155,14 @@ export class TradeRecordService {
 
   getApiTradeRecords() : IApiTrade[] {
     return this.apiTradeRecords;
+  }
+
+  getApiProfitLossHeaderFields() : IHeader[] {
+    return this.apiProfitLossFields;
+  }
+
+  getApiProfitLossRecords() : IReport[] {
+    return this.apiProfitLossRecords;
   }
 
   
@@ -265,19 +292,18 @@ export class TradeRecordService {
 
 
   // save all trade records 
-  saveTradeRecordsToApi(): IApiTrade[] {
+  saveTradeRecordsToApi(): void {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
       console.log("created header with user, saving records");
-      this.httpClient.post<IApiTrade[]>("/api/trades/records", this.localTradeRecords, {headers: customHeader} )
+      this.httpClient.post("/api/trades/records", this.localTradeRecords, {headers: customHeader} )
         .subscribe((res: any) => {
-          console.log(res);
-          this.localTradeRecords = [];
-          return res;
+          this.clearAll();
+          this.initApiHeaderFields();
+          this.apiTradeRecords = res;
         });
     }
-    return [];
   }
 
 
@@ -304,6 +330,7 @@ export class TradeRecordService {
     if (customHeader) {
       this.httpClient.get(`/api/trades/records`, {headers: customHeader})
       .subscribe((res: any) => {
+        this.clearAll();
         this.initApiHeaderFields();
         this.apiTradeRecords = res.slice(0, 50);
       });
@@ -317,10 +344,24 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.get("/api/trades/records/reports", {headers: customHeader})
+      this.httpClient.get("/api/trades/records", {headers: customHeader})
       .subscribe((res: any) => {
         console.log(res)
           // todo implement when report ids are shown in account profile or dropdown list
+      })
+    }
+  }
+
+  fetchApiProfitLossRecords() : void {
+    const customHeader = this.configAuthHeader();
+
+    if (customHeader) {
+      this.httpClient.get("/api/trades/reports/pl", {headers: customHeader})
+      .subscribe((res: any) => {
+          this.clearAll();
+          this.initApiProfitLossHeaderFields();
+          this.apiProfitLossRecords = res;
+          // console.log(this.apiProfitLossRecords);
       })
     }
   }

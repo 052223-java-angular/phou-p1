@@ -90,7 +90,8 @@ export class FileService {
   // for getting the max col span of the first 20 rows
   private findMaxColSpan(records: string[]) : number {
     let maxColSpan = 0;
-    for (let i = 0; i < 20; i++) {
+    const len = records.length < 20 ? records.length : 20;
+    for (let i = 0; i < len; i++) {
       if (records[i].length > maxColSpan) {
         maxColSpan = records[i].length;
       }

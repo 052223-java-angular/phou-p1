@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { IUser } from './models/IUser';
 import { AuthService } from './services/auth.service';
 import { TradeRecordService } from './services/trade-record.service';
-import { ApiTradeRecord } from './models/IApiTrade';
 
 
 @Component({
@@ -12,14 +11,14 @@ import { ApiTradeRecord } from './models/IApiTrade';
 })
 export class AppComponent {
   title = 'Angular app';
-  @Input() user!: IUser;
+  loggedInUser!: IUser;
   showLineChart: boolean = false;
   showBarChart: boolean = false;
   showMarketCard: boolean = false;
   showProfitLossCard: boolean = false;
   showFrequencyCard: boolean = false;
   showTradeCard: boolean = false;
-  showSelectTable: boolean = false; // todo logic for showing after file upload
+  showSelectTable: boolean = false;
   showTable: boolean = false;
   didUploadFile: boolean = false;
 
@@ -70,6 +69,12 @@ export class AppComponent {
   getReportIds() : void {
     console.log("Getting report ids ...");
     this.tradeRecordService.getTradeRecordsReportIds();
+  }
+
+  fetchApiProfitLossRecords() : void {
+    console.log("Getting profit and loss records ... ")
+    this.tradeRecordService.fetchApiProfitLossRecords();
+    this.showTable = true;
   }
 
   clearRecords() : void {

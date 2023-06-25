@@ -2,11 +2,14 @@
 <section class="app-wrapper">
 
   <!-- Nav / Top Bar -->
-  <app-top-bar class="z-50"></app-top-bar>
+  <app-top-bar 
+      [(loggedInUser)]="loggedInUser"
+      class="z-50"></app-top-bar>
 
-  <span>showTable: {{showTable}}</span>
+  <!-- FOR DEBUGGING -->
+  <!-- <span>showTable: {{showTable}}</span>
   <br /><span>showSelect: {{showSelectTable}}</span>
-  <br /><span>didUploadFile: {{didUploadFile}}</span>
+  <br /><span>didUploadFile: {{didUploadFile}}</span> -->
 
   <!-- Action bar for performing actions, e.g. upload file, submit trades i.e save, clearing table, fetching historical -->
   <caption class="block text-2xl pt-8">Upload a trade file to enable view options</caption>
@@ -31,16 +34,18 @@
         <button class="action-btn" (click)="toggleTradeCard()">trade</button>
         <!-- disable buttons when user is not logged in -->
         <button class="action-btn api-btn" 
-            [disabled]="!showSelectTable" 
-            [ngClass]="!showSelectTable ? 'opacity-30' : 'opacity-100' "
+            [disabled]="!loggedInUser" 
+            [ngClass]="!loggedInUser ? 'opacity-30' : 'opacity-100' "
             (click)="saveTrades()">save trades</button>
         <button class="action-btn api-btn" 
-            [disabled]="false" (click)="getTradeRecords()">fetch trades</button>
+            [disabled]="!loggedInUser" 
+            [ngClass]="!loggedInUser ? 'opacity-30' : 'opacity-100' "(click)="getTradeRecords()">fetch trades</button>
       </div>
       <div class="flex flex-col gap-4">
         <button class="action-btn api-btn" 
             [disabled]="true" 
             (click)="getReportIds()">report ids</button>
+        <button class="action-btn api-btn" (click)="fetchApiProfitLossRecords()">Fetch PL</button>
         <button class="action-btn api-btn" (click)="clearRecords()">clear record</button>
       </div>
     </div>

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { IRegisterUser } from '../models/iRegisterUser';
 import { ILoginUser } from '../models/ILoginUser';
 import { IUser } from '../models/IUser';
+import { TradeRecordService } from '../services/trade-record.service';
 
 
 @Component({
@@ -13,7 +14,6 @@ import { IUser } from '../models/IUser';
 })
 export class TopBarComponent implements OnInit {
   title: string = 'Yield';
-  loggedInUser!: IUser;
   errorMessage: string = "";
   showLogin: boolean = false;
   showSignup: boolean = false;
@@ -28,9 +28,13 @@ export class TopBarComponent implements OnInit {
   loginUsername!: FormControl;
   loginPassword!: FormControl;
 
+  @Input() loggedInUser!: IUser;
+  @Output() loggedInUserChange = new EventEmitter<IUser>();
+
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private tradeRecordService: TradeRecordService
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +84,7 @@ export class TopBarComponent implements OnInit {
         this.showLogin = !this.showLogin;
         this.authService.setSessionObj(res);
         this.loggedInUser = res; 
+        this.loggedInUserChange.emit(this.loggedInUser);
       }, 
       error: (err) => {
         this.showThenResetHttpErrorMessage(err.error.message);
@@ -100,6 +105,12 @@ export class TopBarComponent implements OnInit {
       error: (err) => this.showThenResetHttpErrorMessage(err.error.message),
       complete: () => console.info('complete')
     });
+  }
+
+  logoutUser() : void {
+    this.authService.logout();
+    this.loggedInUserChange.emit(undefined);
+    this.tradeRecordService.clearAll();
   }
 
   closeModal() {

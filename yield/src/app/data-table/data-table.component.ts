@@ -4,6 +4,7 @@ import { Header, IHeader } from '../models/Header';
 import { TradeRecordService } from '../services/trade-record.service';
 import { TradeReportService } from '../services/trade-report.service';
 import { IApiTrade } from '../models/IApiTrade';
+import { IReport } from '../models/IReport';
 
 
 @Component({
@@ -26,6 +27,10 @@ export class DataTableComponent implements OnInit, AfterContentChecked {
   apiTradeRecords: IApiTrade[] = [];
   apiHeaderFields: IHeader[] = [];
 
+  // for profit loss table
+  apiProfitLossRecords: IReport[] = [];
+  apiProfitLossFields: IHeader[] = [];
+
   // for showing table
   @Input() showDataTable: boolean = false;
 
@@ -45,6 +50,13 @@ export class DataTableComponent implements OnInit, AfterContentChecked {
     if (this.tradeRecords.length == 0) {
       this.apiHeaderFields = this.tradeRecordService.getApiHeaderFields();
       this.apiTradeRecords = this.tradeRecordService.getApiTradeRecords();
+    } 
+    if (this.apiTradeRecords.length == 0 && this.tradeRecords.length == 0) {
+      // load report records 
+      this.apiProfitLossFields = this.tradeRecordService.getApiProfitLossHeaderFields();
+      this.apiProfitLossRecords = this.tradeRecordService.getApiProfitLossRecords();
+      console.log(this.apiHeaderFields);
+      console.log(this.apiProfitLossRecords);
     }
     
     console.log("data table ngDoCheck initializing ... ");
@@ -78,6 +90,10 @@ export class DataTableComponent implements OnInit, AfterContentChecked {
   commitApiTradeDelete(id: string, apiTradeRecord: IApiTrade) {
     this.tradeRecordService.deleteApiTradeRecord(id, apiTradeRecord);
     console.log('Deleting record ...')
+  }
+
+  commitApiProfitLossDelete(id: string, apiProfitLossRecord: IReport) {
+
   }
 
 }

@@ -65,6 +65,14 @@ export class DataSelectTableComponent implements AfterContentChecked {
 
    // for validating the selected option matches available
    private hasValidSelection() : boolean {
+
+      const filteredResult = [];
+      for (const element of this.selectedOptionsForColumns) {
+        if (element.name != "") {
+          filteredResult.push(element);
+        }
+      }
+      this.selectedOptionsForColumns = filteredResult;
       if (this.selectedOptionsForColumns.length === this.rawSelectOptions.length) {
         return true;
       }
