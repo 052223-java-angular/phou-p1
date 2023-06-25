@@ -15,11 +15,11 @@ export class AuthService {
   ) { }
 
   register(formData: FormGroup) : Observable<any> {
-    return this.httpClient.post<Observable<any>>(`/api/auth/register`, formData.value);
+    return this.httpClient.post<Observable<any>>(`/auth/register`, formData.value);
   }
 
   login(formData: FormGroup) : Observable<IUser> {
-    return this.httpClient.post<IUser>(`/api/auth/login`, formData.value);
+    return this.httpClient.post<IUser>(`/auth/login`, formData.value);
   }
 
   logout() : void {

@@ -1,6 +1,6 @@
 {
-  "/api": {
-  "target": "http://localhost:9001/v1",
+  "/": {
+  "target": "http://localhost:8080/v1/api",
   "secure": false
   }
 }
