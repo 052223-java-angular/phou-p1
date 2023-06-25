@@ -210,6 +210,16 @@ export class TradeRecordService {
     return null;
   }
 
+  deleteLocalApiProfitLossRecord(id: string) : IReport[] | [] {
+    for (let i = 0; i < this.apiProfitLossRecords.length; i++) {
+      if (this.apiProfitLossRecords[i].id == id) {
+        this.apiProfitLossRecords.splice(i, 1);
+        return this.apiProfitLossRecords;
+      }
+    }
+    return [];
+  }
+
   updateLocalTradeRecordFields(
     idx: number,
     asset: string,
@@ -391,6 +401,20 @@ export class TradeRecordService {
       .subscribe((res: any) => {
         const deleteResult: IApiTrade[] | null = this.deleteLocalApiTrade(id);
         console.log("deleted trade record = "+id + " and " + deleteResult);
+      })
+    }
+  }
+
+    // deletes a trade record by its id and update the local record
+  commitApiProfitLossRecordDelete(id: string, apiProfitLossRecord: IReport): void  {
+    const customHeader = this.configAuthHeader();
+
+    if (customHeader) {
+      this.httpClient.delete(`/api/trades/reports/pl?id=${id}`, {headers: customHeader})
+      .subscribe((res: any) => {
+        this.deleteLocalApiTrade(id);
+        this.apiProfitLossRecords = this.deleteLocalApiProfitLossRecord(id);
+        // console.log("deleted trade record = "+id + " and " + deleteResult);
       })
     }
   }

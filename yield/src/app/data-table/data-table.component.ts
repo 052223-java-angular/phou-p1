@@ -55,11 +55,11 @@ export class DataTableComponent implements OnInit, AfterContentChecked {
       // load report records 
       this.apiProfitLossFields = this.tradeRecordService.getApiProfitLossHeaderFields();
       this.apiProfitLossRecords = this.tradeRecordService.getApiProfitLossRecords();
-      console.log(this.apiHeaderFields);
-      console.log(this.apiProfitLossRecords);
+      // console.log(this.apiHeaderFields);
+      // console.log(this.apiProfitLossRecords);
     }
     
-    console.log("data table ngDoCheck initializing ... ");
+    // console.log("data table ngDoCheck initializing ... ");
   }
 
   // saveTradeRecords() : void {
@@ -92,8 +92,8 @@ export class DataTableComponent implements OnInit, AfterContentChecked {
     console.log('Deleting record ...')
   }
 
-  commitApiProfitLossDelete(id: string, apiProfitLossRecord: IReport) {
-
+  commitApiProfitLossRecordDelete(id: string, apiProfitLossRecord: IReport) {
+    this.tradeRecordService.commitApiProfitLossRecordDelete(id, apiProfitLossRecord);
   }
 
 }
