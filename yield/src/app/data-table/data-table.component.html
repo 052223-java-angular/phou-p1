@@ -1,7 +1,7 @@
 <!-- FOR DEBUGGING -->
-<!-- <span>apiTradeRecords: {{apiTradeRecords.length}}</span><br />
+<span>apiTradeRecords: {{apiTradeRecords.length}}</span><br />
 <span>tradeRecords: {{tradeRecords.length}} </span><br />
-<span>profit loss: {{apiProfitLossRecords.length}} </span><br /> -->
+<span>profit loss: {{apiProfitLossRecords.length}} </span><br />
 
 <ng-container *ngIf="tradeRecords.length > 0">
   <!-- Section for table displaying trades -->
@@ -33,11 +33,11 @@
           </td>
           <td>{{ record.date }}</td>
           <td>{{ record.orderId }}</td>
-          <td>{{ record.asset }}</td>
+          <td>{{ record.assetName }}</td>
           <td>{{ record.side }}</td>
           <td>{{ record.unitPrice }}</td>
           <td>{{ record.qty }}</td>
-          <td>{{ record.amountPaid }}</td>
+          <td>{{ record.amount }}</td>
           <td>{{ record.fee }}</td>
           <td>{{ record.currencyPair }}</td>
           <td class="action-btn-group">

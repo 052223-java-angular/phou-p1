@@ -232,13 +232,13 @@ export class TradeRecordService {
     fee: number,
     currencyPair: string,
   ): ITrade {
-    this.localTradeRecords[idx].asset = asset;
+    this.localTradeRecords[idx].assetName = asset;
     this.localTradeRecords[idx].orderId = orderId;
     this.localTradeRecords[idx].date = date;
     this.localTradeRecords[idx].side = side;
     this.localTradeRecords[idx].unitPrice = unitPrice;
     this.localTradeRecords[idx].qty = qty;
-    this.localTradeRecords[idx].amountPaid = amountPaid;
+    this.localTradeRecords[idx].amount = amountPaid;
     this.localTradeRecords[idx].fee = fee;
     this.localTradeRecords[idx].currencyPair = currencyPair;
 
@@ -249,13 +249,13 @@ export class TradeRecordService {
   
   // update the local trade record state
   private updateLocalTrade(idx: number, localTradeRecord: ITrade): ITrade {
-    this.localTradeRecords[idx].asset = localTradeRecord.asset;
+    this.localTradeRecords[idx].assetName = localTradeRecord.assetName;
     this.localTradeRecords[idx].orderId = localTradeRecord.orderId;
     this.localTradeRecords[idx].date = localTradeRecord.date;
     this.localTradeRecords[idx].side = localTradeRecord.side;
     this.localTradeRecords[idx].unitPrice = localTradeRecord.unitPrice;
     this.localTradeRecords[idx].qty = localTradeRecord.qty;
-    this.localTradeRecords[idx].amountPaid = localTradeRecord.amountPaid;
+    this.localTradeRecords[idx].amount = localTradeRecord.amount;
     this.localTradeRecords[idx].fee = localTradeRecord.fee;
     this.localTradeRecords[idx].currencyPair = localTradeRecord.currencyPair;
 
@@ -294,10 +294,15 @@ export class TradeRecordService {
 
 
   // create an HttpHeader with user credentials
-  private configAuthHeader() : HttpHeaders {
-    return new HttpHeaders({ 
-      user_id: this.authService.getIdOfUser(), 
-      auth_token: this.authService.getAuthTokenOfUser() });
+  private configAuthHeader() : HttpHeaders | null {
+    const userId = this.authService?.getIdOfUser();
+    const authToken = this.authService?.getAuthTokenOfUser();
+    if (userId && authToken) {
+      return new HttpHeaders({ 
+        user_id: userId, 
+        auth_token: authToken });
+    }
+    return null;
   }
 
 
@@ -367,13 +372,24 @@ export class TradeRecordService {
 
     if (customHeader) {
       this.httpClient.get("/api/trades/reports/pl", {headers: customHeader})
-      .subscribe((res: any) => {
-          this.clearAll();
-          this.initApiProfitLossHeaderFields();
-          this.apiProfitLossRecords = res;
-          // console.log(this.apiProfitLossRecords);
+        .subscribe((res: any) => {
+            this.clearAll();
+            this.initApiProfitLossHeaderFields();
+            this.apiProfitLossRecords = res;
+            // console.log(this.apiProfitLossRecords);
       })
+    } else if (this.localTradeRecords.length > 0) {
+      // allow profit loss when user is unauthenticated, but has records to submit
+
+      this.httpClient.post("/api/trades/reports/pl", JSON.parse(JSON.stringify(this.localTradeRecords)))
+        .subscribe((res: any) => {
+            this.clearAll();
+            this.initApiProfitLossHeaderFields();
+            this.apiProfitLossRecords = res;
+            // console.log(this.apiProfitLossRecords);
+        })
     }
+
   }
 
   

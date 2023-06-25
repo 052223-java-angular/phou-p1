@@ -88,7 +88,7 @@ export class DataSelectTableComponent implements AfterContentChecked {
 
       switch (colName) {
         case 'asset':
-          tradeRecord.asset = record[option.slot]; break;
+          tradeRecord.assetName = record[option.slot]; break;
         case 'order_id':
           tradeRecord.orderId = record[option.slot]; break;
         case 'date':
@@ -100,7 +100,7 @@ export class DataSelectTableComponent implements AfterContentChecked {
         case 'qty':
           tradeRecord.qty = Number.parseFloat(record[option.slot]); break;
         case 'amount_paid':
-          tradeRecord.amountPaid = Number.parseFloat(record[option.slot]); break;
+          tradeRecord.amount = Number.parseFloat(record[option.slot]); break;
         case 'fee':
           tradeRecord.fee = Number.parseFloat(record[option.slot]); break;
         case 'currency_pair':

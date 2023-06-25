@@ -34,25 +34,25 @@ export class AuthService {
     sessionStorage.setItem("user", JSON.stringify(user));
   }
 
-  getSessionObj() : IUser {
-    const jsonUser = sessionStorage.getItem("user");
+  getSessionObj() : IUser | undefined {
+    const jsonUser = sessionStorage?.getItem("user");
     return jsonUser ? JSON.parse(jsonUser) : null;
   }
 
-  getIdOfUser() : string {
-    return this.getSessionObj().id;
+  getIdOfUser() : string | undefined {
+    return this.getSessionObj()?.id;
   }
 
-  getUsernameOfUser() : string {
-    return this.getSessionObj().username
+  getUsernameOfUser() : string | undefined {
+    return this.getSessionObj()?.username
   }
 
-  getAuthTokenOfUser() : string {
-    return this.getSessionObj().token;
+  getAuthTokenOfUser() : string | undefined {
+    return this.getSessionObj()?.token;
   }
 
-  getRoleOfUser() : string {
-    return this.getSessionObj().role;
+  getRoleOfUser() : string | undefined {
+    return this.getSessionObj()?.role;
   }
 
 }
