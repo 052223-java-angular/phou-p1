@@ -1,11 +1,11 @@
 export interface ITrade {
-  asset: string,
+  assetName: string,
   orderId: string,
   date: string,
   side: string,
   unitPrice: number,
   qty: number,
-  amountPaid: number,
+  amount: number,
   fee: number,
   currencyPair: string,
   index?: number,
@@ -15,13 +15,13 @@ export interface ITrade {
 
 export class LocalTrade implements ITrade {
   constructor(
-    public asset: string = '',
+    public assetName: string = '',
     public orderId: string = '',
     public date: string = '',
     public side: string = '',
     public unitPrice: number = 0,
     public qty: number = 0,
-    public amountPaid: number = 0,
+    public amount: number = 0,
     public fee: number = 0,
     public currencyPair: string = '',
     public index?: number,

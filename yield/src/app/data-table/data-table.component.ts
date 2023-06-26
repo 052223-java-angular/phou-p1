@@ -50,6 +50,9 @@ export class DataTableComponent implements OnInit, AfterContentChecked {
     if (this.tradeRecords.length == 0) {
       this.apiHeaderFields = this.tradeRecordService.getApiHeaderFields();
       this.apiTradeRecords = this.tradeRecordService.getApiTradeRecords();
+      this.apiProfitLossRecords = this.tradeRecordService.getApiProfitLossRecords();
+      // console.log(this.apiHeaderFields);
+      // console.log(this.apiTradeRecords);
     } 
     if (this.apiTradeRecords.length == 0 && this.tradeRecords.length == 0) {
       // load report records 

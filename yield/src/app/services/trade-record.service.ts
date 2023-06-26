@@ -5,8 +5,8 @@ import { Header, IHeader } from '../models/Header';
 import { IPrice, Bnb } from '../models/IPrice';
 import { ApiTradeRecord, IApiTrade } from '../models/IApiTrade';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
 import { IReport, ProfitLossRecord } from '../models/IReport';
+import { environment } from 'src/environments/environment';
 
 //====================================
 // Service handling and managing the trade records CRUD ops
@@ -39,6 +39,7 @@ export class TradeRecordService {
   btcPriceHistory: IPrice[] = [];
 
   hasInit: boolean = false;
+  BASE_URI = environment.apiBaseUrl;
 
   constructor(
     private httpClient: HttpClient,
@@ -232,13 +233,13 @@ export class TradeRecordService {
     fee: number,
     currencyPair: string,
   ): ITrade {
-    this.localTradeRecords[idx].asset = asset;
+    this.localTradeRecords[idx].assetName = asset;
     this.localTradeRecords[idx].orderId = orderId;
     this.localTradeRecords[idx].date = date;
     this.localTradeRecords[idx].side = side;
     this.localTradeRecords[idx].unitPrice = unitPrice;
     this.localTradeRecords[idx].qty = qty;
-    this.localTradeRecords[idx].amountPaid = amountPaid;
+    this.localTradeRecords[idx].amount = amountPaid;
     this.localTradeRecords[idx].fee = fee;
     this.localTradeRecords[idx].currencyPair = currencyPair;
 
@@ -249,13 +250,13 @@ export class TradeRecordService {
   
   // update the local trade record state
   private updateLocalTrade(idx: number, localTradeRecord: ITrade): ITrade {
-    this.localTradeRecords[idx].asset = localTradeRecord.asset;
+    this.localTradeRecords[idx].assetName = localTradeRecord.assetName;
     this.localTradeRecords[idx].orderId = localTradeRecord.orderId;
     this.localTradeRecords[idx].date = localTradeRecord.date;
     this.localTradeRecords[idx].side = localTradeRecord.side;
     this.localTradeRecords[idx].unitPrice = localTradeRecord.unitPrice;
     this.localTradeRecords[idx].qty = localTradeRecord.qty;
-    this.localTradeRecords[idx].amountPaid = localTradeRecord.amountPaid;
+    this.localTradeRecords[idx].amount = localTradeRecord.amount;
     this.localTradeRecords[idx].fee = localTradeRecord.fee;
     this.localTradeRecords[idx].currencyPair = localTradeRecord.currencyPair;
 
@@ -294,10 +295,18 @@ export class TradeRecordService {
 
 
   // create an HttpHeader with user credentials
-  private configAuthHeader() : HttpHeaders {
-    return new HttpHeaders({ 
-      user_id: this.authService.getIdOfUser(), 
-      auth_token: this.authService.getAuthTokenOfUser() });
+  private configAuthHeader() : HttpHeaders | null {
+    const userId = this.authService?.getIdOfUser();
+    const authToken = this.authService?.getAuthTokenOfUser();
+    if (userId && authToken) {
+      return new HttpHeaders({ 
+        user_id: userId, 
+        auth_token: authToken, 
+        accessControlAllowOrigin: "*",
+        "Access-Control-Allow-Origin": "*"
+      });
+    }
+    return null;
   }
 
 
@@ -307,12 +316,14 @@ export class TradeRecordService {
 
     if (customHeader) {
       console.log("created header with user, saving records");
-      this.httpClient.post("/api/trades/records", this.localTradeRecords, {headers: customHeader} )
-        .subscribe((res: any) => {
-          this.clearAll();
-          this.initApiHeaderFields();
-          this.apiTradeRecords = res;
-        });
+      this.httpClient.post(`${this.BASE_URI}/api/trades/records`, 
+          JSON.parse(JSON.stringify(this.localTradeRecords)),
+          {headers: customHeader} )
+            .subscribe((res: any) => {
+              this.clearAll();
+              this.initApiHeaderFields();
+              this.apiTradeRecords = res;
+            });
     }
   }
 
@@ -323,9 +334,9 @@ export class TradeRecordService {
       const customHeader = this.configAuthHeader();
   
       if (customHeader) {
-        this.httpClient.get(`/api/trades/records?id`, {headers: customHeader})
+        this.httpClient.get(`${this.BASE_URI}/api/trades/records?id`, {headers: customHeader})
         .subscribe((res: any) => {
-          console.log(res);
+          // console.log(res);
           // this.apiTradeRecords = res;
         });
       }
@@ -338,11 +349,11 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.get(`/api/trades/records`, {headers: customHeader})
+      this.httpClient.get(`${this.BASE_URI}/api/trades/records`, {headers: customHeader})
       .subscribe((res: any) => {
         this.clearAll();
         this.initApiHeaderFields();
-        this.apiTradeRecords = res.slice(0, 50);
+        this.apiTradeRecords = res;
       });
     }
   }
@@ -354,9 +365,9 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.get("/api/trades/records", {headers: customHeader})
+      this.httpClient.get(`${this.BASE_URI}/api/trades/records`, {headers: customHeader})
       .subscribe((res: any) => {
-        console.log(res)
+        // console.log(res)
           // todo implement when report ids are shown in account profile or dropdown list
       })
     }
@@ -366,14 +377,25 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.get("/api/trades/reports/pl", {headers: customHeader})
-      .subscribe((res: any) => {
-          this.clearAll();
-          this.initApiProfitLossHeaderFields();
-          this.apiProfitLossRecords = res;
-          // console.log(this.apiProfitLossRecords);
+      this.httpClient.get(`${this.BASE_URI}/api/trades/reports/pl`, {headers: customHeader})
+        .subscribe((res: any) => {
+            this.clearAll();
+            this.initApiProfitLossHeaderFields();
+            this.apiProfitLossRecords = res;
+            // console.log(this.apiProfitLossRecords);
       })
+    } else if (this.localTradeRecords.length > 0) {
+      // allow profit loss when user is unauthenticated, but has records to submit
+
+      this.httpClient.post(`${this.BASE_URI}/api/trades/reports/pl`, JSON.parse(JSON.stringify(this.localTradeRecords)))
+        .subscribe((res: any) => {
+            this.clearAll();
+            this.initApiProfitLossHeaderFields();
+            this.apiProfitLossRecords = res;
+            // console.log(this.apiProfitLossRecords);
+        })
     }
+
   }
 
   
@@ -383,9 +405,9 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.put("/api/trades/records", apiTradeRecord, {headers: customHeader})
+      this.httpClient.put(`${this.BASE_URI}/api/trades/records`, apiTradeRecord, {headers: customHeader})
       .subscribe((res: any) => {
-        console.log(res)
+        // console.log(res)
 
       })
     }
@@ -397,10 +419,11 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.delete(`/api/trades/records?trade_record_id=${id}`, {headers: customHeader})
+      this.httpClient.delete(`${this.BASE_URI}/api/trades/records?trade_record_id=${id}`, {headers: customHeader})
       .subscribe((res: any) => {
         const deleteResult: IApiTrade[] | null = this.deleteLocalApiTrade(id);
-        console.log("deleted trade record = "+id + " and " + deleteResult);
+        // console.log("deleted trade record = "+id + " and " + deleteResult);
+  
       })
     }
   }
@@ -410,7 +433,7 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.delete(`/api/trades/reports/pl?id=${id}`, {headers: customHeader})
+      this.httpClient.delete(`${this.BASE_URI}/api/trades/reports/pl?id=${id}`, {headers: customHeader})
       .subscribe((res: any) => {
         this.deleteLocalApiTrade(id);
         this.apiProfitLossRecords = this.deleteLocalApiProfitLossRecord(id);

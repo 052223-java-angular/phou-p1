@@ -1,6 +1,6 @@
 {
   "/api": {
-  "target": "http://localhost:9001/v1",
-  "secure": false
+    "target": "http://yield-app-p1.us-east-2.elasticbeanstalk.com/v1",
+    "secure": false
   }
 }

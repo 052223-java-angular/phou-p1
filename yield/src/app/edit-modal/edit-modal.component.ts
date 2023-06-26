@@ -33,13 +33,13 @@ export class EditModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.asset = new FormControl({value: this.tradeRecord.asset, disabled: true});
+    this.asset = new FormControl({value: this.tradeRecord.assetName, disabled: true});
     this.orderId = new FormControl({value: this.tradeRecord.orderId, disabled: true});
     this.date = new FormControl(this.tradeRecord.date);
     this.side = new FormControl(this.tradeRecord.side);
     this.unitPrice = new FormControl(this.tradeRecord.unitPrice);
     this.qty = new FormControl(this.tradeRecord.qty);
-    this.amountPaid = new FormControl(this.tradeRecord.amountPaid);
+    this.amountPaid = new FormControl(this.tradeRecord.amount);
     this.fee = new FormControl(this.tradeRecord.fee);
     this.currencyPair = new FormControl(this.tradeRecord.currencyPair);
 
@@ -75,13 +75,13 @@ export class EditModalComponent implements OnInit {
 
   // for updating the local trade record declared in this component
   private updateTradeRecordValues() : ITrade {
-    this.tradeRecord.asset = this.editForm.get('asset')?.value;
+    this.tradeRecord.assetName = this.editForm.get('asset')?.value;
     this.tradeRecord.orderId = this.editForm.get('orderId')?.value
     this.tradeRecord.date  = this.editForm.get('date')?.value
     this.tradeRecord.side = this.editForm.get('side')?.value
     this.tradeRecord.unitPrice = this.editForm.get('unitPrice')?.value
     this.tradeRecord.qty = this.editForm.get('qty')?.value
-    this.tradeRecord.amountPaid = this.editForm.get('amountPaid')?.value
+    this.tradeRecord.amount = this.editForm.get('amountPaid')?.value
     this.tradeRecord.fee = this.editForm.get('fee')?.value
     this.tradeRecord.currencyPair = this.editForm.get('currencyPair')?.value
     return this.tradeRecord;

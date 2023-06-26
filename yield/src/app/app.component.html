@@ -24,29 +24,26 @@
     <!-- action buttons -->
     <div class="action-btn-group" >
       <div class="flex flex-col gap-4">
+        <button class="action-btn" (click)="toggleFrequencyCard()">frequency</button>
+        <button class="action-btn" (click)="toggleMarketCard()">market</button>
         <button class="action-btn" (click)="toggleProfitLossCard()">profit & loss</button>
+        <button class="action-btn" (click)="toggleTradeCard()">trade</button>
+      </div>
+      <div class="flex flex-col gap-4">
         <button class="action-btn" (click)="toggleLineChart()">line chart</button>
         <button class="action-btn" (click)="toggleBarChart()">bar chart</button>
-        <button class="action-btn" (click)="toggleMarketCard()">market</button>
       </div>
       <div class="flex flex-col gap-4">
-        <button class="action-btn" (click)="toggleFrequencyCard()">frequency</button>
-        <button class="action-btn" (click)="toggleTradeCard()">trade</button>
-        <!-- disable buttons when user is not logged in -->
-        <button class="action-btn api-btn" 
-            [disabled]="!loggedInUser" 
-            [ngClass]="!loggedInUser ? 'opacity-30' : 'opacity-100' "
-            (click)="saveTrades()">save trades</button>
-        <button class="action-btn api-btn" 
-            [disabled]="!loggedInUser" 
-            [ngClass]="!loggedInUser ? 'opacity-30' : 'opacity-100' "(click)="getTradeRecords()">fetch trades</button>
-      </div>
-      <div class="flex flex-col gap-4">
-        <button class="action-btn api-btn" 
-            [disabled]="true" 
-            (click)="getReportIds()">report ids</button>
+          <!-- disable buttons when user is not logged in -->
+          <button class="action-btn api-btn" 
+              [disabled]="!loggedInUser" 
+              [ngClass]="!loggedInUser ? 'opacity-30' : 'opacity-100' "
+              (click)="saveTrades()">save trades</button>
+  
+          <button class="action-btn api-btn" 
+              [disabled]="!loggedInUser" 
+              [ngClass]="!loggedInUser ? 'opacity-30' : 'opacity-100' "(click)="getTradeRecords()">fetch trades</button>
         <button class="action-btn api-btn" (click)="fetchApiProfitLossRecords()">Fetch PL</button>
-        <button class="action-btn api-btn" (click)="clearRecords()">clear record</button>
       </div>
     </div>
   </div>

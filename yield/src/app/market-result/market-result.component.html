@@ -2,28 +2,67 @@
   <ng-container *ngIf="showMarketCard">
     <a href="#" class="w-1/3 min-h-[164px] max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Market Summary</h5>
-      <p class="font-normal text-gray-700 ">Market Summary Data</p>
+      <p class="font-normal text-gray-700 ">Total crypto assets </p>
+      <p class="font-normal text-gray-700 ">Total market cap of crypto assets</p>
+      <p class="font-normal text-gray-700 ">Total daily trade volume </p>
+      <div class="font-normal text-gray-700 ">
+        <span>Top pair 1</span><br/>
+        <span>Top pair 2</span><br/>
+        <span>Top pair 3</span><br/>
+      </div>
     </a>  
   </ng-container>
 
   <ng-container *ngIf="showProfitLossCard">
     <a href="#" class="w-1/3 min-h-[164px] max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Profit & Loss Summary</h5>
-      <p class="font-normal text-gray-700 ">Profit & Loss Summary Data</p>
+      <p class="font-normal text-gray-700 ">Trade count</p>
+      <p class="font-normal text-gray-700 ">
+        <span>Profit trade count: 1000</span> <span> & amount: 10000</span>
+        <span>Losing trade count:  890</span> <span> & amount:  8900</span>
+        <span>Profit / Loss percent:  46.76</span> <span>Net Profit / Loss:  1600</span>
+      </p>
+      <p class="font-normal text-gray-700 ">LT Trading Volume</p>
+      <p class="font-normal text-gray-700 ">
+        <span>Largest trade $:  </span> <span>Smallest trade $: </span>
+        <span>Largest profit:  </span> <span>Smallest loss: </span>
+      </p>
     </a>
   </ng-container>
   
   <ng-container *ngIf="showFrequencyCard">
     <a href="#" class="w-1/3 min-h-[164px] max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Frequency Summary</h5>
-      <p class="font-normal text-gray-700 ">Frequency Summary Data</p>
+      <p class="font-normal text-gray-700 ">Most Traded Assets</p>
+      <div>
+        <span>Top asset 1 | </span><span>Top asset 2 | </span><span>Top asset 3 | </span>
+      </div>
+      <p class="font-normal text-gray-700 ">Most Profitable Assets</p>
+      <div>
+        <span>Top asset 1 | </span><span>Top asset 2 | </span><span>Top asset 3 | </span>
+      </div>
+      <p class="font-normal text-gray-700 ">Least Profitable Assets</p>
+      <div>
+        <span>Top asset 1 | </span><span>Top asset 2 | </span><span>Top asset 3 | </span>
+      </div>
     </a>
   </ng-container>
 
   <ng-container *ngIf="showTradeCard">
     <a href="#" class="w-1/3 min-h-[164px] max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Trade Summary</h5>
-      <p class="font-normal text-gray-700 ">Trade Summary Data</p>
+      <p class="font-normal text-gray-700 ">Trade Volume</p>
+      <div>
+        <span>Volume 7d | </span><span>Volume 30d | </span><span>Volume 90d | </span>
+      </div>
+      <p class="font-normal text-gray-700 ">Trade Qty</p>
+      <div>
+        <span>Qty 7d | </span><span>Qty 30d | </span><span>Qty 90d | </span>
+      </div>
+      <p class="font-normal text-gray-700 ">Profit Loss</p>
+      <div>
+        <span>PL 7d | </span><span>PL 30d | </span><span>PL 90d | </span>
+      </div>
     </a>
   </ng-container>
 
