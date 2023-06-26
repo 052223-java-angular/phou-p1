@@ -5,8 +5,8 @@ import { Header, IHeader } from '../models/Header';
 import { IPrice, Bnb } from '../models/IPrice';
 import { ApiTradeRecord, IApiTrade } from '../models/IApiTrade';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
 import { IReport, ProfitLossRecord } from '../models/IReport';
+import { environment } from 'src/environments/environment';
 
 //====================================
 // Service handling and managing the trade records CRUD ops
@@ -39,6 +39,7 @@ export class TradeRecordService {
   btcPriceHistory: IPrice[] = [];
 
   hasInit: boolean = false;
+  BASE_URI = environment.apiBaseUrl;
 
   constructor(
     private httpClient: HttpClient,
@@ -300,7 +301,10 @@ export class TradeRecordService {
     if (userId && authToken) {
       return new HttpHeaders({ 
         user_id: userId, 
-        auth_token: authToken });
+        auth_token: authToken, 
+        accessControlAllowOrigin: "*",
+        "Access-Control-Allow-Origin": "*"
+      });
     }
     return null;
   }
@@ -312,12 +316,14 @@ export class TradeRecordService {
 
     if (customHeader) {
       console.log("created header with user, saving records");
-      this.httpClient.post("/trades/records", this.localTradeRecords, {headers: customHeader} )
-        .subscribe((res: any) => {
-          this.clearAll();
-          this.initApiHeaderFields();
-          this.apiTradeRecords = res;
-        });
+      this.httpClient.post(`${this.BASE_URI}/api/trades/records`, 
+          JSON.parse(JSON.stringify(this.localTradeRecords)),
+          {headers: customHeader} )
+            .subscribe((res: any) => {
+              this.clearAll();
+              this.initApiHeaderFields();
+              this.apiTradeRecords = res;
+            });
     }
   }
 
@@ -328,9 +334,9 @@ export class TradeRecordService {
       const customHeader = this.configAuthHeader();
   
       if (customHeader) {
-        this.httpClient.get(`/trades/records?id`, {headers: customHeader})
+        this.httpClient.get(`${this.BASE_URI}/api/trades/records?id`, {headers: customHeader})
         .subscribe((res: any) => {
-          console.log(res);
+          // console.log(res);
           // this.apiTradeRecords = res;
         });
       }
@@ -343,7 +349,7 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.get(`/trades/records`, {headers: customHeader})
+      this.httpClient.get(`${this.BASE_URI}/api/trades/records`, {headers: customHeader})
       .subscribe((res: any) => {
         this.clearAll();
         this.initApiHeaderFields();
@@ -359,9 +365,9 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.get("/trades/records", {headers: customHeader})
+      this.httpClient.get(`${this.BASE_URI}/api/trades/records`, {headers: customHeader})
       .subscribe((res: any) => {
-        console.log(res)
+        // console.log(res)
           // todo implement when report ids are shown in account profile or dropdown list
       })
     }
@@ -371,7 +377,7 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.get("/trades/reports/pl", {headers: customHeader})
+      this.httpClient.get(`${this.BASE_URI}/api/trades/reports/pl`, {headers: customHeader})
         .subscribe((res: any) => {
             this.clearAll();
             this.initApiProfitLossHeaderFields();
@@ -381,7 +387,7 @@ export class TradeRecordService {
     } else if (this.localTradeRecords.length > 0) {
       // allow profit loss when user is unauthenticated, but has records to submit
 
-      this.httpClient.post("/trades/reports/pl", JSON.parse(JSON.stringify(this.localTradeRecords)))
+      this.httpClient.post(`${this.BASE_URI}/api/trades/reports/pl`, JSON.parse(JSON.stringify(this.localTradeRecords)))
         .subscribe((res: any) => {
             this.clearAll();
             this.initApiProfitLossHeaderFields();
@@ -399,9 +405,9 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.put("/trades/records", apiTradeRecord, {headers: customHeader})
+      this.httpClient.put(`${this.BASE_URI}/api/trades/records`, apiTradeRecord, {headers: customHeader})
       .subscribe((res: any) => {
-        console.log(res)
+        // console.log(res)
 
       })
     }
@@ -413,10 +419,10 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.delete(`/trades/records?trade_record_id=${id}`, {headers: customHeader})
+      this.httpClient.delete(`${this.BASE_URI}/api/trades/records?trade_record_id=${id}`, {headers: customHeader})
       .subscribe((res: any) => {
         const deleteResult: IApiTrade[] | null = this.deleteLocalApiTrade(id);
-        console.log("deleted trade record = "+id + " and " + deleteResult);
+        // console.log("deleted trade record = "+id + " and " + deleteResult);
   
       })
     }
@@ -427,7 +433,7 @@ export class TradeRecordService {
     const customHeader = this.configAuthHeader();
 
     if (customHeader) {
-      this.httpClient.delete(`/api/trades/reports/pl?id=${id}`, {headers: customHeader})
+      this.httpClient.delete(`${this.BASE_URI}/api/trades/reports/pl?id=${id}`, {headers: customHeader})
       .subscribe((res: any) => {
         this.deleteLocalApiTrade(id);
         this.apiProfitLossRecords = this.deleteLocalApiProfitLossRecord(id);

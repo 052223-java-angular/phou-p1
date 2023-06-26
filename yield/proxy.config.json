@@ -1,6 +1,6 @@
 {
-  "/": {
-  "target": "http://localhost:8080/v1/api",
-  "secure": false
+  "/api": {
+    "target": "http://yield-app-p1.us-east-2.elasticbeanstalk.com/v1",
+    "secure": false
   }
 }

@@ -1,25 +1,47 @@
 import { Injectable } from '@angular/core';
 import { IUser, User } from '../models/IUser';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user: IUser | undefined;
+  BASE_URI = environment.apiBaseUrl;
+  // create an HttpHeader with user credentials
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
+  // register(formData: FormGroup) : Observable<any> {
+  //   return this.httpClient.post<Observable<any>>(
+  //     `${this.BASE_URI}/auth/register`, formData.value, { headers: this.configAuthHeader()});
+  // }
+
+  // login(formData: FormGroup) : Observable<IUser> {
+  //   return this.httpClient.post<IUser>(
+  //     `${this.BASE_URI}/auth/login`, formData.value, { headers: this.configAuthHeader()});
+  // }
+
+
   register(formData: FormGroup) : Observable<any> {
-    return this.httpClient.post<Observable<any>>(`/auth/register`, formData.value);
+    return this.httpClient.post<Observable<any>>(
+      `${this.BASE_URI}/api/auth/register`, formData.value, { headers: this.configAuthHeader()});
   }
 
   login(formData: FormGroup) : Observable<IUser> {
-    return this.httpClient.post<IUser>(`/auth/login`, formData.value);
+    return this.httpClient.post<IUser>(
+      `${this.BASE_URI}/api/auth/login`, formData.value, { headers: this.configAuthHeader()});
+  }
+
+  private configAuthHeader() : HttpHeaders {
+    return new HttpHeaders({ 
+      "Access-Control-Allow-Origin": "*",
+    });
   }
 
   logout() : void {
