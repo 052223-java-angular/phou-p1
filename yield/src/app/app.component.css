@@ -1,9 +1,33 @@
 .app-wrapper {
-  @apply mx-auto w-full flex-col h-screen bg-slate-100 items-center overflow-y-auto overflow-x-hidden;
+  @apply flex flex-col w-full h-full bg-slate-100 items-center overflow-y-auto overflow-x-hidden;
 }
 
 .app-footer {
-  @apply mt-auto bottom-6 text-center w-full bg-slate-100;
+  @apply absolute bottom-6 text-center w-full bg-slate-100;
+}
+
+.aside-wrap {
+  @apply flex w-full h-full px-3 z-[999];
+}
+
+.menu-wrap {
+  @apply flex flex-1 flex-col h-full w-full justify-between border-r-2;
+}
+
+.menu-section-bottom {
+  @apply mb-12 capitalize;
+}
+
+.menu-title {
+  @apply py-3 uppercase tracking-widest;
+}
+
+ul {
+  @apply capitalize;
+}
+
+li {
+  @apply py-1 pl-3;
 }
 
 .action-container {

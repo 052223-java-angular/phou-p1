@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 import { AppComponent } from './app.component';
 import { NgChartsModule } from 'ng2-charts';
@@ -18,6 +19,10 @@ import { DataSelectTableComponent } from './data-select-table/data-select-table.
 import { Papa } from 'ngx-papaparse';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { EditModalComponent } from './edit-modal/edit-modal.component';
+import { MarketsComponent } from './pages/markets/markets.component';
+import { TradeComponent } from './pages/trade/trade.component';
+import { AssetCardComponent } from './components/crypto/asset-card/asset-card.component';
+import { AssetTableComponent } from './components/crypto/asset-table/asset-table.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +36,10 @@ import { EditModalComponent } from './edit-modal/edit-modal.component';
     DataSelectTableComponent,
     FileUploadComponent,
     EditModalComponent,
+    MarketsComponent,
+    TradeComponent,
+    AssetCardComponent,
+    AssetTableComponent,
   ],
   imports: [
     BrowserModule, 
@@ -39,6 +48,7 @@ import { EditModalComponent } from './edit-modal/edit-modal.component';
     HttpClientModule, 
     ReactiveFormsModule,
     SharedModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent],

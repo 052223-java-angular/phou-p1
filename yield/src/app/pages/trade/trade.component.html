@@ -1,0 +1,67 @@
+  <!-- FOR DEBUGGING -->
+  <!-- <span>showTable: {{showTable}}</span>
+  <br /><span>showSelect: {{showSelectTable}}</span>
+  <br /><span>didUploadFile: {{didUploadFile}}</span> -->
+
+  <!-- Action bar for performing actions, e.g. upload file, submit trades i.e save, clearing table, fetching historical -->
+  <caption class="block text-2xl pt-8">Upload a trade file to enable view options</caption>
+  <div class="action-container">
+    
+    <app-file-upload 
+      [(didUploadFile)]="showSelectTable"
+      class="mx-auto w-3/6">
+    </app-file-upload>
+  
+
+    <!-- action buttons -->
+    <div class="action-btn-group" >
+      <div class="flex flex-col gap-4">
+        <button class="action-btn" (click)="toggleFrequencyCard()">frequency</button>
+        <button class="action-btn" (click)="toggleMarketCard()">market</button>
+        <button class="action-btn" (click)="toggleProfitLossCard()">profit & loss</button>
+        <button class="action-btn" (click)="toggleTradeCard()">trade</button>
+      </div>
+      <div class="flex flex-col gap-4">
+        <button class="action-btn" (click)="toggleLineChart()">line chart</button>
+        <button class="action-btn" (click)="toggleBarChart()">bar chart</button>
+      </div>
+      <div class="flex flex-col gap-4">
+          <!-- disable buttons when user is not logged in -->
+          <button class="action-btn api-btn" 
+              [disabled]="!loggedInUser" 
+              [ngClass]="!loggedInUser ? 'opacity-30' : 'opacity-100' "
+              (click)="saveTrades()">save trades</button>
+  
+          <button class="action-btn api-btn" 
+              [disabled]="!loggedInUser" 
+              [ngClass]="!loggedInUser ? 'opacity-30' : 'opacity-100' "(click)="getTradeRecords()">fetch trades</button>
+        <button class="action-btn api-btn" (click)="fetchApiProfitLossRecords()">Calc + Fetch PL</button>
+        <!-- <button class="action-btn api-btn" (click)="fetchApiPLByUserId()">Fetch PL's</button> -->
+        <button class="action-btn api-btn" (click)="clearRecords()">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section for info / summary data -->
+  <app-market-result 
+    [showMarketCard]="showMarketCard"
+    [showProfitLossCard]="showProfitLossCard"
+    [showFrequencyCard]="showFrequencyCard"
+    [showTradeCard]="showTradeCard" 
+    class=""></app-market-result>
+
+  <!-- Section for charts -->
+  <app-analytic 
+    [showLineChart]="showLineChart"
+    [showBarChart]="showBarChart" class=""></app-analytic>
+
+  <!-- Section for selecting column headers -->
+  <app-data-select-table
+    *ngIf="showSelectTable"
+    [(showTable)]="showTable"
+    [(showSelectTable)]="showSelectTable"></app-data-select-table>
+
+    <!-- *ngIf="didUploadFile || (showTable && showSelectTable)" -->
+  <!-- Section for uploading / show after file is uploaded -->
+  <app-data-table 
+    *ngIf="showTable && !showSelectTable"></app-data-table>

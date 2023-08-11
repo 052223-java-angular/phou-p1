@@ -1,0 +1,34 @@
+<table class="w-full">
+  <caption>crypto assets</caption>
+  <thead>
+    <tr class="thead-row">
+      <th>rank</th>
+      <th>icon</th>
+      <th>symbol</th>
+      <th>name</th>
+      <th>price</th>
+      <th>market cap</th>
+      <th>volume</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let asset of assets$ | async as assets; index as i">
+      <td>{{i+1}}</td>
+      <td>
+        <img class="h-6 w-6" [src]="asset.images[0]" alt="asset symbol">
+      </td>
+      <td>{{asset.symbol}}</td>
+      <td>{{asset.name}}</td>
+      <td>{{asset.currentPrice}}</td>
+      <td>{{asset.marketCap}}</td>
+      <td>{{asset.totalVolume}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr >
+      <td colspan="7">
+        <span >page</span> [ {{ 1 }} ] of [ {{ 1 }} ]
+      </td>
+    </tr>
+  </tfoot>
+</table>

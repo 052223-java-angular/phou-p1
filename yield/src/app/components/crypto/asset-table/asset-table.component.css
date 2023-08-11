@@ -1,0 +1,17 @@
+
+
+.thead-row {
+  @apply border border-b-slate-300 border-r-0 border-t-0 border-l-0 h-6;
+}
+
+td, th {
+  @apply text-center border-b h-6;
+}
+
+tfoot {
+  @apply h-12;
+}
+
+tfoot > tr > td:last-of-type {
+  @apply text-right pr-3;
+}
