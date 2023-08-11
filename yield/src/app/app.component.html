@@ -23,25 +23,25 @@
         <h3 class="menu-title">markets</h3>
         <hr />
         <ul>
-          <li><a>view</a></li>
-          <li><a>research</a></li>
-          <li><a>detail</a></li>
+          <li><a routerLink="markets/view">view</a></li>
+          <li><a routerLink="markets/research">research</a></li>
+          <li><a routerLink="markets/detail">detail</a></li>
         </ul>
         <hr />
-        <h3 class="menu-title">trade</h3>
+        <h3 class="menu-title">trades</h3>
         <hr />
         <ul>
-          <li><a>view</a></li>
-          <li><a>analysis</a></li>
-          <li><a>record</a></li>
+          <li><a routerLink="trades/view">view</a></li>
+          <li><a routerLink="trades/analysis">analysis</a></li>
+          <li><a routerLink="trades/records">records</a></li>
         </ul>
         <hr />
         <h3 class="menu-title">portfolio</h3>
         <hr />
         <ul>
-          <li><a>view</a></li>
-          <li><a>analysis</a></li>
-          <li><a>entries</a></li>
+          <li><a routerLink="portfolio/view">view</a></li>
+          <li><a routerLink="portfolio/analysis">analysis</a></li>
+          <li><a routerLink="portfolio/entries">entries</a></li>
         </ul>
 
       </div>
@@ -60,7 +60,7 @@
     </div>
     
     <div class="flex-[5] ">
-      <app-markets></app-markets>
+      <!-- <app-markets></app-markets> -->
       <router-outlet></router-outlet>
     </div>
   </aside>

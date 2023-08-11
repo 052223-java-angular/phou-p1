@@ -8,6 +8,10 @@ td, th {
   @apply text-center border-b h-6;
 }
 
+img {
+  @apply h-6 w-6;
+}
+
 tfoot {
   @apply h-12;
 }

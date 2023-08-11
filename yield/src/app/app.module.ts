@@ -23,6 +23,8 @@ import { MarketsComponent } from './pages/markets/markets.component';
 import { TradeComponent } from './pages/trade/trade.component';
 import { AssetCardComponent } from './components/crypto/asset-card/asset-card.component';
 import { AssetTableComponent } from './components/crypto/asset-table/asset-table.component';
+import { PortfolioComponent } from './pages/portfolio/portfolio.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { AssetTableComponent } from './components/crypto/asset-table/asset-table
     TradeComponent,
     AssetCardComponent,
     AssetTableComponent,
+    PortfolioComponent,
   ],
   imports: [
     BrowserModule, 

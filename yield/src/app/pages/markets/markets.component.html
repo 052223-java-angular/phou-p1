@@ -1,5 +1,5 @@
 <section>
-  <div class="flex w-full flex-wrap justify-around" cdkDropList (cdkDropListDropped)="onDrop($event)">
+  <div class="top-asset-wrap" cdkDropList (cdkDropListDropped)="onDrop($event)">
     <app-asset-card cdkDrag
       *ngFor="let topAsset of topAssets$ | async"
       [asset]="topAsset" 
@@ -9,13 +9,13 @@
   <hr />
 
   <!-- search / asset lookup  -->
-  <div class="flex w-[97%] justify-end gap-3 mt-6">
-    <input class="max-w-[35%] w-64 px-3 py-1" type="text" />
-    <button class="border border-slate-300 px-3 py-1">filter</button>
+  <div class="search-filter-wrap">
+    <input type="text" />
+    <button >filter</button>
   </div>
 
   <!-- table or details of asset -->
-  <div class="table w-[97%] min-h-[24rem] border border-slate-300 rounded-md overflow-x-auto mt-6 px-3 py-3 ml-3">
+  <div class="table-wrap">
     <app-asset-table
       [assets$]="assets$"
     ></app-asset-table>

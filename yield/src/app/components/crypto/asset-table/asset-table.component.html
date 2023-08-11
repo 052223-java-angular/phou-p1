@@ -15,7 +15,7 @@
     <tr *ngFor="let asset of assets$ | async as assets; index as i">
       <td>{{i+1}}</td>
       <td>
-        <img class="h-6 w-6" [src]="asset.images[0]" alt="asset symbol">
+        <img [src]="asset.images[0]" alt="asset symbol">
       </td>
       <td>{{asset.symbol}}</td>
       <td>{{asset.name}}</td>
