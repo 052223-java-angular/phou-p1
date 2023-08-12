@@ -16,7 +16,6 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { MarketResultComponent } from './market-result/market-result.component';
 import { SharedModule } from './shared/shared.module';
 import { DataSelectTableComponent } from './data-select-table/data-select-table.component';
-import { Papa } from 'ngx-papaparse';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { EditModalComponent } from './edit-modal/edit-modal.component';
 import { MarketsComponent } from './pages/markets/markets.component';
@@ -24,7 +23,12 @@ import { TradeComponent } from './pages/trade/trade.component';
 import { AssetCardComponent } from './components/crypto/asset-card/asset-card.component';
 import { AssetTableComponent } from './components/crypto/asset-table/asset-table.component';
 import { PortfolioComponent } from './pages/portfolio/portfolio.component';
-import { RouterModule } from '@angular/router';
+import { TradesComponent } from './pages/trades/trades.component';
+import { FileComponent } from './components/trade/file/file.component';
+import { FieldOptionComponent } from './components/trade/field-option/field-option.component';
+import { ColOptionPipe } from './components/trade/pipe/col-option.pipe';
+import { RecordsTableComponent } from './components/trade/records-table/records-table.component';
+import { FormatRecordsPipe } from './components/trade/pipe/format-records.pipe';
 
 @NgModule({
   declarations: [
@@ -43,6 +47,12 @@ import { RouterModule } from '@angular/router';
     AssetCardComponent,
     AssetTableComponent,
     PortfolioComponent,
+    TradesComponent,
+    FileComponent,
+    FieldOptionComponent,
+    ColOptionPipe,
+    RecordsTableComponent,
+    FormatRecordsPipe
   ],
   imports: [
     BrowserModule, 

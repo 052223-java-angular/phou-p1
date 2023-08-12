@@ -1,17 +1,17 @@
 .app-wrapper {
-  @apply flex flex-col w-full h-full bg-slate-100 items-center overflow-y-auto overflow-x-hidden;
+  @apply flex flex-col w-full h-full bg-slate-100 items-center overflow-y-auto overflow-x-auto;
 }
 
 .app-footer {
-  @apply absolute bottom-6 text-center w-full bg-slate-100;
+  @apply absolute pt-3 bottom-0 h-12 text-center w-full bg-slate-100 z-[999];
 }
 
 .aside-wrap {
-  @apply flex w-full h-full px-3 z-[999];
+  @apply flex w-full h-full px-3 z-[999] overflow-y-auto;
 }
 
 .menu-wrap {
-  @apply flex flex-1 flex-col h-full w-full justify-between border-r-2;
+  @apply flex flex-1 flex-col h-full w-full justify-between border-r-2 overflow-y-auto;
 }
 
 .menu-section-bottom {
@@ -31,7 +31,7 @@ li {
 }
 
 .action-container {
-  @apply flex items-center w-full py-8;
+  @apply flex items-center w-full py-8 overflow-x-auto;
 }
 
 .action-btn-group {

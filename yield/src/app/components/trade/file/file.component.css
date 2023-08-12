@@ -1,0 +1,19 @@
+.wrap {
+  @apply flex justify-center pt-6 ;
+}
+
+.wrapper {
+  @apply flex flex-col w-[64%] mx-auto gap-y-6 pt-6 capitalize;
+}
+
+p {
+  @apply text-sm py-3 lowercase;
+}
+
+h3 {
+  @apply text-xl;
+}
+
+input {
+  @apply border border-slate-300 pr-12;
+}

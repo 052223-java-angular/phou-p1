@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MarketsComponent } from './pages/markets/markets.component';
 import { TradeComponent } from './pages/trade/trade.component';
 import { PortfolioComponent } from './pages/portfolio/portfolio.component';
+import { TradesComponent } from './pages/trades/trades.component';
 
 const routes: Routes = [
   {path: 'markets', component: MarketsComponent, 
@@ -11,11 +12,11 @@ const routes: Routes = [
       {path: 'research', component: MarketsComponent},
       {path: 'detail', component: MarketsComponent}
   ]},
-  {path: 'trades', component: TradeComponent, 
+  {path: 'trades', component: TradesComponent, 
     children: [
-      {path: 'view', component: TradeComponent},
-      {path: 'analysis', component: TradeComponent},
-      {path: 'records', component: TradeComponent}
+      {path: 'view', component: TradesComponent},
+      {path: 'analysis', component: TradesComponent},
+      {path: 'records', component: TradesComponent}
   ]},
   {path: 'portfolio', component: PortfolioComponent, 
     children: [

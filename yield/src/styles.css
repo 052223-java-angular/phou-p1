@@ -16,5 +16,5 @@ html, body {
   /* font-family: 'Reenie Beanie', cursive; */
   /* font-family: 'VT323', monospace; */
   font-family: 'Coming Soon', cursive;
-  @apply w-full h-full p-0 m-0;
+  @apply w-[100vw] h-[100%] p-0 m-0;
 }

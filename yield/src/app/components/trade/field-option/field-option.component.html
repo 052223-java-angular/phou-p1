@@ -1,0 +1,37 @@
+
+<div [ngClass]="displayAsRow ? 'row-wrap' : '' " >
+  <ng-container *ngIf="fileChange">
+    
+    <!-- assignable columns -->
+    <div (cdkDropListDropped)="onDrop($event)" cdkDropList class="data-col-wrap">
+      <h3>assignable options</h3>
+
+       <ng-container *ngIf="colCount$ | async as colCount">
+        <label *ngFor="let option of colCount | colOption:orderedColOptions; index as i"
+          class="assign-option"
+          cdkDrag
+          >
+            <span >{{i}}</span>
+            <span >{{option}}</span>
+        </label>
+      </ng-container>
+
+    </div>
+
+    <!-- values from file -->
+    <div class="data-col-wrap">
+      <h3>values from file</h3>
+      <label *ngFor="let value of tradeRecords$ | async">{{value}}</label>
+    </div>
+
+    <!-- header fields from file -->
+    <div class="data-col-wrap">
+      <h3>header fields from file</h3>
+      <label *ngFor="let field of headerFields$ | async">{{field}}</label>
+    </div>
+  </ng-container>
+
+</div>
+<div *ngIf="fileChange" class="preview-btn-wrap">
+  <button type="button" (click)="onColumnOrderChange()" >preview records</button>
+</div>
