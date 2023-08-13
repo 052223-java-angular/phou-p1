@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MarketsComponent } from './pages/markets/markets.component';
-import { TradeComponent } from './pages/trade/trade.component';
 import { PortfolioComponent } from './pages/portfolio/portfolio.component';
 import { TradesComponent } from './pages/trades/trades.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'markets', pathMatch: 'full'},
   {path: 'markets', component: MarketsComponent, 
     children: [
       {path: 'view', component: MarketsComponent},
@@ -23,7 +23,8 @@ const routes: Routes = [
       {path: 'view', component: PortfolioComponent},
       {path: 'analysis', component: PortfolioComponent},
       {path: 'entries', component: PortfolioComponent}
-    ]}
+    ]},
+  {path: '**', component: MarketsComponent}
 ];
 
 @NgModule({
