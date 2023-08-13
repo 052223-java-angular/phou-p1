@@ -31,10 +31,10 @@ export class EditTradeComponent implements OnInit {
   sideValidator(control: AbstractControl) : ValidationErrors | null {
     let value: string = control.value;
     value = value.toLowerCase();
-    if (value !== ("buy" || "sell")) {
-      return { invalidSide: true };
-    }
-    return null;
+    if (value == "buy" || value === "sell") {
+      return null;
+    } 
+    return { invalidSide: true };
   }
 
   numberValidator(control: AbstractControl) : ValidationErrors | null {
@@ -50,17 +50,19 @@ export class EditTradeComponent implements OnInit {
   }
 
   submitEditForm() : void {
-    this.tradeRecord.asset = this.editTradeRecordForm.get("asset")?.value;
-    this.tradeRecord.orderId = this.editTradeRecordForm.get("orderId")?.value;
-    this.tradeRecord.date = this.editTradeRecordForm.get("date")?.value;
-    this.tradeRecord.side = this.editTradeRecordForm.get("side")?.value;
-    this.tradeRecord.unitPrice = this.editTradeRecordForm.get("unitPrice")?.value;
-    this.tradeRecord.qty = this.editTradeRecordForm.get("qty")?.value;
-    this.tradeRecord.amountPaid = this.editTradeRecordForm.get("amountPaid")?.value;
-    this.tradeRecord.fee = this.editTradeRecordForm.get("fee")?.value;
-    this.tradeRecord.currencyPair = this.editTradeRecordForm.get("currencyPair")?.value;
-
-    this.raiseEditEvent.emit(false);
+    if (!this.editTradeRecordForm.invalid) {
+      this.tradeRecord.asset = this.editTradeRecordForm.get("asset")?.value;
+      this.tradeRecord.orderId = this.editTradeRecordForm.get("orderId")?.value;
+      this.tradeRecord.date = this.editTradeRecordForm.get("date")?.value;
+      this.tradeRecord.side = this.editTradeRecordForm.get("side")?.value;
+      this.tradeRecord.unitPrice = this.editTradeRecordForm.get("unitPrice")?.value;
+      this.tradeRecord.qty = this.editTradeRecordForm.get("qty")?.value;
+      this.tradeRecord.amountPaid = this.editTradeRecordForm.get("amountPaid")?.value;
+      this.tradeRecord.fee = this.editTradeRecordForm.get("fee")?.value;
+      this.tradeRecord.currencyPair = this.editTradeRecordForm.get("currencyPair")?.value;
+  
+      this.raiseEditEvent.emit(false);
+    }
   }
 
 }
