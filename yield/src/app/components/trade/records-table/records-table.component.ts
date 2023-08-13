@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TradeService } from '../service/trade.service';
 import { Observable } from 'rxjs';
+import { ITradeRecord } from '../model/TradeRecord';
+import { IHeaderField } from '../model/HeaderField';
 
 @Component({
   selector: 'app-records-table',
@@ -16,8 +18,8 @@ export class RecordsTableComponent implements OnInit {
     this.filteredHeaderFields$ = this.tradeService.filteredHeaderFields;
   }
 
-  filteredHeaderFields$!: Observable<string[]>;
-  filteredTradeRecords$!: Observable<string[]>;
+  filteredHeaderFields$!: Observable<IHeaderField[]>;
+  filteredTradeRecords$!: Observable<ITradeRecord[]>;
   headerFieldCount$!: Observable<number>;
 
   pageNum: number = 1;

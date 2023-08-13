@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { ITradeRecord, TradeRecord } from '../model/TradeRecord';
+import { HeaderField, IHeaderField } from '../model/HeaderField';
+
 
 @Injectable()
 export class TradeService {
-  constructor() { }
   
   tradeRecords: BehaviorSubject<string[]> = new BehaviorSubject(['']);
-  filteredHeaderFields: BehaviorSubject<string[]> = new BehaviorSubject(['']);
-  filteredTradeRecords: BehaviorSubject<string[]> = new BehaviorSubject(['']);
+  filteredHeaderFields: BehaviorSubject<IHeaderField[]> = new BehaviorSubject<IHeaderField[]>([]);
+  filteredTradeRecords: BehaviorSubject<ITradeRecord[]> = new BehaviorSubject<ITradeRecord[]>([]);
+
 
   tradeRecordRow: BehaviorSubject<string> = new BehaviorSubject('');
   headerFields: BehaviorSubject<string> = new BehaviorSubject("");
@@ -17,29 +20,52 @@ export class TradeService {
     this.tradeRecords.next(records);
   }
 
-  raiseFilteredHeaderFieldChange(fields: string[]) {
-    const indexToSkip: number[] = [];
-    for (let i = 0; i < fields.length; i++) {
-      if (fields[i] === "") {
-        indexToSkip.push(i);
-      }
-    }
+  raiseFilteredHeaderFieldChange(hFields: string[]) {
 
-    const filteredTradeRecords: string[] = [];
-    for (let i = 0; i < this.tradeRecords.value.length; i++) {
-      const record = this.tradeRecords.value[i];
-      let recordStr = "";
-      for (let k = 0; k < record.length; k++) {
-        if (indexToSkip.indexOf(k) == -1) {
-          recordStr += "," + record[k];
+    const emptyIndexSet = new Set<number>();
+    const hFieldCopy = hFields.slice(); // Create a copy to avoid modifying original
+    const filteredRecords: ITradeRecord[] = [];
+
+
+    hFieldCopy.forEach((field, index) => {
+      if (field === "") {
+        emptyIndexSet.add(index);
+      }
+    });
+    
+    this.tradeRecords.value.forEach(recordArray => {
+      const tRecord = new TradeRecord();
+      tRecord.fieldOrder = [];
+      const record: any = recordArray;
+
+      record.forEach((value: string, i: number) => {
+        if (!emptyIndexSet.has(i)) {
+          const activeHeadField = hFieldCopy[i]; // set the current head element
+
+          switch (activeHeadField) {
+            case 'asset': tRecord.asset = value; tRecord.fieldOrder.push(i); break;
+            case 'order_id': tRecord.orderId = value; tRecord.fieldOrder.push(i); break;
+            case 'date': tRecord.date = value; tRecord.fieldOrder.push(i); break;
+            case 'side': tRecord.side = value; tRecord.fieldOrder.push(i); break;
+            case 'unit_price': tRecord.unitPrice = parseFloat(value); tRecord.fieldOrder.push(i); break;
+            case 'qty': tRecord.qty = parseFloat(value); tRecord.fieldOrder.push(i); break;
+            case 'amount_paid': tRecord.amountPaid = parseFloat(value); tRecord.fieldOrder.push(i); break;
+            case 'fee': tRecord.fee = parseFloat(value); tRecord.fieldOrder.push(i); break;
+            case 'currency_pair': tRecord.currencyPair = value; tRecord.fieldOrder.push(i); break;
+          }
+
         }
-      }
-      filteredTradeRecords.push(recordStr.substring(1));
-    }
 
-    fields = fields.filter(el => el !== "");
-    this.filteredHeaderFields.next(fields);
-    this.filteredTradeRecords.next(filteredTradeRecords);
+      })
+      filteredRecords.push(tRecord);
+    })
+
+    const filteredHeadFields: HeaderField[] = hFieldCopy
+      .filter(el => el !== "")
+      .map((fieldName, fieldOrderIndex) => ({fieldName, fieldOrderIndex}));
+
+    this.filteredHeaderFields.next(filteredHeadFields);
+    this.filteredTradeRecords.next(filteredRecords);
   }
 
   raiseTradeRecordRowChange(record: string) : void {

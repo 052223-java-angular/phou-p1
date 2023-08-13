@@ -3,15 +3,21 @@
     <caption>trade records </caption>
     <thead>
       <tr>
-        <th *ngFor="let field of filteredHeaderFields$ | async; index as i ">{{field}}</th>
+        <th *ngFor="let field of filteredHeaderFields$ | async;">{{field.fieldName}}</th>
         <th>action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let record of filteredTradeRecords$ | async; index as i">
-        <td *ngFor="let value of record | formatRecords">
-          {{ value }}
-        </td>
+        <td>{{record.asset}}</td>
+        <td>{{record.orderId}}</td>
+        <td>{{record.date}}</td>
+        <td>{{record.side}}</td>
+        <td>{{record.unitPrice}}</td>
+        <td>{{record.qty}}</td>
+        <td>{{record.amountPaid}}</td>
+        <td>{{record.fee}}</td>
+        <td>{{record.currencyPair}}</td>
         <td >
           <button>edit</button>
           <button>del</button>
