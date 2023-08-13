@@ -12,12 +12,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { AnalyticComponent } from './analytic/analytic.component';
 import { PanelLeftComponent } from './analytic/panel-left/panel-left.component';
 import { PanelRightComponent } from './analytic/panel-right/panel-right.component';
-import { DataTableComponent } from './data-table/data-table.component';
 import { MarketResultComponent } from './market-result/market-result.component';
 import { SharedModule } from './shared/shared.module';
-import { DataSelectTableComponent } from './data-select-table/data-select-table.component';
-import { FileUploadComponent } from './file-upload/file-upload.component';
-import { EditModalComponent } from './edit-modal/edit-modal.component';
 import { MarketsComponent } from './pages/markets/markets.component';
 import { TradeComponent } from './pages/trade/trade.component';
 import { AssetCardComponent } from './components/crypto/asset-card/asset-card.component';
@@ -29,6 +25,7 @@ import { FieldOptionComponent } from './components/trade/field-option/field-opti
 import { ColOptionPipe } from './components/trade/pipe/col-option.pipe';
 import { RecordsTableComponent } from './components/trade/records-table/records-table.component';
 import { FormatRecordsPipe } from './components/trade/pipe/format-records.pipe';
+import { EditTradeComponent } from './components/trade/edit-trade/edit-trade.component';
 
 @NgModule({
   declarations: [
@@ -37,11 +34,7 @@ import { FormatRecordsPipe } from './components/trade/pipe/format-records.pipe';
     AnalyticComponent,
     PanelLeftComponent,
     PanelRightComponent,
-    DataTableComponent,
     MarketResultComponent,
-    DataSelectTableComponent,
-    FileUploadComponent,
-    EditModalComponent,
     MarketsComponent,
     TradeComponent,
     AssetCardComponent,
@@ -52,7 +45,8 @@ import { FormatRecordsPipe } from './components/trade/pipe/format-records.pipe';
     FieldOptionComponent,
     ColOptionPipe,
     RecordsTableComponent,
-    FormatRecordsPipe
+    FormatRecordsPipe,
+    EditTradeComponent
   ],
   imports: [
     BrowserModule, 

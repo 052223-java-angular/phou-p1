@@ -1,0 +1,60 @@
+/*========= MODAL STYLES ==============*/
+.modal-overlay {
+  @apply opacity-25 fixed inset-0 z-[998] bg-black;
+}
+
+.modal-wrap {
+  @apply flex justify-center items-center fixed p-6 inset-0 z-[999];
+}
+
+.modal-content-wrap {
+  @apply relative my-auto mx-auto p-6 w-3/6 max-w-3xl;
+}
+
+.form {
+  @apply flex flex-col mx-auto p-6 border-0 rounded-sm shadow-lg bg-white;
+}
+
+.title-wrap {
+  @apply flex items-start py-6 border-b border-b-slate-700 border-[#FBF9F9];
+}
+
+.form-content {
+  @apply flex flex-col flex-1 w-full justify-evenly gap-y-1;
+}
+
+.form-content > div {
+  @apply flex flex-1 gap-x-3 justify-between ;
+}
+
+.form-content > div > label {
+  @apply pr-3 w-[44%] border-b border-b-slate-400 capitalize;
+}
+
+.form-content > div > input {
+  @apply pl-3 w-[44%] border-b border-b-slate-400 cursor-pointer focus:outline-offset-1;
+}
+
+.btn-wrap {
+  @apply flex justify-end;
+}
+
+.btn-cancel, .btn-enabled, .btn-disabled {
+  @apply w-2/6 font-bold uppercase px-6 py-2 mr-1 mb-1 text-sm shadow-slate-700 hover:shadow-md ease-linear transition-all duration-150;
+}
+
+.btn-disabled {
+  @apply bg-[#DEB465] opacity-30;
+}
+
+.btn-enabled {
+  @apply bg-[#DEB465] text-white;
+}
+
+.btn-cancel {
+  @apply bg-red-500  text-white;
+}
+
+.error {
+  @apply ml-auto px-1 py-0 my-0 text-red-600 italic text-xs;
+}

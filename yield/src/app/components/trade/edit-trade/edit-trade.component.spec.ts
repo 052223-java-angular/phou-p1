@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DataTableComponent } from './data-table.component';
+import { EditTradeComponent } from './edit-trade.component';
 
-describe('DataTableComponent', () => {
-  let component: DataTableComponent;
-  let fixture: ComponentFixture<DataTableComponent>;
+describe('EditTradeComponent', () => {
+  let component: EditTradeComponent;
+  let fixture: ComponentFixture<EditTradeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DataTableComponent ]
+      declarations: [ EditTradeComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DataTableComponent);
+    fixture = TestBed.createComponent(EditTradeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

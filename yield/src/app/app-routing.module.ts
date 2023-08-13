@@ -14,6 +14,7 @@ const routes: Routes = [
   ]},
   {path: 'trades', component: TradesComponent, 
     children: [
+      {path: '', redirectTo: 'view', pathMatch: 'full'},
       {path: 'view', component: TradesComponent},
       {path: 'analysis', component: TradesComponent},
       {path: 'records', component: TradesComponent}

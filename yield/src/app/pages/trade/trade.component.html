@@ -6,11 +6,6 @@
   <!-- Action bar for performing actions, e.g. upload file, submit trades i.e save, clearing table, fetching historical -->
   <caption class="block text-2xl pt-8">Upload a trade file to enable view options</caption>
   <div class="action-container">
-    
-    <app-file-upload 
-      [(didUploadFile)]="showSelectTable"
-      class="mx-auto w-3/6">
-    </app-file-upload>
   
 
     <!-- action buttons -->
@@ -54,14 +49,3 @@
   <app-analytic 
     [showLineChart]="showLineChart"
     [showBarChart]="showBarChart" class=""></app-analytic>
-
-  <!-- Section for selecting column headers -->
-  <app-data-select-table
-    *ngIf="showSelectTable"
-    [(showTable)]="showTable"
-    [(showSelectTable)]="showSelectTable"></app-data-select-table>
-
-    <!-- *ngIf="didUploadFile || (showTable && showSelectTable)" -->
-  <!-- Section for uploading / show after file is uploaded -->
-  <app-data-table 
-    *ngIf="showTable && !showSelectTable"></app-data-table>

@@ -80,4 +80,6 @@ export class TradeService {
     this.headerFieldColCount.next(value);
   }
 
+
+  
 }

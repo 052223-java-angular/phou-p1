@@ -19,7 +19,7 @@ thead > tr, tbody > tr {
 }
 
 th, td {
-  @apply text-xs max-h-6 break-all w-[10%];
+  @apply text-xs max-h-6 break-all w-[10%] px-1;
 }
 
 tfoot > tr {
@@ -27,7 +27,15 @@ tfoot > tr {
 }
 
 .preview-btn-wrap {
-  @apply flex justify-center bg-slate-200 py-1 mx-3  hover:bg-slate-400;
+  @apply flex justify-center py-1 mx-3 bg-slate-200  hover:bg-slate-400;
+}
+
+.preview-btn-wrap > button {
+  @apply w-full cursor-pointer;
+}
+
+.action-btn-wrap > a {
+  @apply px-1 hover:bg-slate-300 cursor-pointer;
 }
 
 button {
