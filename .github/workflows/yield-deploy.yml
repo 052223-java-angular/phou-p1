@@ -44,11 +44,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
-      - name: List dist directory
+      - name: List directory contents
         run: ls -la
-        working-directory: ../yield
+        working-directory: ./phou-p1-frontend
 
       - name: Deploy to S3
         run: |
-          aws s3 sync ./dist/yield s3://yield-app-p1 --delete
-        working-directory: ../yield
+          aws s3 sync ./phou-p1-frontend/dist/yield s3://yield-app-p1 --delete
+        working-directory: ./phou-p1-frontend
