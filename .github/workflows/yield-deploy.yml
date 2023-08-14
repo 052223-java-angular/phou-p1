@@ -28,6 +28,10 @@ jobs:
         run: npm run build -- --configuration production
         working-directory: ./yield 
 
+      - name: List directory contents
+        run: ls -la
+        working-directory: ./yield
+
   deploy:
     name: Deploy to S3
     runs-on: ubuntu-latest
