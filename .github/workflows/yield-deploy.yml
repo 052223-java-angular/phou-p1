@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dist
-          path: ./dist/yield
+          path: ./yield/dist/yield
 
   deploy:
     name: Deploy to S3
@@ -62,6 +62,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: dist
+          path: ./yield/dist/yield
 
       - name: List yield directory contents
         run: ls -la
