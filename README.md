@@ -10,6 +10,9 @@ retrieve this data by utilizing the CoinGecko api.
 
 As a future feature, the app will integrate the Coinbase API for accepting crypto payment / donations for those feeling the need to donate some of those Gainz!
 
+
+![Alt text](yield-ss1.PNG)![Alt text](yield-ss2.PNG)
+
 ## FE User Stories
 
 - **As a user**, I do not want to register for an account in order to generate a report. (Initial uploads are processed locally / within FE, so spam uploads
