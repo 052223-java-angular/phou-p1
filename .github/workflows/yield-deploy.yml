@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build Yield Angular Appp
+    name: Build Yield Angular App
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +25,7 @@ jobs:
         working-directory: ./yield
 
       - name: Build app
-        run: npm run build
+        run: npm run build --configuration production
         working-directory: ./yield 
 
   deploy:
