@@ -22,11 +22,11 @@ jobs:
 
       - name: Install dependecies
         run: npm install
-        working-directory: ./yield
+        working-directory: ./phou-p1-frontend/yield
 
       - name: Build app
         run: npm run build
-        working-directory: ./yield 
+        working-directory: ./phou-p1-frontend/yield 
 
   deploy:
     name: Deploy to S3
@@ -46,9 +46,9 @@ jobs:
 
       - name: List directory contents
         run: ls -la
-        working-directory: ./phou-p1-frontend
+        working-directory: ./phou-p1-frontend/yield
 
       - name: Deploy to S3
         run: |
           aws s3 sync ./phou-p1-frontend/dist/yield s3://yield-app-p1 --delete
-        working-directory: ./phou-p1-frontend
+        working-directory: ./phou-p1-frontend/yield
