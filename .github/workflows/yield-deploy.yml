@@ -26,6 +26,7 @@ jobs:
 
       - name: Build app
         run: npm run build --configuration production
+        working-directory: ./yield 
 
   deploy:
     name: Deploy to S3
