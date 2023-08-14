@@ -32,10 +32,6 @@ jobs:
         run: ls -la
         working-directory: ./yield
 
-      - name: List dist directory contents
-        run: ls -la ./dist
-        working-directory: ./yield
-
       - name: Archive dist directory
         uses: actions/upload-artifact@v2
         with:
@@ -68,12 +64,7 @@ jobs:
         run: ls -la
         working-directory: ./yield
 
-      - name: List dist directory contents
-        run: ls -la ./dist
-        working-directory: ./yield
-
       - name: Deploy to S3
         run: |
-          aws s3 ls s3://yield-app-p1
           aws s3 sync ./dist/yield s3://yield-app-p1 --delete
         working-directory: ./yield
