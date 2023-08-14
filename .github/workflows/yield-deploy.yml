@@ -36,6 +36,12 @@ jobs:
         run: ls -la ./dist
         working-directory: ./yield
 
+      - name: Archive dist directory
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: ./yield/dist/yield
+
   deploy:
     name: Deploy to S3
     needs: build
@@ -51,6 +57,11 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
+
+      - name: Download dist directory
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
 
       - name: List yield directory contents
         run: ls -la
