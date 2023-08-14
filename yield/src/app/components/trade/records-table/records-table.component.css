@@ -1,0 +1,43 @@
+.table-wrap {
+  @apply table w-full mb-16 overflow-auto;
+}
+
+table {
+  @apply mt-6 border border-slate-300 p-3 mx-auto w-[97%] overflow-auto ;
+}
+
+caption {
+  @apply text-2xl py-3 text-center;
+}
+
+tr {
+  @apply text-right max-h-6;
+}
+
+thead > tr, tbody > tr {
+  @apply border border-b border-t-0 border-r-0 border-l-0 border-slate-300;
+}
+
+th, td {
+  @apply text-xs max-h-6 break-all w-[10%] px-1;
+}
+
+tfoot > tr {
+  @apply mr-auto text-right;
+}
+
+.preview-btn-wrap {
+  @apply flex justify-center py-1 mx-3 bg-slate-200  hover:bg-slate-400;
+}
+
+.preview-btn-wrap > button {
+  @apply w-full cursor-pointer;
+}
+
+.action-btn-wrap > a {
+  @apply px-1 hover:bg-slate-300 cursor-pointer;
+}
+
+button {
+  @apply uppercase;
+}

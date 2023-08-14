@@ -1,0 +1,19 @@
+.top-asset-wrap {
+  @apply flex w-full flex-wrap justify-around;
+}
+
+.search-filter-wrap {
+  @apply flex w-[97%] justify-end gap-3 mt-6;
+}
+
+.search-filter-wrap > input {
+  @apply max-w-[35%] w-64 px-3 py-1;
+}
+
+.search-filter-wrap > button {
+  @apply border border-slate-300 px-3 py-1;
+}
+
+.table-wrap {
+  @apply table w-[97%] min-h-[24rem] border border-slate-300 rounded-md overflow-x-auto mt-6 px-3 py-3 ml-3;
+}

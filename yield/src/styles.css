@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Red+Hat+Display:wght@500&display=swap'); */
+
+html, body {
+  /* font-family: 'Red Hat Display', sans-serif; */
+  /* font-family: 'Pathway Gothic One', sans-serif; */
+  /* font-family: 'Didact Gothic', sans-serif; */
+  /* font-family: 'Bangers', cursive; */
+  /* font-family: 'Unica One', cursive; */
+  /* font-family: 'Big Shoulders Display', cursive; */
+  /* font-family: 'Slackside One', cursive; */
+  /* font-family: 'Reenie Beanie', cursive; */
+  /* font-family: 'VT323', monospace; */
+  font-family: 'Coming Soon', cursive;
+  @apply w-[100vw] h-[100%] p-0 m-0;
+}

@@ -1,0 +1,29 @@
+.row-wrap {
+  @apply flex w-[full];
+}
+
+.data-col-wrap {
+  @apply flex flex-col flex-1 min-h-[15rem] border border-slate-300 text-right px-3;
+}
+
+.assign-option {
+  @apply flex w-full justify-between gap-x-3 hover:bg-slate-200 rounded-sm;
+}
+
+.preview-btn-wrap {
+  @apply flex w-full justify-center bg-slate-200 px-3 py-1 hover:bg-slate-400;
+}
+
+button {
+  @apply uppercase w-full;
+}
+
+label {
+  @apply p-1 text-sm;
+}
+
+h3, label {
+  @apply w-full border border-b border-r-0 border-l-0 border-t-0 border-slate-300 
+}
+
+

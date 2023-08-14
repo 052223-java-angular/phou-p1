@@ -373,6 +373,20 @@ export class TradeRecordService {
     }
   }
 
+  fetchApiPLByUserId() : void {
+    const customHeader = this.configAuthHeader();
+
+    if (customHeader) {
+      this.httpClient.get(`${this.BASE_URI}/api/trades/reports/pl/id`, {headers: customHeader})
+        .subscribe((res: any) => {
+            this.clearAll();
+            this.initApiProfitLossHeaderFields();
+            this.apiProfitLossRecords = res;
+            console.log(this.apiProfitLossRecords);
+      })
+    }
+  }
+
   fetchApiProfitLossRecords() : void {
     const customHeader = this.configAuthHeader();
 
@@ -382,7 +396,7 @@ export class TradeRecordService {
             this.clearAll();
             this.initApiProfitLossHeaderFields();
             this.apiProfitLossRecords = res;
-            // console.log(this.apiProfitLossRecords);
+            console.log(this.apiProfitLossRecords);
       })
     } else if (this.localTradeRecords.length > 0) {
       // allow profit loss when user is unauthenticated, but has records to submit

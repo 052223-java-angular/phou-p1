@@ -1,0 +1,37 @@
+<div class="card-wrap">
+  <div class="card-context-wrap">
+
+    <div class="identity-wrap">
+      <label class="ml-3">
+        <img [src]="asset.images[0]" alt="asset" >
+      </label>
+      <div class="name-wrap">
+        <label class="name-position-wrap">
+          symbol: 
+          <span >{{ asset.symbol }}</span>
+        </label>
+        <label class="name-position-wrap">
+          name: 
+          <span >{{ asset.name }}</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="asset-data-wrap">
+      <dl class="data-wrap">
+        <dt>current price:</dt>
+        <dd>{{ asset.currentPrice }}</dd>
+      </dl>
+      <dl class="data-wrap">
+        <dt>market cap:</dt> 
+        <dd>{{ asset.marketCap }}</dd>
+      </dl>
+      <dl class="data-wrap">
+        <dt>total volume:</dt>
+        <dd>{{ asset.totalVolume }}</dd>
+      </dl>
+    </div>
+  </div>
+</div>
+
+

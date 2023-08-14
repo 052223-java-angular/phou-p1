@@ -1,0 +1,14 @@
+<section>
+
+  <!-- file section -->
+  <app-file (fileChange)="setFileChange($event)" ></app-file>
+
+  <!-- table select section -->
+  <app-field-option
+    [fileChange]="fileChange"
+    (columnOrderChanged)="onColumnOrderChange($event)"></app-field-option>
+
+  <!-- table review section -->
+  <app-records-table *ngIf="columnOrderChanged" ></app-records-table>
+
+</section>
