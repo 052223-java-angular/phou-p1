@@ -37,8 +37,9 @@ jobs:
         working-directory: ./yield
 
   deploy:
-    - name: Deploy to S3
-      needs: build
+    name: Deploy to S3
+    needs: build
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
