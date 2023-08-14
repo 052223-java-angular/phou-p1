@@ -11,7 +11,7 @@ import { TradeService } from 'src/app/components/trade/service/trade.service';
 export class TradesComponent {
 
   fileChange: boolean = false;
-  assignColumnChanged: boolean = false;
+  columnOrderChanged: boolean = false;
 
 
   setFileChange(value: boolean) : void {
@@ -19,7 +19,7 @@ export class TradesComponent {
   }
 
   onColumnOrderChange(value: boolean) {
-    this.assignColumnChanged = value;
+    this.columnOrderChanged = value;
   }
 
 }

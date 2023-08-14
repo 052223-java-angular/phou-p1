@@ -15,7 +15,6 @@ import { PanelRightComponent } from './analytic/panel-right/panel-right.componen
 import { MarketResultComponent } from './market-result/market-result.component';
 import { SharedModule } from './shared/shared.module';
 import { MarketsComponent } from './pages/markets/markets.component';
-import { TradeComponent } from './pages/trade/trade.component';
 import { AssetCardComponent } from './components/crypto/asset-card/asset-card.component';
 import { AssetTableComponent } from './components/crypto/asset-table/asset-table.component';
 import { PortfolioComponent } from './pages/portfolio/portfolio.component';
@@ -36,7 +35,6 @@ import { EditTradeComponent } from './components/trade/edit-trade/edit-trade.com
     PanelRightComponent,
     MarketResultComponent,
     MarketsComponent,
-    TradeComponent,
     AssetCardComponent,
     AssetTableComponent,
     PortfolioComponent,

@@ -9,10 +9,9 @@
        <ng-container *ngIf="colCount$ | async as colCount">
         <label *ngFor="let option of colCount | colOption:orderedColOptions; index as i"
           class="assign-option"
-          cdkDrag
-          >
-            <span >{{i}}</span>
-            <span >{{option}}</span>
+          cdkDrag >
+        <span >{{i}}</span>
+        <span >{{option}}</span>
         </label>
       </ng-container>
 
