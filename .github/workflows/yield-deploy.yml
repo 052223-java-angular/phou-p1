@@ -44,6 +44,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
+      - name: List dist directory
+        run: ls -la ./dist
+
       - name: Deploy to S3
         run: |
           aws s3 sync ./dist/yield s3://yield-app-p1 --delete
