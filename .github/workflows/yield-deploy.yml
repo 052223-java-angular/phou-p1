@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dist
-          path: ./yield/dist/yield
+          path: ./dist/yield
 
   deploy:
     name: Deploy to S3
