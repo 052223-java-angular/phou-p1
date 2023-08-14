@@ -20,8 +20,9 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install dependecies
         run: npm install
+        working-directory: ./yield
 
       - name: Build app
         run: npm run build -- --configuration=production
@@ -45,3 +46,4 @@ jobs:
       - name: Deploy to S3
         run: |
           aws s3 sync ./dist/yield s3://yield-app-p1 --delete
+        working-directory: ./yield
