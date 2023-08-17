@@ -18,8 +18,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Build Docker image
-        run: docker build -t yield-app:latest ./yield
-        working-directory: ./yield
+        run: docker build -t yield-app:latest /github/workspace/yield
 
       - name: Push Docker Image
         run: |
