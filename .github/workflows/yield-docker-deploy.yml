@@ -47,7 +47,7 @@ jobs:
           docker rm temp-container
 
           # NOTE: the s3 bucket for docker differs from app name
-          aws s3 sync ./yield/dist/yield s3://yield-dapp --delete --debug
+          aws s3 sync ./dist/yield s3://yield-dapp --delete --debug
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
