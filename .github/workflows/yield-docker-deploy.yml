@@ -31,6 +31,14 @@ jobs:
           docker tag yield-app:latest ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
 
+          
+      - name: Setup AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
       - name: Deploy to S3
         run: |
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
@@ -41,7 +49,7 @@ jobs:
           # docker rm temp-container
 
           # NOTE: the s3 bucket for docker differs from app name
-          aws s3 sync ./dist/yield s3://yield-dapp --delete
+          aws s3 sync ./dist/yield s3://yield-dapp --delete --debug
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
