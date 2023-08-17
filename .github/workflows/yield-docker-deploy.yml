@@ -21,34 +21,14 @@ jobs:
         run: docker build -t yield-app:latest .
         working-directory: ./yield
 
-      - name: Archive dist directory
-        uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: ./yield/dist/yield
-
       - name: Push Docker Image
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
           docker tag yield-app:latest ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
 
-          
-      - name: Setup AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-
-      - name: Download dist directory
-        uses: actions/download-artifact@v2
-        with:
-          name: dist
-          path: ./yield/dist/yield
-
-      - name: List dist directory contents
-        run: ls -la ./dist/yield
+      - name: List yield directory contents
+        run: ls -la 
         working-directory: ./yield
 
       - name: Deploy to S3
@@ -61,9 +41,10 @@ jobs:
           # docker rm temp-container
 
           # NOTE: the s3 bucket for docker differs from app name
-          aws s3 sync ./dist/yield s3://yield-dapp --delete --debug
+          aws s3 sync ./yield/dist/yield s3://yield-dapp --delete --debug
         env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-        working-directory: ./yield
+      

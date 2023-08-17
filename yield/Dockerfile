@@ -17,10 +17,9 @@ RUN npm install
 COPY . /yield/
 
 # Build the Angular app
-RUN ng build --configuration=production --output-path dist/yield
+RUN ng build --configuration=production 
 
 RUN ls -la /yield
-RUN ls -la .
 
 # Use lightweight web server
 FROM nginx:alpine
