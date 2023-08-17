@@ -18,7 +18,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Build Docker image
-        run: docker build -t yield-app:latest -f ./yield/Dockerfile .
+        run: docker build -t yield-app:latest .
         working-directory: ./yield
 
       - name: List yield directory contents after build
@@ -39,8 +39,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
-      - name: List root directory contents
-        run: ls -la .
+      - name: List dist directory contents
+        run: ls -la ./dist/yield
+        working-directory: ./yield
 
       - name: Deploy to S3
         run: |
