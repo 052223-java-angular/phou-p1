@@ -40,7 +40,8 @@ jobs:
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
 
           docker create --name temp-container ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
-          ls -ls ./yield
+          ls -la /usr/share/nginx
+          ls -la ../yield
           docker cp temp-container:/usr/share/nginx/html ./dist/yield
           docker rm temp-container
 
