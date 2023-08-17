@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Docker
-        uses: docker/seetup-buildx-action@v1
+        uses: docker/setup-buildx-action@v1
 
       - name: Build Docker image
         run: docker build -t yield-app:latest ./yield
