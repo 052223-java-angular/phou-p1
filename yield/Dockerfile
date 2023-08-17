@@ -16,7 +16,7 @@ RUN npm install
 # Copy source code from to
 COPY . /yield/
 RUN ls -la /yield
-
+RUN ls -la ../yield
 
 # Build the Angular app
 RUN ng build --configuration=production --output-path dist/yield
