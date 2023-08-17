@@ -17,8 +17,13 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v1
 
+      - name: List yield directory contents
+        run: ls -la
+        working-directory: ./yield
+
       - name: Build Docker image
-        run: docker build -t yield-app:latest /github/workspace/yield
+        run: docker build -t yield-app:latest ./yield
+        working-directory: ./yield
 
       - name: Push Docker Image
         run: |
