@@ -22,7 +22,7 @@ jobs:
         working-directory: ./yield
 
       - name: Build Docker image
-        run: docker build -t yield-app:latest ./yield
+        run: docker build -t yield-app:latest .
         working-directory: ./yield
 
       - name: Push Docker Image
