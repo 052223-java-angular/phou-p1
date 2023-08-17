@@ -22,7 +22,7 @@ jobs:
         working-directory: ${{ github.workspace }}
 
       - name: Build Docker image
-        run: docker build -t yield-app:latest .
+        run: docker build -t yield-app:latest ./yield
         working-directory: ${{ github.workspace }}
 
       - name: Push Docker Image
