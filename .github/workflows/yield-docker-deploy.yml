@@ -39,6 +39,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
+      - name: List yield directory contents
+        run: ls -la
+        working-directory: ./yield
+
       - name: Deploy to S3
         run: |
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
