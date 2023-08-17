@@ -36,9 +36,11 @@ jobs:
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
 
           # # NOTE: Run a temporary container to extract the app files
-          # docker run --name temp-container yield-app:latest
-          # docker cp temp-container:/usr/share/nginx/html ./
-          # docker rm temp-container
+
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
+          docker create --name temp-container ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
+          docker cp temp-container:/usr/share/nginx/html ./dist/yield
+          docker rm temp-container
 
           # NOTE: the s3 bucket for docker differs from app name
           aws s3 sync ./yield/dist/yield s3://yield-dapp --delete --debug
