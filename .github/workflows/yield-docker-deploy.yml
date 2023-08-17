@@ -6,8 +6,8 @@ on:
       - docker
 
 jobs:
-  build:
-    name: Build Yield Angular App
+  build-and-deploy:
+    name: Build and Deploy Yield Angular App
     runs-on: ubuntu-latest
 
     steps:
@@ -19,30 +19,13 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t yield-app:latest ./yield
-        working-directory: .
+        working-directory: ./yield
 
       - name: Push Docker Image
         run: |
-          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME}} --password-stdin
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
           docker tag yield-app:latest ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
-
-
-  deploy:
-    name: Deploy to S3
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
 
       - name: Deploy to S3
         run: |
@@ -52,9 +35,8 @@ jobs:
           docker cp temp-container:/usr/share/nginx/html ./
           docker rm temp-container
 
-          # bucket name is yield-dapp for this deployment
-          aws s3 sync ./dist/yield s3://yield-dapp --delete
+          aws s3 sync ./dist/yield s3://yield-app-p1 --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        working-directory: ./yield
+        working-directory: .

@@ -2,10 +2,10 @@
 FROM node:18 AS build
 
 # Set the working directory in the container
-WORKDIR /usr/src/app
+WORKDIR /yield
 
 # Copy the package.json and package-lock.json to the container
-COPY package*.json ./
+COPY package*.json /yield/
 
 # Install angular cli
 RUN npm install -g @angular/cli
@@ -14,16 +14,16 @@ RUN npm install -g @angular/cli
 RUN npm install
 
 # Copy source code from to
-COPY . .
+COPY . /yield/
 
 # Build the Angular app
-RUN ng build -- --production
+RUN ng build --configuration=production
 
 # Use lightweight web server
 FROM nginx:alpine
 
 # Copy app from the build stage to the nginx dir
-COPY --from=build /usr/src/app/dist/yield /usr/share/nginx/html
+COPY --from=build /yield/dist/yield /usr/share/nginx/html
 
 # Expose Http port
 EXPOSE 80
