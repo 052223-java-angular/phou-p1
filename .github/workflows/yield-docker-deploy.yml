@@ -17,8 +17,9 @@ jobs:
       - name: Set up Docker
         uses: docker/seetup-buildx-action@v1
 
-      - name: Buidl docker image
-        uses: docker build -t yield-app:latest ./yield
+      - name: Build Docker image
+        run: docker build -t yield-app:latest ./yield
+        working-directory: .
 
       - name: Push Docker Image
         run: |
@@ -51,6 +52,7 @@ jobs:
           docker cp temp-container:/usr/share/nginx/html ./
           docker rm temp-container
 
+          # bucket name is yield-dapp for this deployment
           aws s3 sync ./dist/yield s3://yield-dapp --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
