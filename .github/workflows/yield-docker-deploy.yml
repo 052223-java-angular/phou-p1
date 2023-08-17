@@ -32,7 +32,7 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
 
       - name: List yield directory contents
-        run: ls -la 
+        run: ls -la ./yield
         working-directory: ${{ github.workspace }}
 
       - name: Deploy to S3
@@ -40,6 +40,7 @@ jobs:
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
 
           docker create --name temp-container ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
+          ls -ls ./yield
           docker cp temp-container:/usr/share/nginx/html ./dist/yield
           docker rm temp-container
 
