@@ -33,7 +33,7 @@ jobs:
 
       - name: Deploy to S3
         run: |
-          docker pull yield-app:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}yield-app:latest
 
           docker run --name temp-container yield-app:latest
           docker cp temp-container:/usr/share/nginx/html ./
