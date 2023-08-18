@@ -1,9 +1,20 @@
 <section>
-  <div class="top-asset-wrap" cdkDropList (cdkDropListDropped)="onDrop($event)">
-    <app-asset-card cdkDrag
-      *ngFor="let topAsset of topAssets$ | async"
-      [asset]="topAsset" 
+
+  <div class="drop-list-wrap">
+    <div class="top-asset-wrap">
+      <!-- <div class="top-asset-wrap" cdkDropList (cdkDropListDropped)="onDrop($event)"> -->
+<!-- 
+      <app-asset-card cdkDrag
+        *ngFor="let topAsset of topAssets$ | async"
+        [topAsset]='topAsset'
+      ></app-asset-card> -->
+
+      <app-asset-card
+        *ngFor="let topAsset of topAssets$ | async"
+        [topAsset]='topAsset'
       ></app-asset-card>
+
+    </div>
   </div>
 
   <hr />
@@ -18,7 +29,7 @@
   <!-- table or details of asset -->
   <div class="table-wrap">
     <app-asset-table
-      [assets$]="assets$"
+      [assets]="assets$ | async"
     ></app-asset-table>
   </div>
 

@@ -22,7 +22,7 @@ export class MarketsComponent implements OnInit {
   }
 
   topAssets$!: Observable<IAsset[]>;
-  assets$!: Observable<IAssetBrief[]>
+  assets$!: Observable<IAssetBrief[]>;
 
   onDrop(event: CdkDragDrop<IAsset[]>) : void {
     this.topAssets$.subscribe((assets) => {

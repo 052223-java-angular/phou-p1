@@ -1,23 +1,23 @@
 <div class="table-wrap">
-  <table class="">
+  <table class="" *ngIf="filteredHeaderFields$ | async as hFields">
     <caption>trade records for review </caption>
     <thead>
       <tr>
-        <th *ngFor="let field of filteredHeaderFields$ | async;">{{field.fieldName}}</th>
+        <ng-container *ngFor="let column of hFields;">
+          <th *ngIf="column.fieldName !== '' ">
+            {{column.fieldName }} 
+          </th>
+        </ng-container>
         <th>action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let record of filteredTradeRecords$ | async as tradeRecords; index as idx">
-        <td>{{record.asset}}</td>
-        <td>{{record.orderId}}</td>
-        <td>{{record.date}}</td>
-        <td>{{record.side}}</td>
-        <td>{{record.unitPrice}}</td>
-        <td>{{record.qty}}</td>
-        <td>{{record.amountPaid}}</td>
-        <td>{{record.fee}}</td>
-        <td>{{record.currencyPair}}</td>
+        <ng-container *ngFor="let slot of record.fieldOrder; ">
+          <td *ngIf="slot > -1">
+            {{record | formatRecords: slot: hFields}}
+          </td>
+        </ng-container>
         <td class="action-btn-wrap">
 
           <a type="button"     
@@ -36,7 +36,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <td [attr.colspan]="tradeService.headerFields.value.length+1">
+        <td [attr.colspan]="headerFieldCount+1">
           page <span>1</span> of <span>1</span>
         </td>
       </tr>

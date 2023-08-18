@@ -1,13 +1,13 @@
 .row-wrap {
-  @apply flex w-[full];
+  @apply flex flex-1 w-full overflow-auto;
 }
 
 .data-col-wrap {
-  @apply flex flex-col flex-1 min-h-[15rem] border border-slate-300 text-right px-3;
+  @apply flex flex-col gap-y-1 flex-1 min-h-[15rem] border-slate-300 text-right px-3;
 }
 
 .assign-option {
-  @apply flex w-full justify-between gap-x-3 hover:bg-slate-200 rounded-sm;
+  @apply w-full hover:bg-slate-200 rounded-sm;
 }
 
 .preview-btn-wrap {
@@ -18,12 +18,12 @@ button {
   @apply uppercase w-full;
 }
 
-label {
+span {
   @apply p-1 text-sm;
 }
 
-h3, label {
-  @apply w-full border border-b border-r-0 border-l-0 border-t-0 border-slate-300 
+h3, span {
+  @apply w-full border-b border-slate-300 
 }
 
 

@@ -1,13 +1,14 @@
 .card-wrap {
-  @apply w-96 min-h-[9rem] max-h-[12rem] border border-slate-300 rounded-md m-3 p-3 capitalize shadow-md shadow-slate-300;
+  @apply min-h-[9rem] max-h-[12rem] min-w-[244px] text-sm overflow-visible
+  border border-slate-300 rounded-md m-3 p-3 capitalize shadow-md shadow-slate-300;
 }
 
 .card-context-wrap {
-  @apply flex flex-col gap-y-3 ;
+  @apply flex flex-col gap-y-3 w-full overflow-visible;
 }
 
 .identity-wrap, .asset-data-wrap {
-  @apply flex w-full gap-x-1 items-center;
+  @apply flex w-full gap-x-1 items-center overflow-visible;
 }
 
 .name-wrap {

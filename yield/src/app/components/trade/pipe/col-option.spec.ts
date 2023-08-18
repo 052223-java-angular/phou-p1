@@ -1,8 +1,8 @@
-import { ColOptionPipePipe } from './col-option.pipe';
+import { ColOptionPipe } from './col-option.pipe';
 
-describe('ColOptionPipePipe', () => {
+describe('ColOptionPipe', () => {
   it('create an instance', () => {
-    const pipe = new ColOptionPipePipe();
+    const pipe = new ColOptionPipe();
     expect(pipe).toBeTruthy();
   });
 });

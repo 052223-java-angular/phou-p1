@@ -1,5 +1,5 @@
 
-<div [ngClass]="displayAsRow ? 'row-wrap' : '' " >
+<div [ngClass]="displayAsRow ? 'row-wrap' : 'w-full' " >
   <ng-container *ngIf="fileChange">
     
     <!-- assignable columns -->
@@ -7,11 +7,15 @@
       <h3>assignable options</h3>
 
        <ng-container *ngIf="colCount$ | async as colCount">
-        <label *ngFor="let option of colCount | colOption:orderedColOptions; index as i"
+        <label [for]="option" *ngFor="let option of colCount | colOption:orderedColOptions; index as i"
           class="assign-option"
           cdkDrag >
-        <span >{{i}}</span>
-        <span >{{option}}</span>
+          <div [id]="option" class="flex w-full">
+            <span class="text-left">{{i}}</span>
+            <span class="text-right">{{option}}</span>
+          </div>
+          <!-- <span >{{i}}</span> -->
+          <!-- <span >{{option}}</span> -->
         </label>
       </ng-container>
 
@@ -20,13 +24,13 @@
     <!-- values from file -->
     <div class="data-col-wrap">
       <h3>values from file</h3>
-      <label *ngFor="let value of tradeRecords$ | async">{{value}}</label>
+      <span *ngFor="let value of tradeRecords$ | async">{{value}}</span>
     </div>
 
     <!-- header fields from file -->
     <div class="data-col-wrap">
       <h3>header fields from file</h3>
-      <label *ngFor="let field of headerFields$ | async">{{field}}</label>
+      <span *ngFor="let field of headerFields$ | async">{{field}}</span>
     </div>
   </ng-container>
 

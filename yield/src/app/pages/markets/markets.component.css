@@ -1,5 +1,9 @@
+.drop-list-wrap {
+  @apply w-[86%] px-6 overflow-hidden mx-auto;
+}
+
 .top-asset-wrap {
-  @apply flex w-full flex-wrap justify-around;
+  @apply flex w-full  overflow-visible overscroll-contain flex-wrap justify-around mx-auto;
 }
 
 .search-filter-wrap {

@@ -25,6 +25,7 @@ import { ColOptionPipe } from './components/trade/pipe/col-option.pipe';
 import { RecordsTableComponent } from './components/trade/records-table/records-table.component';
 import { FormatRecordsPipe } from './components/trade/pipe/format-records.pipe';
 import { EditTradeComponent } from './components/trade/edit-trade/edit-trade.component';
+import { ExtractRecordValuePipe } from './components/trade/pipe/extract-record-value.pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { EditTradeComponent } from './components/trade/edit-trade/edit-trade.com
     ColOptionPipe,
     RecordsTableComponent,
     FormatRecordsPipe,
-    EditTradeComponent
+    EditTradeComponent,
+    ExtractRecordValuePipe
   ],
   imports: [
     BrowserModule, 

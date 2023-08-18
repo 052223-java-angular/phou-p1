@@ -8,5 +8,6 @@ import { IUser } from './models/IUser';
 })
 export class AppComponent {
   loggedInUser!: IUser;
+  title: string = "Yield App";
 
 }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TradeRecord } from '../model/TradeRecord';
+import { ITradeRecord, TradeRecord } from '../model/TradeRecord';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { TradeService } from '../service/trade.service';
 
 @Component({
   selector: 'app-edit-trade',
@@ -10,7 +11,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 export class EditTradeComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
-  @Output() raiseEditEvent: EventEmitter<boolean> = new EventEmitter();
+  @Output() raiseEditEvent: EventEmitter<ITradeRecord> = new EventEmitter();
   @Input() tradeRecord!: TradeRecord;
   editTradeRecordForm!: FormGroup;
 
@@ -46,22 +47,26 @@ export class EditTradeComponent implements OnInit {
   }
 
   cancelEdit() : void {
-    this.raiseEditEvent.emit(false);
+    this.raiseEditEvent.emit(this.tradeRecord);
   }
 
   submitEditForm() : void {
     if (!this.editTradeRecordForm.invalid) {
-      this.tradeRecord.asset = this.editTradeRecordForm.get("asset")?.value;
-      this.tradeRecord.orderId = this.editTradeRecordForm.get("orderId")?.value;
-      this.tradeRecord.date = this.editTradeRecordForm.get("date")?.value;
-      this.tradeRecord.side = this.editTradeRecordForm.get("side")?.value;
-      this.tradeRecord.unitPrice = this.editTradeRecordForm.get("unitPrice")?.value;
-      this.tradeRecord.qty = this.editTradeRecordForm.get("qty")?.value;
-      this.tradeRecord.amountPaid = this.editTradeRecordForm.get("amountPaid")?.value;
-      this.tradeRecord.fee = this.editTradeRecordForm.get("fee")?.value;
-      this.tradeRecord.currencyPair = this.editTradeRecordForm.get("currencyPair")?.value;
-  
-      this.raiseEditEvent.emit(false);
+      const record = new TradeRecord();
+      record.asset = this.editTradeRecordForm.get("asset")?.value;
+      record.orderId = this.editTradeRecordForm.get("orderId")?.value;
+      record.date = this.editTradeRecordForm.get("date")?.value;
+      record.side = this.editTradeRecordForm.get("side")?.value;
+      record.unitPrice = this.editTradeRecordForm.get("unitPrice")?.value;
+      record.qty = this.editTradeRecordForm.get("qty")?.value;
+      record.amountPaid = this.editTradeRecordForm.get("amountPaid")?.value;
+      record.fee = this.editTradeRecordForm.get("fee")?.value;
+      record.currencyPair = this.editTradeRecordForm.get("currencyPair")?.value;
+      record.fieldOrder = this.tradeRecord.fieldOrder;
+      record.recordId = this.tradeRecord.recordId;
+      this.tradeRecord = record;
+   
+      this.raiseEditEvent.emit(record);
     }
   }
 

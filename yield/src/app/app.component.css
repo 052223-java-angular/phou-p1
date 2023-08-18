@@ -14,6 +14,10 @@
   @apply flex flex-1 flex-col h-full w-full justify-between border-r-2 overflow-y-auto;
 }
 
+.section-wrap {
+  @apply w-full flex-[5] overflow-auto;
+}
+
 .menu-section-bottom {
   @apply mb-12 capitalize;
 }

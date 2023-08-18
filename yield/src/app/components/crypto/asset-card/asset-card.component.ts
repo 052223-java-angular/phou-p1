@@ -12,7 +12,7 @@ export class AssetCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @Input() asset!: IAsset;
+  @Input() topAsset!: IAsset;
 
 
 }
