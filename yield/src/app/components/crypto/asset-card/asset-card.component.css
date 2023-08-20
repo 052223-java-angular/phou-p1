@@ -1,6 +1,7 @@
 .card-wrap {
-  @apply min-h-[9rem] max-h-[12rem] min-w-[244px] text-sm overflow-visible
-  border border-slate-300 rounded-md m-3 p-3 capitalize shadow-md shadow-slate-300;
+  @apply min-h-[9rem] max-h-[12rem] overflow-hidden
+  border border-slate-300 rounded-md shadow-md shadow-slate-300
+  p-3 capitalize;
 }
 
 .card-context-wrap {

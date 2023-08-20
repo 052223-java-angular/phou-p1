@@ -39,11 +39,3 @@ h3, span {
 hr {
   @apply border-slate-600;
 }
-
-
-/* @media (max-width: 524px) {
-  .data-col-wrap {
-    @apply text-xs
-  }
-} */
-

@@ -21,7 +21,7 @@ html, body {
 
 
 @media (max-width: 644px) {
-  body {
+  body  {
     @apply text-xs
   }
 
@@ -29,8 +29,8 @@ html, body {
     @apply break-words;
   }
 
-  table > caption {
-    @apply text-left;
+  table > caption, .data-wrap {
+    @apply text-left capitalize pb-3;
   }
 
   .file-upload-wrap > div {
@@ -49,6 +49,10 @@ html, body {
     @apply w-full;
   }
 
+  .card-wrap {
+    @apply w-full;
+  }
+
 }
 
 @media (min-width: 645px) {
@@ -61,7 +65,7 @@ html, body {
   }
 
   table > caption {
-    @apply text-center;
+    @apply text-center capitalize pb-3;
   }
 
   .file-upload-wrap > div {
@@ -74,6 +78,10 @@ html, body {
 
   .btn-wrap > button {
     @apply w-2/6;
+  }
+
+  .card-wrap {
+    @apply w-full;
   }
 
 }
