@@ -10,6 +10,8 @@ retrieve this data by utilizing the CoinGecko api.
 
 As a future feature, the app will integrate the Coinbase API for accepting crypto payment / donations for those feeling the need to donate some of those Gainz!
 
+Example test file for uploading to trades -> view 
+- https://www.dropbox.com/scl/fi/lg54jk1gcgv35eol1hw3b/test_profit.csv?rlkey=2w21v0mnohdicv705p61qbs4f&dl=0
 
 ![Alt text](yield-ss1-1.PNG) ![Alt text](yield-ss2-1.PNG) ![Alt text](yield-ss3.PNG)
 
