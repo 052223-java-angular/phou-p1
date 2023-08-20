@@ -1,10 +1,14 @@
 
-<div [ngClass]="displayAsRow ? 'row-wrap' : 'w-full' " >
-  <ng-container *ngIf="fileChange">
+<div class="relative w-full overflow-hidden">
+  <div *ngIf="fileChange"
+    [ngClass]="displayAsRow ? 'row-wrap' : 'w-full flex-1' ">
     
     <!-- assignable columns -->
     <div (cdkDropListDropped)="onDrop($event)" cdkDropList class="data-col-wrap">
-      <h3>assignable options</h3>
+      <div class="title-wrap">
+        <h3>column options</h3>
+      </div>
+      <hr />
 
        <ng-container *ngIf="colCount$ | async as colCount">
         <label [for]="option" *ngFor="let option of colCount | colOption:orderedColOptions; index as i"
@@ -14,27 +18,41 @@
             <span class="text-left">{{i}}</span>
             <span class="text-right">{{option}}</span>
           </div>
-          <!-- <span >{{i}}</span> -->
-          <!-- <span >{{option}}</span> -->
         </label>
       </ng-container>
 
     </div>
 
+
     <!-- values from file -->
     <div class="data-col-wrap">
-      <h3>values from file</h3>
+
+      <div class="title-wrap">
+        <h3>values from file</h3>
+      </div>
+      <hr />
+
       <span *ngFor="let value of tradeRecords$ | async">{{value}}</span>
     </div>
 
     <!-- header fields from file -->
     <div class="data-col-wrap">
-      <h3>header fields from file</h3>
+
+      <div class="title-wrap">
+        <h3>header fields from file</h3>
+      </div>
+      <hr />
+
       <span *ngFor="let field of headerFields$ | async">{{field}}</span>
     </div>
-  </ng-container>
+  </div>
 
+  <div *ngIf="fileChange" class="preview-btn-wrap flex-1">
+    <button type="button" (click)="onColumnOrderChange()" >preview records</button>
+  </div>
+  
 </div>
-<div *ngIf="fileChange" class="preview-btn-wrap">
+
+<!-- <div *ngIf="fileChange" class="preview-btn-wrap">
   <button type="button" (click)="onColumnOrderChange()" >preview records</button>
-</div>
+</div> -->

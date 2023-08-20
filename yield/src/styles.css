@@ -16,5 +16,47 @@ html, body {
   /* font-family: 'Reenie Beanie', cursive; */
   /* font-family: 'VT323', monospace; */
   font-family: 'Coming Soon', cursive;
-  @apply w-[100vw] h-[100%] p-0 m-0;
+  @apply w-full h-full p-0 m-0 overflow-y-auto overflow-x-hidden text-base;
+}
+
+
+@media (max-width: 644px) {
+  body {
+    @apply text-xs
+  }
+
+  th, td {
+    @apply break-words;
+  }
+
+  table > caption {
+    @apply text-left;
+  }
+
+  .file-upload-wrap > div {
+    @apply text-left;
+  }
+
+  .file-upload-wrap > div > input {
+    @apply w-full;
+  }
+
+}
+
+@media (min-width: 645px) {
+  td {
+    @apply break-all
+  }
+
+  th {
+    @apply break-words;
+  }
+
+  table > caption {
+    @apply text-center;
+  }
+
+  .file-upload-wrap > div {
+    @apply text-center;
+  }
 }

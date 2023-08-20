@@ -1,11 +1,10 @@
-<section class="overflow-auto w-full">
+<section class="overflow-x-visible w-full">
 
   <!-- file section -->
   <app-file (fileChange)="setFileChange($event)" ></app-file>
 
   <!-- table select section -->
   <app-field-option
-    class="overflow-auto"
     [fileChange]="fileChange"
     (columnOrderChanged)="onColumnOrderChange($event)"></app-field-option>
 

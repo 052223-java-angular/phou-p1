@@ -1,25 +1,41 @@
 .app-wrapper {
-  @apply flex flex-col w-full h-full bg-slate-100 items-center overflow-y-auto overflow-x-auto;
+  @apply flex flex-col items-center 
+  w-full h-full overflow-auto 
+  bg-slate-100;
 }
 
 .app-footer {
-  @apply absolute pt-3 bottom-0 h-12 text-center w-full bg-slate-100 z-[999];
+  @apply absolute bottom-0 text-center
+  w-full h-12 pt-3 z-[900]
+  bg-slate-100;
 }
 
-.aside-wrap {
-  @apply flex w-full h-full px-3 z-[999] overflow-y-auto;
+.top-bar {
+  @apply flex items-center justify-center
+  w-full h-[4.5rem];
+}
+
+.top-bar > h1 {
+  @apply capitalize text-3xl text-center;
+}
+
+.main-wrap {
+  @apply flex flex-initial
+  w-full h-full px-3 z-[999] overflow-y-auto;
 }
 
 .menu-wrap {
-  @apply flex flex-1 flex-col h-full w-full justify-between border-r-2 overflow-y-auto;
+  @apply flex flex-1 flex-col justify-between
+  h-full w-full overflow-y-auto
+  border-r-2 ;
 }
 
 .section-wrap {
-  @apply w-full flex-[5] overflow-auto;
+  @apply w-full flex-[3] overflow-auto;
 }
 
 .menu-section-bottom {
-  @apply mb-12 capitalize;
+  @apply mb-4 capitalize;
 }
 
 .menu-title {

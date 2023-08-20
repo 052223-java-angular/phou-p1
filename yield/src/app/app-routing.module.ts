@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MarketsComponent } from './pages/markets/markets.component';
-import { PortfolioComponent } from './pages/portfolio/portfolio.component';
-import { TradesComponent } from './pages/trades/trades.component';
+import { MarketsComponent } from './views/markets/markets.component';
+import { PortfolioComponent } from './views/portfolio/portfolio.component';
+import { TradesComponent } from './views/trades/trades.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'markets', pathMatch: 'full'},

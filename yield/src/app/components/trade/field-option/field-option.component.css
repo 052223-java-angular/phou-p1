@@ -1,5 +1,5 @@
 .row-wrap {
-  @apply flex flex-1 w-full overflow-auto;
+  @apply flex flex-1 overflow-x-auto;
 }
 
 .data-col-wrap {
@@ -11,19 +11,39 @@
 }
 
 .preview-btn-wrap {
-  @apply flex w-full justify-center bg-slate-200 px-3 py-1 hover:bg-slate-400;
+  @apply flex w-full justify-center
+  px-3 py-1
+  bg-slate-200 hover:bg-slate-400;
 }
 
 button {
-  @apply uppercase w-full;
+  @apply uppercase ;
 }
 
 span {
-  @apply p-1 text-sm;
+  @apply p-1 text-xs;
 }
 
 h3, span {
-  @apply w-full border-b border-slate-300 
+  @apply w-full border-b border-slate-300 ;
 }
 
+.title-wrap {
+  @apply flex items-center min-h-[4rem] ;
+}
+
+.title-wrap > h3 {
+  @apply capitalize font-semibold border-0;
+}
+
+hr {
+  @apply border-slate-600;
+}
+
+
+/* @media (max-width: 524px) {
+  .data-col-wrap {
+    @apply text-xs
+  }
+} */
 

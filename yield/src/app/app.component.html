@@ -2,19 +2,15 @@
 <section class="app-wrapper">
 
   <!-- Nav / Top Bar -->
-  <!-- <app-top-bar 
-      [(loggedInUser)]="loggedInUser"
-      class="z-50"></app-top-bar> -->
-  
-  <div class="flex w-full h-[4.5rem] items-center justify-center">
-    <h1 class="capitalize text-3xl text-center pl-24">yield app</h1>
+
+  <div class="top-bar">
+    <h1 >yield app</h1>
   </div>
   
   <hr class="w-full mb-3" />
 
   <!--  -->
-  <aside class="aside-wrap">
-
+  <section class="main-wrap">
     <div class="menu-wrap">
 
       <!-- menu top  -->
@@ -59,11 +55,11 @@
       </div>
     </div>
     
-    <div class="section-wrap">
+    <div class="section-wrap mb-16">
       <!-- <app-markets></app-markets> -->
       <router-outlet></router-outlet>
     </div>
-  </aside>
+  </section>
 
 
 </section> 
