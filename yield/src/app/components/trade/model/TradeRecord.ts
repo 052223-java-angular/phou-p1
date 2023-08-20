@@ -1,4 +1,6 @@
 export interface ITradeRecord {
+  [key: string]: any,
+  recordId: number,
   asset: string,
   orderId: string,
   date: string,
@@ -8,10 +10,12 @@ export interface ITradeRecord {
   amountPaid: number,
   fee: number,
   currencyPair: string,
-  fieldOrder: number[]
+  fieldOrder: number[],
+  
 }
 
 export class TradeRecord implements ITradeRecord {
+  recordId!: number;
   asset!: string;
   orderId!: string;
   date!: string;
@@ -22,7 +26,6 @@ export class TradeRecord implements ITradeRecord {
   fee!: number;
   currencyPair!: string;
   fieldOrder!: number[];
-  
 }
 
 

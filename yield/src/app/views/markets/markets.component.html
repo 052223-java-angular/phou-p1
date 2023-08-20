@@ -1,0 +1,36 @@
+<section>
+
+  <div class="drop-list-wrap">
+    <div class="top-asset-wrap">
+      <!-- <div class="top-asset-wrap" cdkDropList (cdkDropListDropped)="onDrop($event)"> -->
+<!-- 
+      <app-asset-card cdkDrag
+        *ngFor="let topAsset of topAssets$ | async"
+        [topAsset]='topAsset'
+      ></app-asset-card> -->
+
+      <app-asset-card
+        *ngFor="let topAsset of topAssets$ | async"
+        [topAsset]='topAsset'
+      ></app-asset-card>
+
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- search / asset lookup  -->
+  <div class="search-filter-wrap">
+    <input type="text" />
+    <button >filter</button>
+  </div>
+
+  
+  <!-- table or details of asset -->
+  <div class="table-wrap">
+    <app-asset-table
+      [assets]="assets$ | async"
+    ></app-asset-table>
+  </div>
+
+</section>

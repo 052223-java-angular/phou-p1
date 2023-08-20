@@ -12,7 +12,8 @@ export class AssetTableComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  @Input() assets$!: Observable<IAssetBrief[]>;
+  // @Input() assets$!: Observable<IAssetBrief[]>;
+  @Input() assets!: IAssetBrief[] | null;
   colSpan: number = 6;
 
 }

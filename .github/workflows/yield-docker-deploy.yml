@@ -1,0 +1,62 @@
+name: yield ci/cd docker deploy
+
+on:
+  push:
+    branches:
+      - docker
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy Yield Angular App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      - name: List github workspace directory contents
+        run: ls -la 
+        working-directory: ${{ github.workspace }}
+
+      - name: Build Docker image
+        run: docker build -t yield-app:latest ./yield
+        working-directory: ${{ github.workspace }}
+
+      - name: Push Docker Image
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker tag yield-app:latest ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
+
+      - name: List yield directory contents
+        run: ls -la ./yield
+        working-directory: ${{ github.workspace }}
+
+      - name: Deploy to S3
+        run: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
+
+          docker create --name temp-container ${{ secrets.DOCKERHUB_USERNAME }}/yield-app:latest
+          ls -la /usr/share/nginx
+          mkdir dist
+          ls -la 
+          docker cp temp-container:/usr/share/nginx/html ./dist/yield
+          docker rm temp-container
+
+          # NOTE: the s3 bucket for docker differs from app name
+          aws s3 sync ./dist/yield s3://yield-dapp --delete --debug
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        working-directory: ${{ github.workspace }}
+      
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: yield-artifact
+          path: ./dist/yield

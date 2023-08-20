@@ -1,0 +1,3 @@
+section {
+  @apply flex flex-col w-[97%] mx-auto gap-3 overflow-auto;
+}

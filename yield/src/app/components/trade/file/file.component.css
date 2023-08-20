@@ -1,9 +1,5 @@
-.wrap {
-  @apply flex justify-center pt-6 ;
-}
-
-.wrapper {
-  @apply flex flex-col w-[64%] mx-auto gap-y-6 pt-6 capitalize;
+.file-upload-wrap {
+  @apply flex flex-col w-full gap-y-6 pt-1 capitalize;
 }
 
 p {
@@ -15,5 +11,5 @@ h3 {
 }
 
 input {
-  @apply border border-slate-300 pr-12;
+  @apply w-[64%] border border-slate-300 pr-12;
 }

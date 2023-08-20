@@ -1,8 +1,10 @@
-<div class="wrapper">
-  <div class="text-center">
+<div class="file-upload-wrap">
+  <div >
     <h3 >upload .csv trade file to begin...</h3>
     <p ><span class="uppercase">T</span>hen drag assignable columns to matching values 
       - if columns are missing, correct .csv columns and then try again.</p>
   </div>
-  <input type="file" (change)="onFileSelect($event)" accept=".csv">
+  <div>
+    <input type="file" (change)="onFileSelect($event)" accept=".csv">
+  </div>
 </div>
