@@ -26,6 +26,7 @@ import { RecordsTableComponent } from './components/trade/records-table/records-
 import { FormatRecordsPipe } from './components/trade/pipe/format-records.pipe';
 import { EditTradeComponent } from './components/trade/edit-trade/edit-trade.component';
 import { ExtractRecordValuePipe } from './components/trade/pipe/extract-record-value.pipe';
+import { NotfoundComponent } from './views/notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ExtractRecordValuePipe } from './components/trade/pipe/extract-record-v
     RecordsTableComponent,
     FormatRecordsPipe,
     EditTradeComponent,
-    ExtractRecordValuePipe
+    ExtractRecordValuePipe,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule, 
