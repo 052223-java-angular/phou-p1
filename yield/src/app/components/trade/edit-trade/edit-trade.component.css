@@ -8,7 +8,7 @@
 }
 
 .modal-content-wrap {
-  @apply relative my-auto mx-auto p-6 w-3/6 max-w-3xl;
+  @apply relative my-auto mx-auto p-0 ;
 }
 
 .form {
@@ -16,7 +16,7 @@
 }
 
 .title-wrap {
-  @apply flex items-start py-6 border-b border-b-slate-700 border-[#FBF9F9];
+  @apply flex items-start py-2 border-b border-b-slate-700 border-[#FBF9F9];
 }
 
 .form-content {
@@ -36,11 +36,11 @@
 }
 
 .btn-wrap {
-  @apply flex justify-end;
+  @apply flex justify-end items-center;
 }
 
 .btn-cancel, .btn-enabled, .btn-disabled {
-  @apply w-2/6 font-bold uppercase px-6 py-2 mr-1 mb-1 text-sm shadow-slate-700 hover:shadow-md ease-linear transition-all duration-150;
+  @apply font-bold uppercase py-1 pt-2 mr-1 mb-1 text-sm shadow-slate-700 hover:shadow-md ease-linear transition-all duration-150;
 }
 
 .btn-disabled {
