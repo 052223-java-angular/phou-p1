@@ -41,6 +41,14 @@ html, body {
     @apply w-full;
   }
 
+  .modal-content-wrap {
+    @apply w-10/12;
+  }
+
+  .btn-wrap > button {
+    @apply w-full;
+  }
+
 }
 
 @media (min-width: 645px) {
@@ -59,4 +67,13 @@ html, body {
   .file-upload-wrap > div {
     @apply text-center;
   }
+
+  .modal-content-wrap {
+    @apply w-6/12;
+  }
+
+  .btn-wrap > button {
+    @apply w-2/6;
+  }
+
 }
